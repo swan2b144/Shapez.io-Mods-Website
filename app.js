@@ -39,20 +39,17 @@ app.get("/signin", function(req, res) {
 app.get("/signup", function(req, res) {
     res.render("pages/signup");
 });
-app.get("/showSignUpPage", function(req, res) {
-    res.render("pages/index");
+app.get("/profile", function(req, res) {
+    res.render("pages/profile");
 });
-app.get("/showProfilePage", function(req, res) {
-    res.render("pages/index");
+app.get("/mods", function(req, res) {
+    res.render("pages/mods");
 });
-app.get("/showModsPage", function(req, res) {
-    res.render("pages/index");
+app.get("/contact", function(req, res) {
+    res.render("pages/contact");
 });
-app.get("/showContactPage", function(req, res) {
-    res.render("pages/index");
-});
-app.get("/showAboutPage", function(req, res) {
-    res.render("pages/index");
+app.get("/about", function(req, res) {
+    res.render("pages/about");
 });
 
 app.post("/myaction", function(req, res) {
