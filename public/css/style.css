@@ -1,0 +1,329 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+:root {
+    --blue: #2699fb;
+    --red: #c91d1d;
+    --shapezDark: #3f4851;
+    --shapezShadow: #a9b0bb;
+    --shapezLight: #c0c6d2;
+    --white: #ffffff;
+    --border-thickness: 2px;
+    --border-radius: 6px;
+    --font-middle: 30px;
+    --font-large: 44px;
+    --font-larger: 74px;
+    --bar-size: 80px;
+    --search-size: 35px;
+}
+
+body {
+    font-family: "Barlow", sans-serif;
+    background-color: var(--shapezLight);
+}
+
+.fullscreenBackgroundVideo.loaded {
+    display: block;
+    opacity: 0.07;
+    animation: autogen_anim_u423e43fb 0.1s ease-in-out !important;
+}
+
+.fullscreenBackgroundVideo {
+    z-index: -1;
+    position: fixed;
+    right: 50%;
+    bottom: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    opacity: 0;
+    display: none;
+    transform: translate(50%, 50%);
+    filter: blur(calc(3px * var(--ui-scale)));
+}
+
+video {
+    object-fit: contain;
+}
+
+@keyframes label {
+    50% {
+        transform: translateX(50%) rotate(-7deg) scale(1.1);
+    }
+}
+
+a.button {
+    display: block;
+    border-radius: var(--border-radius);
+    border: var(--white) var(--border-thickness) solid;
+    padding: 9px 18px;
+    transition: 0.3s background-color;
+    color: var(--white);
+    font-size: var(--font-middle);
+    text-decoration: none;
+    text-transform: uppercase;
+    background-color: none;
+}
+
+a.button:hover {
+    color: var(--shapezDark);
+    background-color: var(--white);
+}
+
+a.button-filled {
+    display: block;
+    border-radius: var(--border-radius);
+    padding: 9px 18px;
+    color: var(--white);
+    text-decoration: none;
+    font-size: var(--font-middle);
+    text-transform: uppercase;
+    background-color: var(--shapezDark);
+    transition: 0.3s background-color, 0.3s color;
+}
+
+a.button-filled:hover {
+    color: var(--shapezDark);
+    background-color: var(--white);
+}
+
+a.button-blue {
+    color: var(--white);
+    background-color: var(--blue);
+}
+
+a.button-blue:hover {
+    color: var(--blue);
+    background-color: var(--white);
+}
+
+
+/*Header*/
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    width: 100%;
+    max-width: 1140px;
+    height: var(--bar-size);
+    background-color: var(--shapezDark);
+}
+
+nav ul {
+    vertical-align: middle;
+    display: table-row;
+    width: fit-content;
+    height: var(--bar-size);
+}
+
+nav ul li {
+    display: table-cell;
+    vertical-align: middle;
+    height: var(--bar-size);
+    padding-right: 30px;
+}
+
+nav ul li:first-child {
+    padding-left: 30px;
+}
+
+
+/*TODO: search bar items*/
+
+nav ul li .nav-search {
+    width: var(--search-size);
+    height: var(--search-size);
+    border-radius: var(--border-radius);
+    transition: 0.3s;
+}
+
+nav ul li .nav-search:hover {
+    width: calc(300px - 20px);
+    height: calc(40px);
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    padding: 0 10px;
+    line-height: var(--search-size);
+}
+
+nav ul li .nav-search input {
+    display: inline-block;
+    vertical-align: middle;
+    width: var(--search-size);
+    height: var(--search-size);
+    font-family: "Barlow", sans-serif;
+    font-size: var(--font-middle);
+    color: transparent;
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    outline: none !important;
+    background: url(/static/images/search.svg) no-repeat scroll 5px 5px;
+    background-size: calc(var(--search-size) - 9px);
+}
+
+nav ul li .nav-search:hover input {
+    color: var(--shapezDark);
+    background-color: var(--white);
+    padding-left: calc(var(--search-size) + 2px);
+    width: calc(100% - calc(var(--search-size) + 2px));
+    background: url(/static/images/search-dark.svg) no-repeat scroll 5px 5px;
+    background-size: calc(var(--search-size) - 9px);
+}
+
+nav ul li a {
+    color: var(--white);
+    font-size: var(--font-middle);
+    text-decoration: none;
+    text-transform: uppercase;
+    background-color: none;
+}
+
+
+/*Footer*/
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1140px;
+    height: var(--bar-size);
+    background-color: var(--shapezDark);
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+footer ul {
+    vertical-align: middle;
+    display: table-row;
+    width: fit-content;
+    height: var(--bar-size);
+}
+
+footer ul li {
+    display: table-cell;
+    vertical-align: middle;
+    height: var(--bar-size);
+    padding-right: 30px;
+    color: var(--white);
+    text-decoration: none;
+    font-size: var(--font-middle);
+    text-transform: uppercase;
+}
+
+footer ul li:first-child {
+    padding-left: 30px;
+}
+
+footer ul li a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: var(--font-middle);
+    text-transform: uppercase;
+}
+
+
+/*Not found*/
+
+.notfound-logo {
+    display: block;
+    height: fit-content;
+    width: 80%;
+    margin: auto;
+    margin-top: 10vh;
+    position: relative;
+    max-width: 1000px;
+}
+
+.notfound-logo img {
+    width: 100%;
+}
+
+.notfound-logo .label {
+    font-family: "Barlow", sans-serif;
+    font-size: 10vw;
+    position: absolute;
+    width: fit-content;
+    color: var(--blue);
+    text-transform: uppercase;
+    transform: translateX(50%) rotate(-5deg);
+    right: 10%;
+    bottom: 10%;
+    animation: label 1.3s ease-in-out infinite !important;
+}
+
+.notfound-logo .under {
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(100%);
+    transform: translateX(-50%) translateY(100%);
+    bottom: 0;
+}
+
+.notfound-logo .header {
+    text-align: center;
+    font-size: var(--font-large);
+    font-family: "Barlow", sans-serif;
+    color: var(--white);
+    text-transform: uppercase;
+}
+
+.notfound-logo .text {
+    text-align: center;
+    font-size: var(--font-middle);
+    font-family: "Barlow", sans-serif;
+    color: var(--white);
+}
+
+.notfound-logo a {
+    margin: auto;
+    width: fit-content;
+    margin-top: 10px;
+}
+
+
+/*Home*/
+
+.home-logo {
+    display: block;
+    height: fit-content;
+    width: 80%;
+    margin: auto;
+    margin-top: 10vh;
+    position: relative;
+    max-width: 1000px;
+}
+
+.home-logo img {
+    width: 100%;
+}
+
+.home-logo .label {
+    font-family: "Barlow", sans-serif;
+    font-size: 5vw;
+    position: absolute;
+    width: fit-content;
+    color: var(--red);
+    text-transform: uppercase;
+    transform: translateX(50%) rotate(-5deg);
+    right: 10%;
+    bottom: 10%;
+    animation: label 1.3s ease-in-out infinite !important;
+}
+
+.home-logo .under {
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(100%);
+    transform: translateX(-50%) translateY(100%);
+    bottom: 0;
+}
+
+.home-logo a {
+    margin: auto;
+    width: fit-content;
+    margin-top: 10px;
+    font-size: var(--font-larger);
+    padding: 18px 36px;
+}
