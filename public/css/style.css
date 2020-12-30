@@ -7,12 +7,12 @@
     --shapezLight: #c0c6d2;
     --white: #ffffff;
     --border-thickness: 2px;
-    --border-radius: 6px;
-    --font-middle: 30px;
-    --font-large: 44px;
-    --font-larger: 74px;
-    --bar-size: 80px;
-    --search-size: 35px;
+    --border-radius: 3px;
+    --font-middle: 20px;
+    --font-large: 36px;
+    --font-larger: 40px;
+    --bar-size: 60px;
+    --search-size: 32px;
 }
 
 body {
@@ -23,7 +23,6 @@ body {
 .fullscreenBackgroundVideo.loaded {
     display: block;
     opacity: 0.07;
-    animation: autogen_anim_u423e43fb 0.1s ease-in-out !important;
 }
 
 .fullscreenBackgroundVideo {
@@ -35,8 +34,10 @@ body {
     min-height: 100%;
     opacity: 0;
     display: none;
+    -webkit-transform: translate(50%, 50%);
+    -webkit-filter: blur(calc(3px));
     transform: translate(50%, 50%);
-    filter: blur(calc(3px * var(--ui-scale)));
+    filter: blur(calc(3px));
 }
 
 video {
@@ -54,7 +55,7 @@ a.button {
     border-radius: var(--border-radius);
     border: var(--white) var(--border-thickness) solid;
     padding: 9px 18px;
-    transition: 0.3s background-color;
+    transition: 0.3s background-color, 0.3s color, 0.3s border-color;
     color: var(--white);
     font-size: var(--font-middle);
     text-decoration: none;
@@ -76,7 +77,7 @@ a.button-filled {
     font-size: var(--font-middle);
     text-transform: uppercase;
     background-color: var(--shapezDark);
-    transition: 0.3s background-color, 0.3s color;
+    transition: 0.3s background-color, 0.3s color, 0.3s border-color;
 }
 
 a.button-filled:hover {
@@ -94,6 +95,16 @@ a.button-blue:hover {
     background-color: var(--white);
 }
 
+a.button-dark {
+    color: var(--shapezDark);
+    border-color: var(--shapezDark);
+}
+
+a.button-dark:hover {
+    background-color: var(--white);
+    border-color: var(--white);
+}
+
 
 /*Header*/
 
@@ -102,9 +113,8 @@ nav {
     justify-content: space-between;
     margin: auto;
     width: 100%;
-    max-width: 1140px;
     height: var(--bar-size);
-    background-color: var(--shapezDark);
+    background-color: transparent;
 }
 
 nav ul {
@@ -129,15 +139,18 @@ nav ul li:first-child {
 /*TODO: search bar items*/
 
 nav ul li .nav-search {
+    display: flex;
+    align-items: center;
     width: var(--search-size);
     height: var(--search-size);
     border-radius: var(--border-radius);
     transition: 0.3s;
+    box-sizing: border-box;
 }
 
 nav ul li .nav-search:hover {
     width: calc(300px - 20px);
-    height: calc(40px);
+    height: 40px;
     background-color: var(--white);
     border-radius: var(--border-radius);
     padding: 0 10px;
@@ -145,8 +158,6 @@ nav ul li .nav-search:hover {
 }
 
 nav ul li .nav-search input {
-    display: inline-block;
-    vertical-align: middle;
     width: var(--search-size);
     height: var(--search-size);
     font-family: "Barlow", sans-serif;
@@ -156,7 +167,7 @@ nav ul li .nav-search input {
     padding: 0;
     border: none;
     outline: none !important;
-    background: url(/static/images/search.svg) no-repeat scroll 5px 5px;
+    background: url(/static/images/search-dark.svg) no-repeat scroll 5px 5px;
     background-size: calc(var(--search-size) - 9px);
 }
 
@@ -170,11 +181,16 @@ nav ul li .nav-search:hover input {
 }
 
 nav ul li a {
-    color: var(--white);
+    color: var(--shapezDark);
     font-size: var(--font-middle);
     text-decoration: none;
     text-transform: uppercase;
     background-color: none;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: var(--white);
 }
 
 
@@ -184,9 +200,8 @@ footer {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    max-width: 1140px;
     height: var(--bar-size);
-    background-color: var(--shapezDark);
+    background-color: transparent;
     position: absolute;
     bottom: 0;
     left: 50%;
@@ -206,7 +221,7 @@ footer ul li {
     vertical-align: middle;
     height: var(--bar-size);
     padding-right: 30px;
-    color: var(--white);
+    color: var(--shapezDark);
     text-decoration: none;
     font-size: var(--font-middle);
     text-transform: uppercase;
@@ -217,7 +232,7 @@ footer ul li:first-child {
 }
 
 footer ul li a {
-    color: var(--white);
+    color: var(--shapezDark);
     text-decoration: none;
     font-size: var(--font-middle);
     text-transform: uppercase;
@@ -242,10 +257,10 @@ footer ul li a {
 
 .notfound-logo .label {
     font-family: "Barlow", sans-serif;
-    font-size: 10vw;
+    font-size: 5vw;
     position: absolute;
     width: fit-content;
-    color: var(--blue);
+    color: var(--red);
     text-transform: uppercase;
     transform: translateX(50%) rotate(-5deg);
     right: 10%;
@@ -261,6 +276,14 @@ footer ul li a {
     bottom: 0;
 }
 
+.notfound-logo a {
+    margin: auto;
+    width: fit-content;
+    margin-top: 10px;
+    font-size: var(--font-larger);
+    padding: 18px 36px;
+}
+
 .notfound-logo .header {
     text-align: center;
     font-size: var(--font-large);
@@ -274,12 +297,6 @@ footer ul li a {
     font-size: var(--font-middle);
     font-family: "Barlow", sans-serif;
     color: var(--white);
-}
-
-.notfound-logo a {
-    margin: auto;
-    width: fit-content;
-    margin-top: 10px;
 }
 
 

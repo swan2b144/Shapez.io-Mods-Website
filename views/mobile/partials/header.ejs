@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/reset.css" />
+    <link rel="stylesheet" href="/static/css/mobile_style.css" />
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body>
+    <div class="logo">
+        <img src="/static/images/shapez-logo.svg" />
+        <div class="label">Mods</div>
+    </div>
+    <nav>
+        <ul>
+            <li>
+                <a href="/about">About</a>
+            </li>
+            <li>
+                <a href="/contact">Contact</a>
+            </li>
+            <li>
+                <a href="/documentation">Documentation</a>
+            </li>
+        </ul>
+        <ul>
+            <% if (user) {%>
+                <li>
+                    <a href="/profile"><img src="/static/images/profile-dark.svg" alt="" /></a>
+                </li>
+                <li><a href="/logout" class="button button-dark">logout</a></li>
+                <%} else {%>
+                    <li><a href="/signin" class="button button-dark">sign in</a></li>
+
+                    <%}%>
+        </ul>
+    </nav>
+</body>
+
+</html>

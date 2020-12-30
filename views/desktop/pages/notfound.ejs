@@ -1,0 +1,15 @@
+<%- include("../partials/header.ejs") %>
+    <video autoplay muted playsinline loop class="fullscreenBackgroundVideo loaded">
+	<source src="static/videos/bg_render.webm" type="video/webm" />
+	<source src="static/videos/bg_render.mp4" type="video/mp4" />
+</video>
+    <div class="notfound-logo">
+        <img src="/static/images/shapez-logo.svg" />
+        <div class="label">404</div>
+        <div class="under">
+            <div class="header">Page not found</div>
+            <div class="text">The page you were looking for does not exist.</div>
+            <a href="/" class="button-filled button-blue">HOME</a>
+        </div>
+    </div>
+    <%- include("../partials/footer.ejs") %>
