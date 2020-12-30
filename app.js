@@ -29,11 +29,6 @@ app.get("/mods", function(req, res) {
     else res.render("desktop/pages/mods", { user: req.user, title: "Shapez.io - Mods" });
 });
 
-app.get("/contact", function(req, res) {
-    if (device(req.headers["user-agent"]).is("phone")) res.render("mobile/pages/contact", { user: req.user, title: "Shapez.io - Contact" });
-    else res.render("desktop/pages/contact", { user: req.user, title: "Shapez.io - Contact" });
-});
-
 app.get("/about", function(req, res) {
     if (device(req.headers["user-agent"]).is("phone")) res.render("mobile/pages/about", { user: req.user, title: "Shapez.io - About" });
     else res.render("desktop/pages/about", { user: req.user, title: "Shapez.io - About" });

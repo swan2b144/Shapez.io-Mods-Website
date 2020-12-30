@@ -344,3 +344,46 @@ footer ul li a {
     font-size: var(--font-larger);
     padding: 18px 36px;
 }
+
+
+/*About*/
+
+.about-logo {
+    display: block;
+    height: fit-content;
+    width: 40%;
+    margin: auto;
+    position: relative;
+    margin-top: 2vh;
+    max-width: 1000px;
+}
+
+.about-logo .header {
+    position: absolute;
+    left: 60%;
+    -webkit-transform: translateX(-50%) rotate(-4deg);
+    transform: translateX(-50%) rotate(-4deg);
+    top: -10px;
+    text-align: center;
+    font-size: var(--font-larger);
+    font-family: "Barlow", sans-serif;
+    color: var(--white);
+    text-transform: uppercase;
+}
+
+.about-logo img {
+    width: 100%;
+}
+
+.about-logo .label {
+    font-family: "Barlow", sans-serif;
+    font-size: 4vw;
+    position: absolute;
+    width: fit-content;
+    color: var(--red);
+    text-transform: uppercase;
+    transform: translateX(50%) rotate(-5deg);
+    right: 10%;
+    bottom: 10%;
+    animation: label 1.3s ease-in-out infinite !important;
+}
