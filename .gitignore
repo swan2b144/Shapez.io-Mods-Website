@@ -1,3 +1,2 @@
 **/node_modules
-**/discord_variables.js
-frontend/api/v1/api_variables.js
+**/api_variables.js
