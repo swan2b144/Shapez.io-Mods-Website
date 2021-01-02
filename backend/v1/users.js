@@ -26,7 +26,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-    let token = ""; //Not need it yet so not going to store
+    let token = " "; //Not need it yet so not going to store
     let discordId = req.body.discordId;
     let email = req.body.email;
     let username = req.body.username;
