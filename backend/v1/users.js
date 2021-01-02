@@ -26,7 +26,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-    let token = req.body.token;
+    let token = ""; //Not need it yet so not going to store
     let discordId = req.body.discordId;
     let email = req.body.email;
     let username = req.body.username;
@@ -38,7 +38,7 @@ router.post("/", (req, res) => {
         });
 
     let connection = require("../database").getConnection();
-    connection.query(`INSERT INTO users (id, email, username, tag, token) VALUES ('${discordId}', '${email}', '${username}', '${tag}', '${token}')`, function(error, results, fields) {
+    connection.query(`select * from users WHERE id='${discordId}'`, function(error, results, fields) {
         if (error) {
             console.log(error);
             return res.status(501).send({
@@ -47,7 +47,13 @@ router.post("/", (req, res) => {
             });
         }
 
-        connection.query(`select * from users WHERE id='${results.insertId}'`, function(error, results, fields) {
+        if (results.length > 0)
+            return res.status(409).send({
+                status: 409,
+                error: "Conflict",
+            });
+
+        connection.query(`INSERT INTO users (id, email, username, tag, token) VALUES ('${discordId}', '${email}', '${username}', '${tag}', '${token}')`, function(error, results, fields) {
             if (error) {
                 console.log(error);
                 return res.status(501).send({
@@ -56,23 +62,33 @@ router.post("/", (req, res) => {
                 });
             }
 
-            if (results.length < 1)
-                return res.status(404).send({
-                    status: 404,
-                    error: "Not found",
+            connection.query(`select * from users WHERE id='${discordId}'`, function(error, results, fields) {
+                if (error) {
+                    console.log(error);
+                    return res.status(501).send({
+                        status: 501,
+                        error: "Internal server error",
+                    });
+                }
+
+                if (results.length < 1)
+                    return res.status(404).send({
+                        status: 404,
+                        error: "Not found",
+                    });
+
+                results.map((user) => {
+                    user.settings = JSON.parse(user.settings);
+                    return user;
                 });
 
-            results.map((user) => {
-                user.settings = JSON.parse(user.settings);
-                return user;
+                return res.status(200).send({
+                    status: 200,
+                    data: results[0],
+                });
             });
-
-            return res.status(200).send({
-                status: 200,
-                data: results[0],
-            });
+            connection.end();
         });
-        connection.end();
     });
 });
 
