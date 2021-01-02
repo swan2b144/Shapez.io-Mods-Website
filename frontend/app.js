@@ -1,4 +1,4 @@
-require("./discord");
+require("./auth/discord");
 
 const express = require("express");
 const session = require("express-session");
@@ -10,6 +10,8 @@ app.set("view engine", "ejs");
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
+//Auth
+//Init session
 app.use(
     session({
         secret: `ae 26 77 8a c9 ca dd 82 b8 93 aa 28 ce 95 9f 34 
@@ -24,10 +26,11 @@ app.use(
         resave: false,
     })
 );
+//Init passport
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.use("/oauth2", require("./auth"));
+//Use the auth for discord
+app.use("/auth", require("./auth/auth"));
 
 // Binding express app to port 3007
 app.listen(3007, function() {
@@ -35,6 +38,7 @@ app.listen(3007, function() {
 });
 
 app.use("/static", express.static(__dirname + "/public"));
+
 app.get("/", function(req, res) {
     if (device(req.headers["user-agent"]).is("phone")) res.render("mobile/pages/index", { user: req.user, title: "Shapez.io - Mods" });
     else res.render("desktop/pages/index", { user: req.user, title: "Shapez.io - Mods" });
