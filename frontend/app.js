@@ -1,4 +1,4 @@
-require("./auth/discord");
+require("./api/v1/auth/discord");
 
 const express = require("express");
 const session = require("express-session");
@@ -29,8 +29,7 @@ app.use(
 //Init passport
 app.use(passport.initialize());
 app.use(passport.session());
-//Use the auth for discord
-app.use("/auth", require("./auth/auth"));
+app.use("/api/v1", require("./api/v1"));
 
 // Binding express app to port 3007
 app.listen(3007, function() {
