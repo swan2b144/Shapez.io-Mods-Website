@@ -1,0 +1,16 @@
+{
+    "name": "modloader_web_backend",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "scripts": {
+        "start": "nodemon server.js"
+    },
+    "author": "DJ1TJOO",
+    "license": "MIT",
+    "dependencies": {
+        "discord-oauth2": "^2.6.0",
+        "express": "^4.17.1",
+        "mysql": "^2.18.1"
+    }
+}
