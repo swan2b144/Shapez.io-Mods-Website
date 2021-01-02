@@ -130,7 +130,8 @@ router.patch("/:id", (req, res) => {
     let settings = req.body.settings;
     let verified = req.body.verified;
     let seen = req.body.seen;
-    if (!token && !email && !username && !tag && !settings && !verified && !seen)
+    let role = req.body.role;
+    if (!token && !email && !username && !tag && !settings && !verified && !seen && !role)
         return res.status(403).send({
             status: 403,
             error: "Bad request",
@@ -144,6 +145,7 @@ router.patch("/:id", (req, res) => {
     if (settings) values += ` settings = '${settings}'`;
     if (verified) values += ` verified = '${verified}'`;
     if (seen) values += ` seen = '${seen}'`;
+    if (role) values += ` role = '${role}'`;
 
     let connection = require("../database").getConnection();
     connection.query(`UPDATE users SET${values} WHERE id='${req.params.id}'`, function(error, results, fields) {
