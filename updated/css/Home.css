@@ -1,0 +1,505 @@
+.mediaViewInfo {
+	--web-view-name: Home;
+	--web-view-id: Home;
+	--web-scale-on-resize: true;
+	--web-enable-deep-linking: true;
+}
+:root {
+	--web-view-ids: Home;
+}
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	border: none;
+}
+.Home {
+	position: absolute;
+	width: 1920px;
+	height: 1321px;
+	background-color: rgba(83,88,102,1);
+	overflow: hidden;
+	--web-view-name: Home;
+	--web-view-id: Home;
+	--web-scale-on-resize: true;
+	--web-enable-deep-linking: true;
+}
+.footer {
+	position: absolute;
+	width: 1169.843px;
+	height: 244.25px;
+	left: 9.5px;
+	top: 1068.75px;
+	overflow: visible;
+}
+.footer_contents {
+	position: absolute;
+	width: 1169.843px;
+	height: 244.25px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+.JoinDiscord {
+	left: 760.5px;
+	top: 0px;
+	position: absolute;
+	overflow: visible;
+	width: 381px;
+	white-space: nowrap;
+	line-height: 65px;
+	margin-top: -7.5px;
+	text-align: center;
+	font-family: Nunito;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 50px;
+	color: rgba(255,255,255,1);
+	text-transform: capitalize;
+}
+.help {
+	left: 794.5px;
+	top: 76.979px;
+	position: absolute;
+	overflow: visible;
+	width: 313px;
+	white-space: nowrap;
+	line-height: 25px;
+	margin-top: -4.5px;
+	text-align: center;
+	font-family: Quicksand;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	color: rgba(171,175,199,1);
+}
+.discord_btn {
+	position: absolute;
+	width: 435.687px;
+	height: 60px;
+	left: 734.157px;
+	top: 137px;
+	overflow: visible;
+}
+.shapez_server {
+	position: absolute;
+	width: 200.687px;
+	height: 60px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+	background: #4A97DF;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	filter: drop-shadow(-5px 10px 25px rgba(62, 71, 80, 0.302));
+	fill: rgba(74,151,223,1);
+	
+}
+.shapezio {
+	left: 66.42px;
+	top: 20px;
+	position: absolute;
+	overflow: visible;
+	width: 71px;
+	white-space: nowrap;
+	line-height: 25px;
+	margin-top: -4.5px;
+	text-align: left;
+	font-family: Quicksand;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	color: rgba(255,255,255,1);
+}
+.Modding_Serve {
+	position: absolute;
+	width: 203.687px;
+	height: 60px;
+	left: 232px;
+	top: 0px;
+	overflow: visible;
+	background: #66BB6A;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	fill: rgba(102,187,106,1);
+}
+.Modding_Server_btn {
+	left: 39.42px;
+	top: 20px;
+	position: absolute;
+	overflow: visible;
+	width: 126px;
+	white-space: nowrap;
+	line-height: 25px;
+	margin-top: -4.5px;
+	text-align: left;
+	font-family: Quicksand;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	color: rgba(255,255,255,1);
+}
+.copyright {
+	position: absolute;
+	width: 340.5px;
+	height: 33.75px;
+	left: 0px;
+	top: 210.5px;
+	overflow: visible;
+}
+._2020_ModLoader_Team {
+	left: 0px;
+	top: 8.5px;
+	position: absolute;
+	overflow: visible;
+	width: 241px;
+	white-space: nowrap;
+	line-height: 25px;
+	margin-top: -4.5px;
+	text-align: center;
+	font-family: Quicksand;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	color: rgba(246,246,246,1);
+}
+.discord {
+	position: absolute;
+	width: 84px;
+	height: 30px;
+	left: 256.5px;
+	top: 3.75px;
+	overflow: visible;
+}
+.sign_in {
+	position: absolute;
+	width: 203.687px;
+	height: 60px;
+	left: 858.657px;
+	top: 630.75px;
+	overflow: visible;
+	background: #4A97DF;
+	box-sizing: border-box;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+		
+}
+.signin_btn {
+	position: absolute;
+	width: 77px;
+	height: 30px;
+	left: 63.404px;
+	top: 15px;
+	overflow: visible;
+	white-space: nowrap;
+	line-height: 25px;
+	margin-top: -0.5px;
+	text-align: left;
+	font-family: Quicksand;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 24px;
+	color: rgba(255,255,255,1);
+}
+.Mods {
+	transform: matrix(1,0,0,1,1286.9995,547.9995) rotate(-14deg);
+	transform-origin: center;
+	left: 0px;
+	top: 0px;
+	position: absolute;
+	overflow: visible;
+	width: 116px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Segoe UI;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 40px;
+	color: rgba(74,151,223,1);
+	text-transform: uppercase;
+}
+.logo {
+	filter: drop-shadow(4px 3px 3px rgba(0, 0, 0, 0.161));
+	position: absolute;
+	width: 893.035px;
+	height: 250.065px;
+	left: 513.482px;
+	top: 364.467px;
+	overflow: visible;
+}
+.navbar {
+	position: absolute;
+	width: 1920px;
+	height: 82px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+	background: #484C58;
+}
+.nav_bg {
+	fill: rgba(72,76,88,1);
+	stroke: rgba(112,112,112,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+	position: absolute;
+	overflow: visible;
+	width: 1920px;
+	height: 82px;
+	left: 0px;
+	top: 0px;
+}
+.navbar_inner {
+	position: absolute;
+	width: 1827px;
+	height: 60px;
+	left: 23px;
+	top: 10.75px;
+	overflow: visible;
+}
+.settings {
+	position: absolute;
+	width: 24px;
+	height: 24px;
+	left: 0px;
+	top: 18.25px;
+	overflow: visible;
+}
+.Boundary {
+	fill: transparent;
+	position: absolute;
+	overflow: visible;
+	width: 24px;
+	height: 24px;
+	left: 0px;
+	top: 0px;
+}
+._Color {
+	overflow: visible;
+	position: absolute;
+	width: 18px;
+	height: 19px;
+	left: 3px;
+	top: 2.5px;
+	transform: matrix(1,0,0,1,0,0);
+	fill: rgba(238,241,244,1);
+}
+.navbar_container {
+	position: absolute;
+	width: 386px;
+	height: 24.836px;
+	left: 1441px;
+	top: 17.454px;
+	overflow: visible;
+}
+.Contact {
+	left: 73px;
+	top: 2.5px;
+	position: absolute;
+	overflow: visible;
+	width: 61px;
+	white-space: nowrap;
+	line-height: 25px;
+	margin-top: -4.5px;
+	text-align: left;
+	font-family: Quicksand;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	color: rgba(171,175,199,1);
+}
+.About {
+	left: 0px;
+	top: 2.5px;
+	position: absolute;
+	overflow: visible;
+	width: 46px;
+	white-space: nowrap;
+	line-height: 25px;
+	margin-top: -4.5px;
+	text-align: left;
+	font-family: Quicksand;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	color: rgba(171,175,199,1);
+}
+.Sign_In_ba {
+	left: 335px;
+	top: 2.5px;
+	position: absolute;
+	overflow: visible;
+	width: 52px;
+	white-space: nowrap;
+	line-height: 25px;
+	margin-top: -4.5px;
+	text-align: left;
+	font-family: Quicksand;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 16px;
+	color: rgba(74,151,223,1);
+}
+.Path_208 {
+	fill: rgba(0,0,0,0);
+	stroke: rgba(171,175,199,1);
+	stroke-width: 1px;
+	stroke-linejoin: miter;
+	stroke-linecap: butt;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+	overflow: visible;
+	position: absolute;
+	width: 1px;
+	height: 24.836px;
+	left: 306.5px;
+	top: 0px;
+	transform: matrix(1,0,0,1,0,0);
+}
+.Documentation {
+	left: 161px;
+	top: 2.5px;
+	position: absolute;
+	overflow: visible;
+	width: 118px;
+	white-space: nowrap;
+	line-height: 25px;
+	margin-top: -4.5px;
+	text-align: left;
+	font-family: Quicksand;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	color: rgba(171,175,199,1);
+}
+.search {
+	position: absolute;
+	width: 822.295px;
+	height: 60px;
+	left: 583.361px;
+	top: 0px;
+	overflow: visible;
+	background: #535866;
+	border-bottom-left-radius: 50px;
+	border-bottom-right-radius: 50px;
+	border-top-left-radius: 50px;
+	border-top-right-radius: 50px;
+	
+}
+.Search_box {
+	position: absolute;
+	overflow: visible;
+	width: 822.295px;
+	height: 60px;
+	left: 0px;
+	top: 0px;
+	fill: rgba(83,88,102,1);
+}
+.Rectangle_1 {
+	filter: drop-shadow(-10px 20px 50px rgba(62, 71, 80, 0.302));
+	position: absolute;
+	overflow: visible;
+	width: 334px;
+	height: 200px;
+	left: 633.19px;
+	top: 5px;
+	fill: rgba(102,187,106,1);
+}
+.Search_bg {
+	left: 58.389px;
+	top: 20px;
+	position: absolute;
+	overflow: visible;
+	width: 53px;
+	white-space: nowrap;
+	line-height: 25px;
+	margin-top: -4.5px;
+	text-align: left;
+	font-family: Quicksand;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	color: rgba(171,175,199,1);
+}
+.search_icon {
+	position: absolute;
+	width: 17.411px;
+	height: 17.411px;
+	left: 30.068px;
+	top: 21px;
+	overflow: visible;
+}
+.Line_1 {
+	overflow: visible;
+	position: absolute;
+	width: 6.005px;
+	height: 6.005px;
+	left: 14.235px;
+	top: 14.235px;
+	transform: matrix(1,0,0,1,0,0);
+	fill: transparent;
+	stroke: rgba(171,175,199,1);
+	stroke-width: 2px;
+	stroke-linejoin: miter;
+	stroke-linecap: round;
+	stroke-miterlimit: 4;
+	shape-rendering: auto;
+}
+.navbar_logo {
+	position: absolute;
+	width: 164.451px;
+	height: 43.875px;
+	left: 54.482px;
+	top: 7.942px;
+	overflow: visible;
+}
+.Mods_bm {
+	transform: translate(-46.482px, -272.468px) matrix(1,0,0,1,166.1527,291.4386) rotate(-14deg);
+	transform-origin: center;
+	left: 0px;
+	top: 0px;
+	position: absolute;
+	overflow: visible;
+	width: 44px;
+	white-space: nowrap;
+	text-align: left;
+	font-family: Segoe UI;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 15px;
+	color: rgba(74,151,223,1);
+	text-transform: uppercase;
+}
+.nav_logo {
+	filter: drop-shadow(4px 3px 3px rgba(0, 0, 0, 0.161));
+	position: absolute;
+	width: 144.883px;
+	height: 40.57px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+}
+.Browse {
+	left: 467.099px;
+	top: 20px;
+	position: absolute;
+	overflow: visible;
+	width: 57px;
+	white-space: nowrap;
+	line-height: 25px;
+	margin-top: -4.5px;
+	text-align: left;
+	font-family: Quicksand;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 16px;
+	color: rgba(171,175,199,1);
+}
