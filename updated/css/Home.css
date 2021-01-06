@@ -417,17 +417,19 @@
 	left: 58.389px;
 	top: 20px;
 	position: absolute;
-	overflow: visible;
-	width: 53px;
+	overflow: hidden;
+	width: 530px;
 	white-space: nowrap;
-	line-height: 25px;
-	margin-top: -4.5px;
+	line-height: 28px;
+	margin-top: -10px;
 	text-align: left;
 	font-family: Quicksand;
 	font-style: normal;
 	font-weight: normal;
 	font-size: 16px;
-	color: rgba(171,175,199,1);
+	color: #FFFFFF;
+	background-color: rgba(83,88,102,1);
+
 }
 .search_icon {
 	position: absolute;
