@@ -24,63 +24,8 @@ header {
 	text-align: center;
 	display: block;
 }
-header .profileLogo .logoPlaceholder {
-	background-color: var(--shapezDark);
-	width: 187px;
-	text-align: center;
-}
-header .logoPlaceholder span {
-	width: 80px;
-	height: 22px;
-	color: var(--blue);
-	font-size: 30px;
-	font-weight: 700;
-	line-height: 53px;
-}
-header .profilePhoto {
-	background-color: var(--shapezWords);
-	width: 259px;
-	border-radius: 50%;
-	height: 259px;
-	clear: both;
-}
-header .profileHeader h1 {
-	color: var(--blue);
-	font-size: 30px;
-	font-weight: 700;
-	line-height: 24px;
-}
-header .profileHeader h3 {
-	color: var(--blue);
-	font-size: 16px;
-	font-weight: 700;
-	line-height: 24px;
-}
-hr {
-	background-color: var(--shapezLight);
-	height: 1px;
-}
-header .profileHeader p {
-	font-family: sans-serif;
-	color: var(--shapezWords);
-	font-size: 14px;
-	font-weight: 400;
-	line-height: 1.8;
-	overflow-y: auto;
-}
-header .socialNetworkNavBar {
-	text-align: center;
-	display: block;
-	margin-top: 60px;
-	clear: both;
-}
-header .socialNetworkNavBar .socialNetworkNav {
-	border-radius: 50%;
-	cursor: pointer;
-}
-header .socialNetworkNavBar .socialNetworkNav :hover {
-	opacity: 0.5;
-}
+
+
 /* Main Content sections */
 .mainContent .section1 {
 	display: block;
@@ -168,32 +113,7 @@ header {
 	width: 100%;
 	float: none;
 }
-header .profileLogo .logoPlaceholder {
-	display: inline-block;
-}
-header .profilePhoto {
-	display: inline-block;
-}
-header .profileHeader {
-	text-align: center;
-	margin-top: 10%;
-}
-header .profileHeader p {
-	text-align: justify;
-}
-header .socialNetworkNavBar {
-	text-align: center;
-	display: block;
-	margin-top: 60px;
-	clear: both;
-	margin-bottom: 15%;
-}
-header .socialNetworkNavBar .socialNetworkNav {
-	width: 60px;
-	height: 60px;
-	display: inline-block;
-	margin-right: 23px;
-}
+
 /* Main content sections */
 .mainContent {
 	text-align: center;
@@ -244,26 +164,7 @@ header {
 	width: 100%;
 	float: none;
 }
-header .profileLogo .logoPlaceholder {
-	display: inline-block;
 
-}
-header .profilePhoto {
-	float: left;
-	clear: both;
-	margin-right: 3%;
-	margin-top: 5%;
-}
-header .profileHeader {
-	text-align: left;
-	margin-top: 7%;
-}
-header .socialNetworkNavBar .socialNetworkNav {
-	width: 74px;
-	height: 74px;
-	display: inline-block;
-	margin-right: 23px;
-}
 /* Main content and sections */
 .section1Title, .section2 .sectionTitle {
 	text-align: center;
@@ -316,21 +217,7 @@ header .profileLogo .logoPlaceholder {
 	float: left;
 	margin-bottom: 50px;
 }
-header .profilePhoto {
-	float: left;
-	clear: both;
-	margin-right: 3%;
-}
-header .profileHeader {
-	text-align: left;
-	padding-top: 10%;
-}
-header .socialNetworkNavBar .socialNetworkNav {
-	width: 74px;
-	height: 74px;
-	display: inline-block;
-	margin-right: 23px;
-}
+
 /* Main content sections */
 .sectionTitleRule, .section2 .sectionTitleRule {
 	width: 22.5%;
