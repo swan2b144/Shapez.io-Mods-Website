@@ -39,29 +39,24 @@ app.listen(3007, function() {
 app.use("/static", express.static(__dirname + "/public"));
 
 app.get("/", function(req, res) {
-    if (device(req.headers["user-agent"]).is("phone")) res.render("mobile/pages/index", { user: req.user, title: "Shapez.io - Mods" });
-    else res.render("desktop/pages/index", { user: req.user, title: "Shapez.io - Mods" });
+    res.render("pages/index", { user: req.user, title: "Shapez.io - Mods" });
 });
 
 app.get("/profile", function(req, res) {
-    if (device(req.headers["user-agent"]).is("phone")) res.render("mobile/pages/profile", { user: req.user, title: "Shapez.io - Profile" });
-    else res.render("desktop/pages/profile", { user: req.user, title: "Shapez.io - Profile" });
+    res.render("pages/profile", { user: req.user, title: "Shapez.io - Profile" });
 });
 
 app.get("/mods", function(req, res) {
-    if (device(req.headers["user-agent"]).is("phone")) res.render("mobile/pages/mods", { user: req.user, title: "Shapez.io - Mods" });
-    else res.render("desktop/pages/mods", { user: req.user, title: "Shapez.io - Mods" });
+    res.render("pages/mods", { user: req.user, title: "Shapez.io - Mods" });
 });
 
 app.get("/about", function(req, res) {
-    if (device(req.headers["user-agent"]).is("phone")) res.render("mobile/pages/about", { user: req.user, title: "Shapez.io - About" });
-    else res.render("desktop/pages/about", { user: req.user, title: "Shapez.io - About" });
+    res.render("pages/about", { user: req.user, title: "Shapez.io - About" });
 });
 
 app.use(function(req, res, next) {
     if (req.accepts("html")) {
-        if (device(req.headers["user-agent"]).is("phone")) res.render("mobile/pages/notfound", { user: req.user, title: "Shapez.io - Not found" });
-        else res.render("desktop/pages/notfound", { user: req.user, title: "Shapez.io - Not found" });
+        //res.render("pages/notfound", { user: req.user, title: "Shapez.io - Not found" });
         return;
     }
 });

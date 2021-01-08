@@ -67,4 +67,6 @@ getUserById = (id, callback) => {
     }
 };
 
+//TODO: comments, posts, mods, modpacks
+
 module.exports = { getUserById, updateUserById, createUser };

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/reset.css" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="shortcut icon" href="/static/images/icon-white-background.png" type="image/x-icon" />
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body>
+    <nav>
+        <div class="left">
+            <div class="logo">
+                <img src="/static/images/logo.png" />
+                <label class="label">Mods</label>
+            </div>
+            <% if(user) { %>
+                <a class="settings"></a>
+                <% } %>
+        </div>
+        <div class="search">
+            <div class="search-bar">
+                <input type="text" id="search" placeholder="Search" />
+                <div class="categories">All Categories <img src="/static/images/arrow-down.svg" width="14px" /></div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="links">
+                <a href="/about" class="link">About</a>
+                <a href="/contact" class="link">Contact</a>
+                <a href="/documentation" class="link">Documentation</a>
+            </div>
+            <% if(user) { %>
+                <a href="/api/v1/auth/logout" class="link link-blue">Sign Out</a>
+                <% } else { %>
+                    <a href="/api/v1/auth/login" class="link link-blue">Sign In</a>
+                    <% } %>
+        </div>
+    </nav>
+</body>
+
+</html>

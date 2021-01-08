@@ -1,10 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: #fff;
-      }
-    </style>
-  </defs>
-  <path id="Path_2" data-name="Path 2" class="cls-1" d="M2.875,10.063a7.118,7.118,0,0,1,7.188-7.187,7.118,7.118,0,0,1,7.188,7.188,7.118,7.118,0,0,1-7.187,7.188A7.118,7.118,0,0,1,2.875,10.063ZM20.556,22.569a1.423,1.423,0,0,0,2.012-2.012L18.113,16.1a9.842,9.842,0,0,0,2.012-6.038A10,10,0,0,0,10.063,0,10,10,0,0,0,0,10.063,10,10,0,0,0,10.063,20.125,9.842,9.842,0,0,0,16.1,18.113Z"/>
+<svg id="Group_1165" data-name="Group 1165" xmlns="http://www.w3.org/2000/svg" width="18.825" height="18.825" viewBox="0 0 18.825 18.825">
+  <g id="Ellipse_1" data-name="Ellipse 1" fill="none" stroke="#abafc7" stroke-linecap="round" stroke-width="2">
+    <ellipse cx="8.333" cy="8.333" rx="8.333" ry="8.333" stroke="none"/>
+    <ellipse cx="8.333" cy="8.333" rx="7.333" ry="7.333" fill="none"/>
+  </g>
+  <line id="Line_1" data-name="Line 1" x2="3.176" y2="3.176" transform="translate(14.235 14.235)" fill="none" stroke="#abafc7" stroke-linecap="round" stroke-width="2"/>
 </svg>

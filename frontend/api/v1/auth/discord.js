@@ -30,12 +30,14 @@ passport.use(
                 } else if (user) {
                     return done(null, user);
                 } else {
+                    console.log(profile);
                     return db.createUser({
                             discordId: profile.id,
                             token: accessToken,
                             email: profile.email,
                             username: profile.username,
                             tag: profile.discriminator,
+                            avatar: profile.avatar,
                         },
                         (error, user) => {
                             if (user && !user.verified && profile.guilds.findIndex((guild) => guild.id === apiVariables.discordServerId) >= 0)

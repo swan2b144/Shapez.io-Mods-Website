@@ -31,7 +31,8 @@ router.post("/", (req, res) => {
     let email = req.body.email;
     let username = req.body.username;
     let tag = req.body.tag;
-    if (!token || !discordId || !username || !email || !tag)
+    let avatar = req.body.avatar;
+    if (!token || !discordId || !username || !email || !tag || !avatar)
         return res.status(403).send({
             status: 403,
             error: "Bad request",
@@ -53,7 +54,7 @@ router.post("/", (req, res) => {
                 error: "Conflict",
             });
 
-        connection.query(`INSERT INTO users (id, email, username, tag, token) VALUES ('${discordId}', '${email}', '${username}', '${tag}', '${token}')`, function(error, results, fields) {
+        connection.query(`INSERT INTO users (id, email, username, tag, token, avatar) VALUES ('${discordId}', '${email}', '${username}', '${tag}', '${token}', '${avatar}')`, function(error, results, fields) {
             if (error) {
                 console.log(error);
                 return res.status(501).send({
@@ -129,9 +130,10 @@ router.patch("/:id", (req, res) => {
     let tag = req.body.tag;
     let settings = req.body.settings;
     let verified = req.body.verified;
+    let avatar = req.body.avatar;
     let seen = req.body.seen;
     let role = req.body.role;
-    if (!token && !email && !username && !tag && !settings && !verified && !seen && !role)
+    if (!token && !email && !username && !tag && !settings && !verified && !seen && !role && !avatar)
         return res.status(403).send({
             status: 403,
             error: "Bad request",
@@ -146,6 +148,7 @@ router.patch("/:id", (req, res) => {
     if (verified) values += ` verified = '${verified}'`;
     if (seen) values += ` seen = '${seen}'`;
     if (role) values += ` role = '${role}'`;
+    if (avatar) values += ` role = '${avatar}'`;
 
     let connection = require("../database").getConnection();
     connection.query(`UPDATE users SET${values} WHERE id='${req.params.id}'`, function(error, results, fields) {

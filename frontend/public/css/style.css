@@ -17,7 +17,7 @@
 
 body {
     font-family: "Barlow", sans-serif;
-    background-color: var(--shapezLight);
+    background-color: #535866;
 }
 
 .fullscreenBackgroundVideo.loaded {
@@ -50,340 +50,225 @@ video {
     }
 }
 
-a.button {
-    display: block;
-    border-radius: var(--border-radius);
-    border: var(--white) var(--border-thickness) solid;
-    padding: 9px 18px;
-    transition: 0.3s background-color, 0.3s color, 0.3s border-color;
-    color: var(--white);
-    font-size: var(--font-middle);
-    text-decoration: none;
-    text-transform: uppercase;
-    background-color: none;
-}
-
-a.button:hover {
-    color: var(--shapezDark);
-    background-color: var(--white);
-}
-
-a.button-filled {
-    display: block;
-    border-radius: var(--border-radius);
-    padding: 9px 18px;
-    color: var(--white);
-    text-decoration: none;
-    font-size: var(--font-middle);
-    text-transform: uppercase;
-    background-color: var(--shapezDark);
-    transition: 0.3s background-color, 0.3s color, 0.3s border-color;
-}
-
-a.button-filled:hover {
-    color: var(--shapezDark);
-    background-color: var(--white);
-}
-
-a.button-blue {
-    color: var(--white);
-    background-color: var(--blue);
-}
-
-a.button-blue:hover {
-    color: var(--blue);
-    background-color: var(--white);
-}
-
-a.button-dark {
-    color: var(--shapezDark);
-    border-color: var(--shapezDark);
-}
-
-a.button-dark:hover {
-    background-color: var(--white);
-    border-color: var(--white);
-}
-
-
-/*Header*/
-
 nav {
     display: flex;
-    justify-content: space-between;
-    margin: auto;
-    width: 100%;
-    height: var(--bar-size);
-    background-color: transparent;
-}
-
-nav ul {
+    flex-wrap: wrap;
+    width: 100vw;
+    height: 82px;
+    background-color: #484c58;
     vertical-align: middle;
-    display: table-row;
-    width: fit-content;
-    height: var(--bar-size);
 }
 
-nav ul li {
-    display: table-cell;
-    vertical-align: middle;
-    height: var(--bar-size);
-    padding-right: 30px;
-}
-
-nav ul li:first-child {
-    padding-left: 30px;
-}
-
-
-/*TODO: search bar items*/
-
-nav ul li .nav-search {
+nav>div {
     display: flex;
+    flex-grow: 1;
     align-items: center;
-    width: var(--search-size);
-    height: var(--search-size);
-    border-radius: var(--border-radius);
-    transition: 0.3s;
-    box-sizing: border-box;
+    width: calc(33% - 21px);
 }
 
-nav ul li .nav-search:hover {
-    width: calc(300px - 20px);
+nav .right {
+    justify-content: flex-end;
+}
+
+nav .settings {
+    background-image: url(/static/images/settings.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 25px;
+    height: 25px;
+    filter: invert(100%);
+    margin-left: 40px;
+    cursor: pointer;
+    transition: filter 0.3s;
+}
+
+nav .settings:hover {
+    filter: invert(90%);
+}
+
+nav .logo {
+    position: relative;
     height: 40px;
-    background-color: var(--white);
-    border-radius: var(--border-radius);
-    padding: 0 10px;
-    line-height: var(--search-size);
+    margin-left: 20px;
 }
 
-nav ul li .nav-search input {
-    width: var(--search-size);
-    height: var(--search-size);
+nav .logo img {
+    height: 100%;
+}
+
+nav .logo .label {
     font-family: "Barlow", sans-serif;
-    font-size: var(--font-middle);
-    color: transparent;
-    background-color: transparent;
-    padding: 0;
-    border: none;
-    outline: none !important;
-    background: url(/static/images/search-dark.svg) no-repeat scroll 5px 5px;
-    background-size: calc(var(--search-size) - 9px);
+    font-size: 1.5vw;
+    position: absolute;
+    width: fit-content;
+    color: var(--blue);
+    transform: translateX(50%) rotate(-5deg);
+    right: 4%;
+    bottom: 4%;
 }
 
-nav ul li .nav-search:hover input {
-    color: var(--shapezDark);
-    background-color: var(--white);
-    padding-left: calc(var(--search-size) + 2px);
-    width: calc(100% - calc(var(--search-size) + 2px));
-    background: url(/static/images/search-dark.svg) no-repeat scroll 5px 5px;
-    background-size: calc(var(--search-size) - 9px);
+nav .links {
+    display: inline-block;
+    vertical-align: middle;
 }
 
-nav ul li a {
-    color: var(--shapezDark);
-    font-size: var(--font-middle);
+nav .link {
+    color: #abafc7;
     text-decoration: none;
-    text-transform: uppercase;
-    background-color: none;
-    transition: color 0.3s;
+    margin-left: 20px;
+    font-size: 18px;
+    transition: color 0.3s ease-in-out;
 }
 
-nav ul li a:hover {
-    color: var(--white);
+nav .link:hover {
+    color: #c7cbdb;
 }
 
+nav .link-blue {
+    padding: 7px 20px;
+    border-left: 1px solid #abafc7;
+    color: var(--blue);
+}
 
-/*Footer*/
+nav .link-blue:hover {
+    color: #5faef3;
+}
+
+nav .search {
+    justify-content: center;
+}
+
+nav .search-bar {
+    display: inline-flex;
+    vertical-align: middle;
+    margin: 0 20px;
+    background-color: #535866;
+    border-radius: 33px;
+    height: 60px;
+    background-image: url(/static/images/search.svg);
+    background-repeat: no-repeat;
+    background-position: 20px 50%;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+nav .search-bar input {
+    margin-left: 45px;
+    background: none;
+    outline: none;
+    border: none;
+    color: #abafc7;
+    font-size: 18px;
+    width: calc(100% - 250px);
+}
+
+nav .search-bar input::placeholder {
+    color: #abafc7;
+}
+
+nav .search-bar .categories {
+    display: inline-flex;
+    background-color: #66bb6a;
+    color: white;
+    margin: 5px;
+    border-radius: 33px;
+    height: 50px;
+    width: fit-content;
+    padding: 0 20px;
+    text-align: center;
+    align-items: center;
+}
+
+nav .search-bar .categories img {
+    margin-left: 5px;
+}
 
 footer {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    height: var(--bar-size);
-    background-color: transparent;
-    position: absolute;
+    width: 100vw;
+    position: fixed;
     bottom: 0;
-    left: 50%;
-    -webkit-transform: translateX(-50%);
-    transform: translateX(-50%);
 }
 
-footer ul {
-    vertical-align: middle;
-    display: table-row;
+footer .discord {
     width: fit-content;
-    height: var(--bar-size);
+    margin: auto;
 }
 
-footer ul li {
-    display: table-cell;
-    vertical-align: middle;
-    height: var(--bar-size);
-    padding-right: 30px;
-    color: var(--shapezDark);
-    text-decoration: none;
-    font-size: var(--font-middle);
-    text-transform: uppercase;
-}
-
-footer ul li:first-child {
-    padding-left: 30px;
-}
-
-footer ul li a {
-    color: var(--shapezDark);
-    text-decoration: none;
-    font-size: var(--font-middle);
-    text-transform: uppercase;
-}
-
-
-/*Not found*/
-
-.notfound-logo {
+footer .discord .title {
     display: block;
-    height: fit-content;
-    width: 80%;
-    margin: auto;
-    margin-top: 10vh;
-    position: relative;
-    max-width: 1000px;
+    font-size: 24px;
+    color: white;
+    text-align: center;
+    font-weight: 500;
 }
 
-.notfound-logo img {
-    width: 100%;
+footer .discord .subtitle {
+    display: block;
+    font-size: 18px;
+    color: #abafc7;
+    text-align: center;
 }
 
-.notfound-logo .label {
-    font-family: "Barlow", sans-serif;
-    font-size: 5vw;
-    position: absolute;
-    width: fit-content;
-    color: var(--red);
-    text-transform: uppercase;
-    transform: translateX(50%) rotate(-5deg);
-    right: 10%;
-    bottom: 10%;
-    animation: label 1.3s ease-in-out infinite !important;
-}
-
-.notfound-logo .under {
-    position: absolute;
-    left: 50%;
-    -webkit-transform: translateX(-50%) translateY(100%);
-    transform: translateX(-50%) translateY(100%);
-    bottom: 0;
-}
-
-.notfound-logo a {
-    margin: auto;
-    width: fit-content;
+footer .discord .link {
     margin-top: 10px;
-    font-size: var(--font-larger);
-    padding: 18px 36px;
-}
-
-.notfound-logo .header {
+    display: inline-block;
+    padding: 15px;
+    width: 150px;
+    color: white;
+    background-color: var(--blue);
     text-align: center;
-    font-size: var(--font-large);
-    font-family: "Barlow", sans-serif;
-    color: var(--white);
-    text-transform: uppercase;
+    border-radius: 3px;
+    transition: background-color 0.3s ease-in-out;
+    text-decoration: none;
 }
 
-.notfound-logo .text {
-    text-align: center;
-    font-size: var(--font-middle);
-    font-family: "Barlow", sans-serif;
-    color: var(--white);
+footer .discord .link:hover {
+    background-color: #5faef3;
 }
 
-
-/*Home*/
-
-.home-logo {
-    display: block;
-    height: fit-content;
-    width: 80%;
-    margin: auto;
-    margin-top: 10vh;
-    position: relative;
-    max-width: 1000px;
+footer .discord .link-green {
+    background-color: #66bb6a;
 }
 
-.home-logo img {
-    width: 100%;
+footer .discord .link-green:hover {
+    background-color: #7eca82;
 }
 
-.home-logo .label {
-    font-family: "Barlow", sans-serif;
-    font-size: 5vw;
-    position: absolute;
-    width: fit-content;
-    color: var(--red);
-    text-transform: uppercase;
-    transform: translateX(50%) rotate(-5deg);
-    right: 10%;
-    bottom: 10%;
-    animation: label 1.3s ease-in-out infinite !important;
+footer .text {
+    margin: 20px;
+    color: #abafc7;
 }
 
-.home-logo .under {
+footer .text img {
+    border-left: solid #abafc7 1px;
+    margin-left: 5px;
+    padding-left: 5px;
+    height: 30px;
+    margin-bottom: -10px;
+}
+
+.home .logo {
     position: absolute;
     left: 50%;
-    -webkit-transform: translateX(-50%) translateY(100%);
-    transform: translateX(-50%) translateY(100%);
-    bottom: 0;
-}
-
-.home-logo a {
-    margin: auto;
+    top: 40%;
+    transform: translateX(-50%) translateY(-50%);
     width: fit-content;
-    margin-top: 10px;
-    font-size: var(--font-larger);
-    padding: 18px 36px;
 }
 
-
-/*About*/
-
-.about-logo {
-    display: block;
-    height: fit-content;
-    width: 40%;
-    margin: auto;
-    position: relative;
-    margin-top: 2vh;
-    max-width: 1000px;
+.home .logo img {
+    width: calc(110vw * 0.4);
+    transform: rotate(-5deg);
 }
 
-.about-logo .header {
-    position: absolute;
-    left: 60%;
-    -webkit-transform: translateX(-50%) rotate(-4deg);
-    transform: translateX(-50%) rotate(-4deg);
-    top: -10px;
-    text-align: center;
-    font-size: var(--font-larger);
-    font-family: "Barlow", sans-serif;
-    color: var(--white);
-    text-transform: uppercase;
-}
-
-.about-logo img {
-    width: 100%;
-}
-
-.about-logo .label {
+.home .logo .label {
     font-family: "Barlow", sans-serif;
     font-size: 4vw;
     position: absolute;
     width: fit-content;
-    color: var(--red);
-    text-transform: uppercase;
+    color: var(--blue);
     transform: translateX(50%) rotate(-5deg);
-    right: 10%;
-    bottom: 10%;
+    right: 4%;
+    bottom: 4%;
     animation: label 1.3s ease-in-out infinite !important;
 }
