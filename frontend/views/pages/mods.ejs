@@ -8,14 +8,50 @@
             <img src="/static/images/logo.svg" />
             <label class="label">Mods</label>
         </div> -->
+        <div class="header-title">Mod of the week</div>
         <div class="card mod-of-the-week">
             <div class="title">SMB Modpack</div>
             <div class="subtitle">The SMB modpack consists of over 5 different mods containing survival mode, wireless displays etc</div>
             <div class="images">
-                <img src="" alt="" class="image" />
-                <img src="" alt="" class="image" />
-                <img src="" alt="" class="image" />
+                <div class="image">
+                    <img src="/static/images/mod_test/cube.gif" />
+                </div>
+                <div class="image">
+                    <img src="/static/images/mod_test/colorz.gif" />
+                </div>
+                <div class="image">
+                    <img src="/static/images/mod_test/counter.gif" />
+                </div>
             </div>
+        </div>
+        <div class="browse">
+            <div class="sidebar">
+                <div class="search">
+                    <input type="text" id="mod-search" placeholder="search" />
+                </div>
+                <div class="verified search-option">
+                    <div class="title">Verified</div>
+                    <label class="switch">
+					<input type="checkbox" checked />
+					<span class="slider round"></span>
+				</label>
+                </div>
+                <div class="type search-option">
+                    <div class="title">Type</div>
+                    <label class="mod"> <input type="checkbox" checked />Mods</label>
+                    <label class="mod"> <input type="checkbox" checked />Modpack</label>
+                </div>
+                <div class="categories search-option">
+                    <div class="title">Categories</div>
+                    <label class="categorie"> <input type="checkbox" checked />categorie1</label>
+                    <label class="categorie"> <input type="checkbox" checked />categorie2</label>
+                    <label class="categorie"> <input type="checkbox" checked />categorie3</label>
+                    <label class="categorie"> <input type="checkbox" checked />categorie4</label>
+                    <label class="categorie"> <input type="checkbox" checked />categorie5</label>
+                    <label class="categorie"> <input type="checkbox" checked />categorie6</label>
+                </div>
+            </div>
+            <div class="content"></div>
         </div>
     </div>
     <%- include('../partials/footer.ejs') %>
