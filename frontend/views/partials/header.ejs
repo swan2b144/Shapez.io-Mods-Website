@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/static/css/reset.css" />
     <link rel="stylesheet" href="/static/css/style.css" />
-    <link rel="shortcut icon" href="/static/images/icon-white-background.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="/static/images/iconsvg" type="image/svg" />
     <title>
         <%= title %>
     </title>
@@ -15,12 +15,13 @@
 <body>
     <nav>
         <div class="left">
-            <div class="logo">
-                <img src="/static/images/logo.png" />
+            <a href="/" class="logo">
+                <img src="/static/images/logo.svg" />
                 <label class="label">Mods</label>
-            </div>
+            </a>
             <% if(user) { %>
                 <a class="settings"></a>
+                <a href="/mods" class="link">Mods</a>
                 <% } %>
         </div>
         <div class="search">

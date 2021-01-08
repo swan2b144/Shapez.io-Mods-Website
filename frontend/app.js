@@ -56,7 +56,7 @@ app.get("/about", function(req, res) {
 
 app.use(function(req, res, next) {
     if (req.accepts("html")) {
-        //res.render("pages/notfound", { user: req.user, title: "Shapez.io - Not found" });
+        res.render("pages/notfound", { user: req.user, title: "Shapez.io - Not found" });
         return;
     }
 });
