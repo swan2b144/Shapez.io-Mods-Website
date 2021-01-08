@@ -233,6 +233,17 @@
 	top: 364.467px;
 	overflow: visible;
 }
+._Color {
+	overflow: visible;
+	position: absolute;
+	width: 18px;
+	height: 19px;
+	left: 3px;
+	top: 2.5px;
+	transform: matrix(1,0,0,1,0,0);
+	fill: rgba(238,241,244,1);
+}
+/* /////////////////////////////////////////////////////////////////////////  */
 .navbar {
 	position: absolute;
 	width: 1920px;
@@ -264,33 +275,6 @@
 	left: 23px;
 	top: 10.75px;
 	overflow: visible;
-}
-.settings {
-	position: absolute;
-	width: 24px;
-	height: 24px;
-	left: 0px;
-	top: 18.25px;
-	overflow: visible;
-}
-.Boundary {
-	fill: transparent;
-	position: absolute;
-	overflow: visible;
-	width: 24px;
-	height: 24px;
-	left: 0px;
-	top: 0px;
-}
-._Color {
-	overflow: visible;
-	position: absolute;
-	width: 18px;
-	height: 19px;
-	left: 3px;
-	top: 2.5px;
-	transform: matrix(1,0,0,1,0,0);
-	fill: rgba(238,241,244,1);
 }
 .navbar_container {
 	position: absolute;
@@ -348,22 +332,6 @@
 	font-size: 16px;
 	color: rgba(74,151,223,1);
 }
-.Path_208 {
-	fill: rgba(0,0,0,0);
-	stroke: rgba(171,175,199,1);
-	stroke-width: 1px;
-	stroke-linejoin: miter;
-	stroke-linecap: butt;
-	stroke-miterlimit: 4;
-	shape-rendering: auto;
-	overflow: visible;
-	position: absolute;
-	width: 1px;
-	height: 24.836px;
-	left: 306.5px;
-	top: 0px;
-	transform: matrix(1,0,0,1,0,0);
-}
 .Documentation {
 	left: 161px;
 	top: 2.5px;
@@ -380,80 +348,21 @@
 	font-size: 16px;
 	color: rgba(171,175,199,1);
 }
-.search {
-	position: absolute;
-	width: 822.295px;
-	height: 60px;
-	left: 583.361px;
-	top: 0px;
-	overflow: visible;
-	background: #535866;
-	border-bottom-left-radius: 50px;
-	border-bottom-right-radius: 50px;
-	border-top-left-radius: 50px;
-	border-top-right-radius: 50px;
-	
+.search_centered {
+	margin: auto;
+	margin-top: 5px;
+	width: 30%;
+	padding: 10px;
 }
-.Search_box {
-	position: absolute;
-	overflow: visible;
-	width: 822.295px;
-	height: 60px;
-	left: 0px;
-	top: 0px;
-	fill: rgba(83,88,102,1);
-}
-.Rectangle_1 {
-	filter: drop-shadow(-10px 20px 50px rgba(62, 71, 80, 0.302));
-	position: absolute;
-	overflow: visible;
-	width: 334px;
-	height: 200px;
-	left: 633.19px;
-	top: 5px;
-	fill: rgba(102,187,106,1);
-}
-.Search_bg {
-	left: 58.389px;
-	top: 20px;
-	position: absolute;
+.search{
 	overflow: hidden;
-	width: 530px;
-	white-space: nowrap;
-	line-height: 28px;
-	margin-top: -10px;
+	width: 100%;
+	line-height: 25px;
 	text-align: left;
-	font-family: Quicksand;
-	font-style: normal;
-	font-weight: normal;
 	font-size: 16px;
-	color: #FFFFFF;
-	background-color: rgba(83,88,102,1);
-
-}
-.search_icon {
-	position: absolute;
-	width: 17.411px;
-	height: 17.411px;
-	left: 30.068px;
-	top: 21px;
-	overflow: visible;
-}
-.Line_1 {
-	overflow: visible;
-	position: absolute;
-	width: 6.005px;
-	height: 6.005px;
-	left: 14.235px;
-	top: 14.235px;
-	transform: matrix(1,0,0,1,0,0);
-	fill: transparent;
-	stroke: rgba(171,175,199,1);
-	stroke-width: 2px;
-	stroke-linejoin: miter;
-	stroke-linecap: round;
-	stroke-miterlimit: 4;
-	shape-rendering: auto;
+	color: white;
+	background-color: var(--shapezLight);
+	border-radius: 50px;
 }
 .navbar_logo {
 	position: absolute;
@@ -505,3 +414,4 @@
 	font-size: 16px;
 	color: rgba(171,175,199,1);
 }
+/* /////////////////////////////////////////////////////////////////////////  */

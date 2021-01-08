@@ -161,7 +161,6 @@ footer .footerDisclaimer {
 	color: var(--shapezWords);
 	font-weight: 700;
 }
-
 /* Media query for Mobile devices*/
 @media only screen and (min-width : 285px) and (max-width : 480px) {
 /* Header */
@@ -235,7 +234,6 @@ header .socialNetworkNavBar .socialNetworkNav {
 footer {
 	display: block;
 	text-align: center;
-	font-family: "Barlow", sans-serif;
 }
 }
 
@@ -248,7 +246,7 @@ header {
 }
 header .profileLogo .logoPlaceholder {
 	display: inline-block;
-	font-family: "Barlow", sans-serif;
+
 }
 header .profilePhoto {
 	float: left;
@@ -279,7 +277,6 @@ header .socialNetworkNavBar .socialNetworkNav {
 .mainContent .section1Content {
 	display: block;
 	margin: 0% 0% 0% 20%;
-	font-family: "Barlow", sans-serif;
 	margin-top: 5%;
 	margin-bottom: 5%;
 }
@@ -289,7 +286,6 @@ header .socialNetworkNavBar .socialNetworkNav {
 .section2 .section2Content {
 	padding: 0px;
 	margin-left: 20%;
-	font-family: "Barlow", sans-serif;
 	margin-top: 5%;
 	margin-bottom: 5%;
 }
@@ -310,7 +306,6 @@ header .socialNetworkNavBar .socialNetworkNav {
 footer .footerDisclaimer {
 	float: left;
 	margin-left: 3%;
-	font-family: "Barlow", sans-serif;
 }
 }
 
@@ -346,7 +341,6 @@ header .socialNetworkNavBar .socialNetworkNav {
 	margin-right: 0%;
 	margin-left: 26%;
 	margin-bottom: 0%;
-	font-family: "Barlow", sans-serif;
 }
 .mainContent .section2 {
 	clear: both;
@@ -354,7 +348,6 @@ header .socialNetworkNavBar .socialNetworkNav {
 .section2 .section2Content {
 	padding: 0px;
 	margin-left: 26%;
-	font-family: "Barlow", sans-serif;
 }
 .mainContent .externalResourcesNav {
 	margin-top: 40px;
@@ -371,11 +364,9 @@ header .socialNetworkNavBar .socialNetworkNav {
 footer .footerDisclaimer {
 	float: left;
 	margin-left: 3%;
-	font-family: "Barlow", sans-serif;
 }
 footer .footerNote {
 	float: right;
 	margin-right: 3%;
-	font-family: "Barlow", sans-serif;
 }
 }
