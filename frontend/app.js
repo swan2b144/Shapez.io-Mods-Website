@@ -47,7 +47,28 @@ app.get("/profile", function(req, res) {
 });
 
 app.get("/mods", function(req, res) {
-    res.render("pages/mods", { user: req.user, title: "Shapez.io - Mods" });
+    res.render("pages/mods", {
+        user: req.user,
+        title: "Shapez.io - Mods",
+        //TODO: read from data base
+        modOTW: {
+            id: "c56721f4-7907-4882-a67b-2dc221265c54",
+            authors: [{
+                    id: 337667762484674572,
+                    username: "Shrimp The Neko",
+                },
+                {
+                    id: 324243324342324234,
+                    username: "Shadow",
+                },
+                {
+                    id: 359712922877952000,
+                    username: "Thomas (DJ1TJOO)",
+                },
+            ],
+            images: ["/static/images/mod_test/cube.gif", "/static/images/mod_test/colorz.gif", "/static/images/mod_test/counter.gif"],
+        },
+    });
 });
 
 app.get("/about", function(req, res) {

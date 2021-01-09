@@ -10,48 +10,173 @@
         </div> -->
         <div class="header-title">Mod of the week</div>
         <div class="card mod-of-the-week">
-            <div class="title">SMB Modpack</div>
-            <div class="subtitle">The SMB modpack consists of over 5 different mods containing survival mode, wireless displays etc</div>
-            <div class="images">
-                <div class="image">
-                    <img src="/static/images/mod_test/cube.gif" />
-                </div>
-                <div class="image">
-                    <img src="/static/images/mod_test/colorz.gif" />
-                </div>
-                <div class="image">
-                    <img src="/static/images/mod_test/counter.gif" />
-                </div>
+            <a href="/mod/<%= modOTW.id %>" class="title">SMB Modpack</a>
+            <div class="authors">
+                By
+                <% for(let i=0; i < modOTW.authors.length; i++){ %>
+                    <% let author = modOTW.authors[i] %>
+                        <a href="/user/<%= author.id %>" class="author">
+                            <% let str = author.username + (modOTW.authors.length-2 === i ? " & ": modOTW.authors.length-1 === i ? "":", "); %>
+                                <%str.trim();%>
+                                    <%= str %>
+                        </a>
+                        <% } %>
             </div>
+            <a href="/mod/<%= modOTW.id %>" class="subtitle">The SMB modpack consists of over 5 different mods containing survival mode, wireless displays etc</a>
+            <a href="/mod/<%= modOTW.id %>" class="images">
+                <% for(let i=0; i < modOTW.images.length; i++){ %>
+                    <% let image = modOTW.images[i] %>
+                        <div class="image">
+                            <img src="<%= image %>" />
+                        </div>
+                        <% } %>
+            </a>
         </div>
         <div class="browse">
             <div class="sidebar">
-                <div class="search">
-                    <input type="text" id="mod-search" placeholder="search" />
-                </div>
-                <div class="verified search-option">
-                    <div class="title">Verified</div>
-                    <label class="switch">
-					<input type="checkbox" checked />
-					<span class="slider round"></span>
-				</label>
-                </div>
-                <div class="type search-option">
-                    <div class="title">Type</div>
-                    <label class="mod"> <input type="checkbox" checked />Mods</label>
-                    <label class="mod"> <input type="checkbox" checked />Modpack</label>
-                </div>
-                <div class="categories search-option">
-                    <div class="title">Categories</div>
-                    <label class="categorie"> <input type="checkbox" checked />categorie1</label>
-                    <label class="categorie"> <input type="checkbox" checked />categorie2</label>
-                    <label class="categorie"> <input type="checkbox" checked />categorie3</label>
-                    <label class="categorie"> <input type="checkbox" checked />categorie4</label>
-                    <label class="categorie"> <input type="checkbox" checked />categorie5</label>
-                    <label class="categorie"> <input type="checkbox" checked />categorie6</label>
+                <div class="sidebar-bar">
+                    <div class="title">Search</div>
+                    <div class="search">
+                        <input type="text" id="mod-search" placeholder="Search" />
+                    </div>
+                    <div class="verified search-option">
+                        <div class="title">Verified</div>
+                        <label class="switch">
+						<input type="checkbox" checked />
+						<span class="slider round"></span>
+					</label>
+                    </div>
+                    <div class="types search-option">
+                        <div class="title">Type</div>
+                        <label class="type"> <input type="checkbox" checked />Mods</label>
+                        <label class="type"> <input type="checkbox" checked />Modpack</label>
+                    </div>
+                    <div class="categories search-option">
+                        <div class="title">Categories</div>
+                        <label class="categorie"> <input type="checkbox" checked />categorie1</label>
+                        <label class="categorie"> <input type="checkbox" checked />categorie2</label>
+                        <label class="categorie"> <input type="checkbox" checked />categorie3</label>
+                        <label class="categorie"> <input type="checkbox" checked />categorie4</label>
+                        <label class="categorie"> <input type="checkbox" checked />categorie5</label>
+                        <label class="categorie"> <input type="checkbox" checked />categorie6</label>
+                    </div>
                 </div>
             </div>
-            <div class="content"></div>
+            <div class="content">
+                <a href="/mod" class="card">
+                    <div class="title">ColorZ <span class="verified"></span></div>
+                    <div class="authors">By Shrimp & DJ1TJOO</div>
+                    <div class="subtitle">The SMB modpack consists of over 5 different mods containing survival mode, wireless displays etc</div>
+                    <div class="image">
+                        <img src="/static/images/mod_test/cube.gif" />
+                    </div>
+                </a>
+                <div class="card">
+                    <div class="title">ColorZ</div>
+                    <div class="subtitle">The SMB modpack consists of over 5 different mods containing survival mode, wireless displays etc</div>
+                    <div class="image">
+                        <img src="/static/images/mod_test/cube.gif" />
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="title">ColorZ</div>
+                    <div class="subtitle">The SMB modpack consists of over 5 different mods containing survival mode, wireless displays etc</div>
+                    <div class="image">
+                        <img src="/static/images/mod_test/cube.gif" />
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="title">ColorZ</div>
+                    <div class="subtitle">The SMB modpack consists of over 5 different mods containing survival mode, wireless displays etc</div>
+                    <div class="image">
+                        <img src="/static/images/mod_test/cube.gif" />
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="title">ColorZ</div>
+                    <div class="subtitle">The SMB modpack consists of over 5 different mods containing survival mode, wireless displays etc</div>
+                    <div class="image">
+                        <img src="/static/images/mod_test/cube.gif" />
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="title">ColorZ</div>
+                    <div class="subtitle">The SMB modpack consists of over 5 different mods containing survival mode, wireless displays etc</div>
+                    <div class="image">
+                        <img src="/static/images/mod_test/cube.gif" />
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="title">ColorZ</div>
+                    <div class="subtitle">The SMB modpack consists of over 5 different mods containing survival mode, wireless displays etc</div>
+                    <div class="image">
+                        <img src="/static/images/mod_test/cube.gif" />
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="title">ColorZ</div>
+                    <div class="subtitle">The SMB modpack consists of over 5 different mods containing survival mode, wireless displays etc</div>
+                    <div class="image">
+                        <img src="/static/images/mod_test/cube.gif" />
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="title">ColorZ</div>
+                    <div class="subtitle">The SMB modpack consists of over 5 different mods containing survival mode, wireless displays etc</div>
+                    <div class="image">
+                        <img src="/static/images/mod_test/cube.gif" />
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="title">ColorZ</div>
+                    <div class="subtitle">The SMB modpack consists of over 5 different mods containing survival mode, wireless displays etc</div>
+                    <div class="image">
+                        <img src="/static/images/mod_test/cube.gif" />
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="title">ColorZ</div>
+                    <div class="subtitle">The SMB modpack consists of over 5 different mods containing survival mode, wireless displays etc</div>
+                    <div class="image">
+                        <img src="/static/images/mod_test/cube.gif" />
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="title">ColorZ</div>
+                    <div class="subtitle">The SMB modpack consists of over 5 different mods containing survival mode, wireless displays etc</div>
+                    <div class="image">
+                        <img src="/static/images/mod_test/cube.gif" />
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="title">ColorZ</div>
+                    <div class="subtitle">The SMB modpack consists of over 5 different mods containing survival mode, wireless displays etc</div>
+                    <div class="image">
+                        <img src="/static/images/mod_test/cube.gif" />
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="title">ColorZ</div>
+                    <div class="subtitle">The SMB modpack consists of over 5 different mods containing survival mode, wireless displays etc</div>
+                    <div class="image">
+                        <img src="/static/images/mod_test/cube.gif" />
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="title">ColorZ</div>
+                    <div class="subtitle">The SMB modpack consists of over 5 different mods containing survival mode, wireless displays etc</div>
+                    <div class="image">
+                        <img src="/static/images/mod_test/cube.gif" />
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="title">ColorZ</div>
+                    <div class="subtitle">The SMB modpack consists of over 5 different mods containing survival mode, wireless displays etc</div>
+                    <div class="image">
+                        <img src="/static/images/mod_test/cube.gif" />
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <%- include('../partials/footer.ejs') %>
