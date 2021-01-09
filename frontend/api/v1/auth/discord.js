@@ -1,14 +1,14 @@
 const passport = require("passport");
 const DiscordStrategy = require("passport-discord");
 const apiVariables = require("../api_variables");
-const db = require("../db");
+const users = require("../database/users");
 
 passport.serializeUser((user, done) => {
-    done(null, user.id);
+    done(null, user.discordId);
 });
 
-passport.deserializeUser(async(discordId, done) => {
-    db.getUserById(discordId, done);
+passport.deserializeUser((discordId, done) => {
+    users.findUser({ discordId: discordId }, done);
 });
 
 passport.use(
@@ -19,36 +19,33 @@ passport.use(
             scope: ["identify", "email", "guilds"],
         },
         async(accessToken, refreshToken, profile, done) => {
-            db.getUserById(profile.id, (error, user) => {
-                if (user && !user.verified && profile.guilds.findIndex((guild) => guild.id === apiVariables.discordServerId) >= 0) {
-                    return db.updateUserById(
-                        profile.id, {
-                            verified: 1,
-                        },
-                        done
-                    );
-                } else if (user) {
-                    return done(null, user);
+            users.findUser({ discordId: profile.id }, (err, user) => {
+                if (err) done(err, null);
+                else if (user) {
+                    if (!user.verified && profile.guilds.findIndex((guild) => guild.id === apiVariables.discordServerId) >= 0)
+                        users.editUser(
+                            user._id, {
+                                verified: true,
+                            },
+                            done
+                        );
+                    else done(null, user);
                 } else {
-                    console.log(profile);
-                    return db.createUser({
+                    users.addUser({
                             discordId: profile.id,
-                            token: accessToken,
                             email: profile.email,
                             username: profile.username,
                             tag: profile.discriminator,
                             avatar: profile.avatar,
+                            seen: [],
+                            settings: {
+                                darkMode: true,
+                                publicTag: false,
+                            },
+                            verified: profile.guilds.findIndex((guild) => guild.id === apiVariables.discordServerId) >= 0,
+                            roles: ["user"],
                         },
-                        (error, user) => {
-                            if (user && !user.verified && profile.guilds.findIndex((guild) => guild.id === apiVariables.discordServerId) >= 0)
-                                return db.updateUserById(
-                                    profile.id, {
-                                        verified: 1,
-                                    },
-                                    done
-                                );
-                            else return done(error, user);
-                        }
+                        done
                     );
                 }
             });

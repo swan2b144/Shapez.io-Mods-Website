@@ -17,6 +17,7 @@
         "ejs": "^3.1.5",
         "express": "^4.17.1",
         "express-session": "^1.17.1",
+        "mongodb": "^3.6.3",
         "passport": "^0.4.1",
         "passport-discord": "^0.1.4",
         "request": "^2.88.2"
