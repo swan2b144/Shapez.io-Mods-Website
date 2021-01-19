@@ -34,13 +34,14 @@ passport.use(
                     users.addUser({
                             discordId: profile.id,
                             email: profile.email,
+                            description: "",
                             username: profile.username,
                             tag: profile.discriminator,
                             avatar: profile.avatar,
                             seen: [],
                             settings: {
-                                darkMode: true,
                                 publicTag: false,
+                                language: "en",
                             },
                             verified: profile.guilds.findIndex((guild) => guild.id === apiVariables.discordServerId) >= 0,
                             roles: ["user"],

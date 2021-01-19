@@ -1,26 +1,24 @@
 <%- include('../partials/header.ejs') %>
-    <!-- <video autoplay muted playsinline loop class="fullscreenBackgroundVideo loaded">
-	<source src="static/videos/bg_render.webm" type="video/webm" />
-	<source src="static/videos/bg_render.mp4" type="video/mp4" />
-</video> -->
     <div class="wrapper mods">
         <!-- <div class="logo">
             <img src="/static/images/logo.svg" />
             <label class="label">Mods</label>
         </div> -->
-        <div class="header-title">Mod of the week</div>
+        <div class="header-title">
+            <%=language.mods.modOTW%>
+        </div>
         <div class="card mod-of-the-week">
             <a href="/mod/<%= modOTW.id %>" class="title">SMB Modpack</a>
             <div class="authors">
-                By
-                <% for(let i=0; i < modOTW.authors.length; i++){ %>
-                    <% let author = modOTW.authors[i] %>
-                        <a href="/user/<%= author.id %>" class="author">
-                            <% let str = author.username + (modOTW.authors.length-2 === i ? " & ": modOTW.authors.length-1 === i ? "":", "); %>
-                                <%str.trim();%>
-                                    <%= str %>
-                        </a>
-                        <% } %>
+                <%=language.mods.mobBy%>
+                    <% for(let i=0; i < modOTW.authors.length; i++){ %>
+                        <% let author = modOTW.authors[i] %>
+                            <a href="/user/<%= author.id %>" class="author">
+                                <% let str = author.username + (modOTW.authors.length-2 === i ? " & ": modOTW.authors.length-1 === i ? "":", "); %>
+                                    <%str.trim();%>
+                                        <%= str %>
+                            </a>
+                            <% } %>
             </div>
             <a href="/mod/<%= modOTW.id %>" class="subtitle">The SMB modpack consists of over 5 different mods containing survival mode, wireless displays etc</a>
             <a href="/mod/<%= modOTW.id %>" class="images">
@@ -35,30 +33,38 @@
         <div class="browse">
             <div class="sidebar">
                 <div class="sidebar-bar">
-                    <div class="title">Search</div>
+                    <div class="title">
+                        <%=language.mods.search%>
+                    </div>
                     <div class="search">
-                        <input type="text" id="mod-search" placeholder="Search" />
+                        <input type="text" id="mod-search" placeholder="<%=language.mods.search%>" />
                     </div>
                     <div class="verified search-option">
-                        <div class="title">Verified</div>
+                        <div class="title">
+                            <%=language.mods.searchOptions.verified.title%>
+                        </div>
                         <label class="switch">
 						<input type="checkbox" checked />
 						<span class="slider round"></span>
 					</label>
                     </div>
                     <div class="types search-option">
-                        <div class="title">Type</div>
-                        <label class="type"> <input type="checkbox" checked />Mods</label>
-                        <label class="type"> <input type="checkbox" checked />Modpack</label>
+                        <div class="title">
+                            <%=language.mods.searchOptions.type.title%>
+                        </div>
+                        <label class="type"> <input type="checkbox" checked /><%=language.mods.searchOptions.type.mod%></label>
+                        <label class="type"> <input type="checkbox" checked /><%=language.mods.searchOptions.type.modpack%></label>
                     </div>
                     <div class="categories search-option">
-                        <div class="title">Categories</div>
-                        <label class="categorie"> <input type="checkbox" checked />categorie1</label>
-                        <label class="categorie"> <input type="checkbox" checked />categorie2</label>
-                        <label class="categorie"> <input type="checkbox" checked />categorie3</label>
-                        <label class="categorie"> <input type="checkbox" checked />categorie4</label>
-                        <label class="categorie"> <input type="checkbox" checked />categorie5</label>
-                        <label class="categorie"> <input type="checkbox" checked />categorie6</label>
+                        <div class="title">
+                            <%=language.mods.searchOptions.categories.title%>
+                        </div>
+                        <label class="category"> <input type="checkbox" checked /><%=language.mods.searchOptions.categories.categorie1%></label>
+                        <label class="category"> <input type="checkbox" checked /><%=language.mods.searchOptions.categories.categorie2%></label>
+                        <label class="category"> <input type="checkbox" checked /><%=language.mods.searchOptions.categories.categorie3%></label>
+                        <label class="category"> <input type="checkbox" checked /><%=language.mods.searchOptions.categories.categorie4%></label>
+                        <label class="category"> <input type="checkbox" checked /><%=language.mods.searchOptions.categories.categorie5%></label>
+                        <label class="category"> <input type="checkbox" checked /><%=language.mods.searchOptions.categories.categorie6%></label>
                     </div>
                 </div>
             </div>

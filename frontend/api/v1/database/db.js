@@ -32,7 +32,7 @@ const findAll = (collection, callback) => {
 
     getConnection((client, db) => {
         db.collection(collection)
-            .find(data)
+            .find()
             .toArray((err, docs) => {
                 if (err) {
                     callback(err, null);

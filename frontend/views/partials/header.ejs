@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/static/css/reset.css" />
     <link rel="stylesheet" href="/static/css/style.css" />
-    <link rel="shortcut icon" href="/static/images/iconsvg" type="image/svg" />
+    <link rel="shortcut icon" href="/static/images/icon.svg" type="image/svg" />
     <title>
         <%= title %>
     </title>
@@ -19,30 +19,67 @@
                 <img src="/static/images/logo.svg" />
                 <label class="label">Mods</label>
             </a>
-            <% if(user) { %>
-                <a class="settings"></a>
-                <a href="/mods" class="link">Mods</a>
-                <% } %>
+            <a href="/mods" class="link">
+                <%=language.navbar.mods%>
+            </a>
         </div>
         <div class="search">
             <div class="search-bar">
-                <input type="text" id="search" placeholder="Search" />
-                <div class="categories">All Categories <img src="/static/images/arrow-down.svg" width="14px" /></div>
+                <input type="text" id="search" placeholder="<%=language.navbar.search.search%>" />
+                <div class="categories">
+                    <%=language.navbar.search.allCategories%> <img src="/static/images/arrow-down.svg" width="14px" /></div>
             </div>
         </div>
         <div class="right">
             <div class="links">
-                <a href="/about" class="link">About</a>
-                <a href="/contact" class="link">Contact</a>
-                <a href="/documentation" class="link">Documentation</a>
+                <a href="/about" class="link">
+                    <%=language.navbar.about%>
+                </a>
+                <a href="/contact" class="link">
+                    <%=language.navbar.contact%>
+                </a>
+                <a href="/documentation" class="link">
+                    <%=language.navbar.documentation%>
+                </a>
             </div>
             <% if(user) { %>
-                <a href="/api/v1/auth/logout" class="link link-blue">Sign Out</a>
+                <div class="avatar">
+                    <img src="https://cdn.discordapp.com/avatars/<%= user.discordId%>/<%= user.avatar%>" />
+                    <div class="user">
+                        <a href="/user/<%= user.discordId %>" class="option"><img src="/static/images/avatar.svg" />
+                            <div class="text">
+                                <%=language.navbar.user.profile%>
+                            </div>
+                        </a>
+                        <a href="/dashboard/" class="option"><img src="/static/images/edit_key_dark.png" />
+                            <div class="text">
+                                <%=language.dashboard.title%>
+                            </div>
+                        </a>
+                        <a href="/dashboard/settings" class="option"><img src="/static/images/settings.png" />
+                            <div class="text">
+                                <%=language.navbar.user.settings%>
+                            </div>
+                        </a>
+                        <a href="/api/v1/auth/logout" class="option"><img src="/static/images/logout.png" />
+                            <div class="text">
+                                <%=language.navbar.user.logout%>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
                 <% } else { %>
-                    <a href="/api/v1/auth/login" class="link link-blue">Sign In</a>
+                    <a href="/api/v1/auth/login" class="signin link link-blue">
+                        <%=language.navbar.signin%>
+                    </a>
                     <% } %>
         </div>
     </nav>
+    <video autoplay muted playsinline loop class="fullscreenBackgroundVideo loaded">
+			<source src="/static/videos/bg_render.webm" type="video/webm" />
+			<source src="/static/videos/bg_render.mp4" type="video/mp4" />
+		</video>
 </body>
 
 </html>

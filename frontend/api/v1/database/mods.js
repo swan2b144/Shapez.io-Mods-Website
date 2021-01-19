@@ -19,17 +19,6 @@ const removeMod = (id, callback) => {
     db.remove("mods", id, callback);
 };
 
-Date.prototype.getWeek = function() {
-    var date = new Date(this.getTime());
-    date.setHours(0, 0, 0, 0);
-    // Thursday in current week decides the year.
-    date.setDate(date.getDate() + 3 - ((date.getDay() + 6) % 7));
-    // January 4 is always in week 1.
-    var week1 = new Date(date.getFullYear(), 0, 4);
-    // Adjust to Thursday in week 1 and count number of weeks from date to week1.
-    return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + ((week1.getDay() + 6) % 7)) / 7);
-};
-
 const getModOTW = (callback) => {
     mods((err, docs) => {
         if (err) callback(err, null);
@@ -65,4 +54,25 @@ const getModOTW = (callback) => {
         } else callback(null, null);
     });
 };
-module.exports = { mods, findMod, addMod, editMod, removeMod, getModOTW };
+
+const router = require("express").Router();
+router.get("/uuid", (req, res) => {
+    if (!req.user) {
+        res.status(401).redirect("/forbidden");
+        return;
+    }
+    if (!res.body) {
+        res.sendStatus(400);
+    }
+    mods((err, mods) => {
+        if (!err && mods) {
+            let exists = mods.some((mod) => mod.id === req.body);
+            if (exists) res.sendStatus(406);
+            else res.sendStatus(200);
+        } else {
+            res.sendStatus(501);
+        }
+    });
+});
+
+module.exports = { mods, findMod, addMod, editMod, removeMod, getModOTW, router };

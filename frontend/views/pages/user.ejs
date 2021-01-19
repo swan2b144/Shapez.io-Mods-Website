@@ -1,0 +1,26 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/stackoverflow-dark.min.css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+<%- include('../partials/header.ejs') %>
+    <div class="wrapper">
+        <div class="users">
+            <!-- TODO: add mods, modpacks and posts -->
+            <div class="username">
+                <div class="avatar">
+                    <img src="https://cdn.discordapp.com/avatars/<%= requestedUser.discordId%>/<%= requestedUser.avatar%>" />
+                    <div class="title">
+                        <% let username = requestedUser.username + (requestedUser.settings.publicTag ? "#"+requestedUser.tag:"") %>
+                            <%=username %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="description">
+                <%- description %>
+            </div>
+        </div>
+    </div>
+    <%- include('../partials/footer.ejs') %>

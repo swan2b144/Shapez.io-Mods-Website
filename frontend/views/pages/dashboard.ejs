@@ -1,0 +1,295 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/stackoverflow-dark.min.css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+<%- include('../partials/header.ejs') %>
+    <div class="dashboard">
+        <div class="wrapper">
+            <div class="browse">
+                <div class="sidebar">
+                    <div class="sidebar-bar">
+                        <div class="title">Dashboard</div>
+                        <div class="categories">
+                            <% for(let i = 0; i < categories.length; i++){ %>
+                                <a id="<%= categories[i].id %>" href="/dashboard/<%= categories[i].id %>" <%- categories[i].visible ? "": `style="display: none;" `%> class="category <%= category === categories[i].id ? " active ":" "%>"><img src="<%=categories[i].icon%>" <%= categories[i].invert ? 'class=invert':""%> />
+							<div class="text"><%=categories[i].text%></div>
+						</a>
+                                <% } %>
+                        </div>
+                    </div>
+                </div>
+                <div class="content" id="content">
+                    <%for(let i = 0; i < categories.length; i++){let category = categories[i];%>
+                        <div id="<%= category.id%>-content">
+                            <div class="title">
+                                <%= category.title%>
+                            </div>
+                            <%for(let j = 0; j < category.content.length;j++){let setting = category.content[j];if(setting.contentType ==="setting"){%>
+                                <div class="setting">
+                                    <div class="row">
+                                        <label><%= setting.title%></label>
+                                        <div class="value <%= setting.type%>">
+                                            <% if(setting.type === "enum") { %>
+                                                <select oninput="let onChange = <%-setting.onChange (languages, language, user)%>; onChange(this.value); ">
+                                                    <%for(let x = 0; x < setting.options.length;x++){let option = setting.options[x];%>
+                                                    <option value="<%=option%>" <%= option === setting.value ? "selected":"" %>><%= setting.getText (languages, language, user)(option) %></option>
+                                                    <% } %>
+                                    </select>
+                                                <% } else if(setting.type === "boolean"){ %>
+                                                    <label class="switch">
+                                            <input type="checkbox" oninput="let onChange = <%-setting.onChange (languages, language, user)%>; onChange(this.checked);" <%= setting.value ? "checked":""%> />
+                                            <span class="slider round"></span>
+                                        </label>
+                                                    <% }else if(setting.type === "range"){ %>
+                                                        <label><%=setting.getText (languages, language, user)(setting.value)%></label>
+                                                        <input oninput="let getText = <%=setting.getText (languages, language, user)%>; let onChange = <%-setting.onChange (languages, language, user)%>; onChange(this.value); this.previousElementSibling.innerText = getText(this.value);" class="rangeInput" type="range"
+                                                            value="<%=setting.value%>" min="<%=setting.min%>" max="<%=setting.max%>" step="<%=setting.step%>">
+                                                        <% } %>
+
+                                        </div>
+                                    </div>
+                                    <div class="desc">
+                                        <%= setting.desc%>
+                                    </div>
+                                </div>
+                                <% } else if(setting.contentType ==="form"){ %>
+                                    <div class="form">
+                                        <div class="title">
+                                            <%= setting.title%>
+                                        </div>
+                                        <% for(let x = 0; x < setting.content.length; x++){ let formElement = setting.content[x];%>
+                                            <% if(formElement.type === "text") {  %>
+                                                <label for="<%= formElement.id %>"><%= formElement.title %></label>
+                                                <input oninput="let onChange = <%= formElement.onChange (languages, language, user) %>; onChange(this.value);" type="text" id="<%= formElement.id %>" class="<%= formElement.classes.join(" ")%>" <%=formElement.value ? `value="${formElement.value}" ` :
+                                                    ""%>>
+                                                <% } else if(formElement.type === "page"){ %>
+                                                    <label for="<%= formElement.id %>"><%= formElement.title %></label>
+                                                    <textarea oninput="textareaChanged(this);let onChange = <%= formElement.onChange (languages, language, user) %>; onChange(this.value);" id="<%= formElement.id %>" rows="10"> <%-formElement.value ? formElement.value :
+                                                        ""%></textarea>
+                                                    <h2>Preview</h2>
+                                                    <div id="<%= formElement.id %>-preview" class="preview"></div>
+                                                    <% } else if(formElement.type === "list"){ %>
+                                                        <label for="<%= formElement.id %>"><%= formElement.title %></label>
+                                                        <ul id="<%= formElement.id %>">
+                                                            <% if(formElement.value){ %>
+                                                                <%formElement.value.forEach(element => {%>
+                                                                    <li>
+                                                                        <a onclick="removeListItem(<%= formElement.id %>, this.parentNode)">
+                                                                            <%= element %>
+                                                                        </a>
+                                                                    </li>
+                                                                    <%}); %>
+                                                                        <% }%>
+                                                        </ul>
+                                                        <input onchange="addListItem('<%= formElement.id %>', <%= formElement.getText(languages, language, user) %>, this.value);" type="text" id="<%= formElement.id %>-add" class="<%= formElement.classes.join(" ")%>">
+                                                        <% } else if(formElement.type === "select"){ %>
+                                                            <label for="<%= formElement.id %>"><%= formElement.title %></label>
+                                                            <select id="<%= formElement.id %>" oninput="let onChange = <%=formElement.onChange (languages, language, user)%>; onChange(this.value); ">
+                                                                <%for(let y = 0;y < formElement.options.length;y++){let option = formElement.options[y];%>
+                                                                <option value="<%=option%>"><%= formElement.getText (languages, language, user)(option) %></option>
+                                                                <% } %>
+                                                </select>
+                                                            <% } else if(formElement.type === "images"){ %>
+                                                                <label for="<%= formElement.id %>"><%= formElement.title %></label>
+                                                                <label for="<%= formElement.id %>" class="upload">
+                                                                    <div class="upload-title"><%= language.dashboard.upload%></div>
+                                                                </label>
+                                                                <input type="file" id="<%= formElement.id %>" accept="image/png" multiple data-maxImages="<%= formElement.max %>">
+                                                                <% } else if(formElement.type === "js"){ %>
+                                                                    <label for="<%= formElement.id %>"><%= formElement.title %></label>
+                                                                    <label for="<%= formElement.id %>" class="upload">
+                                                                        <div class="upload-title"><%= language.dashboard.upload%></div>
+                                                                    </label>
+                                                                    <input type="file" id="<%= formElement.id %>" accept=".js" multiple data-maxJs="<%= formElement.max %>">
+
+                                                                    <% } %>
+                                                                        <% } %>
+                                                                            <%if(setting.post){%>
+                                                                                <a onclick="let onChange = <%=setting.post.onChange (languages, language, user)%>; onChange(this);" class="post">
+                                                                                    <%= setting.post.title %>
+                                                                                </a>
+                                                                                <% } %>
+                                    </div>
+                                    <% } else if(setting.contentType ==="button"){ %>
+                                        <a <%-setting.category ? `onclick="setActive('${setting.category}')" `: setting.href ? `href=${setting.href} ` : "" %> class="setting button">
+                                            <div class="row">
+                                                <label><%= setting.title%></label>
+                                                <div class="value">
+                                                    <% if(setting.category){ %>
+                                                        <img src="/static/images/edit_key.png">
+                                                        <% }else if(setting.href){ %>
+                                                            <img src="/static/images/link.png">
+                                                            <% } %>
+                                                </div>
+                                            </div>
+                                            <div class="desc">
+                                                <%= setting.desc%>
+                                            </div>
+                                        </a>
+                                        <% } %>
+                                            <% } %>
+                        </div>
+                        <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+        let textareaChanged = (textarea) => {
+            document.getElementById(textarea.id + "-preview").innerHTML = format(textarea.value);
+            let codeParents = document.getElementById(textarea.id + "-preview").getElementsByTagName('pre');
+            for (let i = 0; i < codeParents.length; i++) {
+                let codes = codeParents[i].getElementsByTagName('code');
+                for (let j = 0; j < codes.length; j++) {
+                    hljs.highlightBlock(codes[j]);
+                }
+            }
+        }
+
+        function format(inputText) {
+            //Escape html
+            inputText = inputText.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+            inputText = inputText.replace(/\*\*(.*?)\*\*/g, "<b>$1</b>");
+            inputText = inputText.replace(/==(.*?)==/g, "<h1>$1</h1>");
+            inputText = inputText.replace(/-=(.*?)=-/g, "<h2>$1</h2>");
+            inputText = inputText.replace(/=-(.*?)-=/g, "<h3>$1</h3>");
+            inputText = inputText.replace(/__(.*?)__/g, "<u>$1</u>");
+            inputText = inputText.replace(/~~(.*?)~~/g, "<i>$1</i>");
+            inputText = inputText.replace(/--(.*?)--/g, "<del>$1</del>");
+            inputText = inputText.replace(/```([a-z]*)(.*?)```/gms, (match, group1, group2, offset, input_string) => {
+                return "<pre class='" + group1 + "'><code style='background-color: #535866; margin: 0;' class='" + group1 + "'>" + group2.trim() + "</code></pre>";
+            });
+            inputText = inputText.replace(/---/g, "<hr>");
+            inputText = inputText.replace(/(?:\r\n|\r|\n)/g, "<br>");
+
+            var replacedText, replacePattern1, replacePattern2, replacePattern3;
+
+            //URLs starting with http://, https://, or ftp://
+            replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
+            replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">$1</a>');
+
+            //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
+            replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
+            replacedText = replacedText.replace(replacePattern2, '$1<a href="http://$2" target="_blank">$2</a>');
+
+            //Change email addresses to mailto:: links.
+            replacePattern3 = /(([a-zA-Z0-9\-\_\.])+@[a-zA-Z\_]+?(\.[a-zA-Z]{2,6})+)/gim;
+            replacedText = replacedText.replace(replacePattern3, '<a href="mailto:$1">$1</a>');
+
+            return replacedText;
+        }
+
+
+
+        let textarea = document.getElementsByTagName('textarea')
+        for (var i = 0; i < textarea.length; i++) {
+            textarea[i].nextElementSibling.onclick = (e) => {
+                var target = e.target || e.srcElement;
+                if (target.nextElementSibling.style.maxHeight === '0px')
+                    target.nextElementSibling.removeAttribute("style");
+                else {
+                    target.nextElementSibling.style.maxHeight = '0px';
+                    target.nextElementSibling.style.padding = '0px';
+                }
+            };
+            textarea[i].addEventListener('keydown', function(e) {
+                e = e || window.event;
+                var target = e.target || e.srcElement;
+                if (e.key == 'Tab') {
+                    e.preventDefault();
+                    var start = this.selectionStart;
+                    var end = this.selectionEnd;
+
+                    // set textarea value to: text before caret + tab + text after caret
+                    this.value = this.value.substring(0, start) +
+                        "\t" + this.value.substring(end);
+
+                    // put caret at right position again
+                    this.selectionStart =
+                        this.selectionEnd = start + 1;
+                    textareaChanged(target);
+                }
+            });
+        }
+
+        let maxFiles = (input, max, type) => {
+            input.onclick = (e) => {
+                e.target.value = '';
+            }
+            input.onchange = (e) => {
+                if (e.target.files.length > max) {
+                    alert(`Only ${max} files accepted.`);
+                    e.preventDefault();
+                    e.target.value = '';
+                    e.target.previousElementSibling.removeAttribute("style");
+                    e.target.previousElementSibling.getElementsByClassName('upload-title')[0].innerText = "<%= language.dashboard.upload%>";
+                } else {
+                    e.target.previousElementSibling.style.backgroundColor = '#66bb6a';
+                    e.target.previousElementSibling.getElementsByClassName('upload-title')[0].innerText = "<%= language.dashboard.uploaded%>";
+                }
+            }
+        }
+
+        let input = document.getElementsByTagName('input')
+        for (var i = 0; i < input.length; i++) {
+            if (input[i].getAttribute("type") !== "file") continue;
+            if (input[i].getAttribute("accept") === "image/png") maxFiles(input[i], input[i].getAttribute("data-maxImages"), 'image/png');
+            if (input[i].getAttribute("accept") === ".js") maxFiles(input[i], input[i].getAttribute("data-maxJs"), '.js')
+        }
+
+
+        let removeListItem = (id, li) => {
+            li.remove();
+        }
+
+        let addListItem = (id, getText, value) => {
+            let list = document.getElementById(id);
+            let li = document.createElement('li');
+            let a = document.createElement('a');
+            value.trim();
+            if (value === null || value.match(/^ *$/) !== null) return;
+            a.innerText = getText(value);
+            a.addEventListener("click", (e) => removeListItem(id, li));
+            li.id = `${id}-${value}`;
+            li.appendChild(a);
+            list.appendChild(li);
+        }
+
+        let setActive = (id) => {
+            window.history.pushState('', '<%= title%>', id);
+
+            var categories = document.getElementsByClassName("category");
+            for (let i = 0; i < categories.length; i++) {
+                categories.item(i).classList.remove('active');
+            }
+
+            var categoriesDivs = document.getElementById('content').getElementsByTagName('div');
+            for (i = 0; i < categoriesDivs.length; i++) {
+                categoriesDivs.item(i).classList.remove('active');
+            }
+
+            document.getElementById(id).classList.add('active');
+            document.getElementById(id + '-content').classList.add('active');
+        }
+
+        let anyActive = false;
+        let categories = document.getElementsByClassName("category");
+        for (let i = 0; i < categories.length; i++) {
+            let category = categories.item(i);
+            if (category.classList.contains('active')) {
+                anyActive = true;
+                document.getElementById(category.id + '-content').classList.add('active');
+            }
+
+            category.onclick = (e) => {
+                e.preventDefault();
+                setActive(category.id);
+            };
+        }
+        if (!anyActive)
+            setActive(categories.item(0).id);
+    </script>
+    <%- include('../partials/footer.ejs') %>
