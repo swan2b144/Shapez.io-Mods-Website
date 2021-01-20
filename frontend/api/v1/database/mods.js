@@ -1,10 +1,16 @@
 const db = require("./db");
+const fs = require("fs");
+const path = require("path");
 const mods = (callback) => {
     db.findAll("mods", callback);
 };
 
 const findMod = (data, callback) => {
     db.find("mods", data, callback);
+};
+
+const findMultipleMods = (data, callback) => {
+    db.findMultiple("mods", data, callback);
 };
 
 const addMod = (data, callback) => {
@@ -56,23 +62,182 @@ const getModOTW = (callback) => {
 };
 
 const router = require("express").Router();
-router.get("/uuid", (req, res) => {
-    if (!req.user) {
-        res.status(401).redirect("/forbidden");
+router.post("/", (req, res) => {
+    if (!req.user || !req.user.verified) {
+        res.sendStatus(401);
         return;
     }
-    if (!res.body) {
+    if (!req.body) {
         res.sendStatus(400);
+        return;
     }
+
+    let name = req.body.name.trim();
+    let description = req.body.description.trim();
+    let modid = req.body.modid.trim();
+    let version = req.body.version.trim();
+    let page = req.body.page.trim();
+    let collaberators = req.body.collaberators;
+    let gameversion = req.body.gameversion;
+    let photos = req.body.photos;
+    let bundle = req.body.bundle;
+    if (name.length < 5 || name.length > 255) {
+        return res.sendStatus(400);
+    }
+
+    if (description.length < 5 || description.length > 255) {
+        return res.sendStatus(400);
+    }
+
+    if (!/^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i.test(modid)) {
+        return res.sendStatus(400);
+    }
+
     mods((err, mods) => {
         if (!err && mods) {
-            let exists = mods.some((mod) => mod.id === req.body);
-            if (exists) res.sendStatus(406);
-            else res.sendStatus(200);
+            let exists = mods.some((mod) => mod.modid === req.body.modid);
+            if (exists) return res.sendStatus(406);
+
+            if (version.length < 1 || version.length > 255 || !/[^A-Za-z0-9_.]*/.test(version.value)) {
+                return res.sendStatus(400);
+            }
+
+            if (!bundle) {
+                return res.sendStatus(400);
+            }
+
+            if (photos.length < 2 && photos.length > 3) {
+                return res.sendStatus(400);
+            }
+
+            addMod({
+                    name: name,
+                    description: description,
+                    page: page,
+                    modid: modid,
+                    owner: user.discordId,
+                    collaberators: collaberators,
+                    currentVersion: version,
+                    version: [{
+                        id: version,
+                        date: new Date(),
+                        gameversion: gameversion,
+                    }, ],
+                    currentGameversion: gameversion,
+                    photos: photos,
+                    likes: [],
+                    seen: [],
+                    downloads: [],
+                    verified: false,
+                },
+                (err, mod) => {
+                    if (err) {
+                        return res.sendStatus(500);
+                    }
+                    let dir = path.join(__dirname, "..", "..", "..", "public", "mods", `${modid}`);
+                    if (!fs.existsSync(dir)) {
+                        fs.mkdirSync(dir);
+                    }
+                    fs.writeFileSync(path.join(dir, `${version}.js`), bundle);
+                    res.sendStatus(200);
+                }
+            );
         } else {
-            res.sendStatus(501);
+            console.log(err);
+            res.sendStatus(500);
+            return;
         }
     });
 });
 
-module.exports = { mods, findMod, addMod, editMod, removeMod, getModOTW, router };
+router.patch("/:id", (req, res) => {
+    if (!req.user || !req.user.verified) {
+        res.sendStatus(401);
+        return;
+    }
+    if (!req.body) {
+        res.sendStatus(400);
+        return;
+    }
+
+    let data = {};
+
+    let version = req.body.version;
+    if (version) {
+        if (!version.id || !version.gameversion || !version.bundle || !version.modid) return res.sendStatus(400);
+
+        data.currentGameversion = version.gameversion;
+        data.currentVersion = version.id;
+        if (!data.$push) data.$push = {};
+        data.$push.versions = {
+            id: version.id,
+            gameversion: version.gameversion,
+            date: new Date(),
+        };
+    }
+
+    let name = req.body.name;
+    if (name) {
+        name = name.trim();
+        if (name.length < 5 || name.length > 255) return res.sendStatus(400);
+
+        data.name = name;
+    }
+
+    let description = req.body.description;
+    if (description) {
+        description = description.trim();
+        if (description.length < 5 || description.length > 255) return res.sendStatus(400);
+
+        data.description = description;
+    }
+
+    let collaberators = req.body.collaberators;
+    if (collaberators) data.collaberators = collaberators;
+
+    let page = req.body.page;
+    if (page) data.page = page.trim();
+
+    let photos = req.body.photos;
+    if (photos) {
+        if (photos.length < 2 && photos.length > 3) return res.sendStatus(400);
+        data.photos = photos;
+    }
+
+    editMod(req.params.id, data, (err, mod) => {
+        if (err) {
+            console.log(err);
+            return res.sendStatus(500);
+        }
+        if (version) {
+            let dir = path.join(__dirname, "..", "..", "..", "public", "mods", `${version.modid}`);
+            if (!fs.existsSync(dir)) {
+                fs.mkdirSync(dir);
+            }
+            fs.writeFileSync(path.join(dir, `${version.id}.js`), version.bundle);
+        }
+        res.sendStatus(200);
+    });
+});
+
+router.get("/uuid", (req, res) => {
+    if (!req.user) {
+        res.sendStatus(401);
+        return;
+    }
+    if (!req.body) {
+        res.sendStatus(400);
+        return;
+    }
+    mods((err, mods) => {
+        if (!err && mods) {
+            let exists = mods.some((mod) => mod.modid === req.body.modid);
+            if (exists) res.sendStatus(406);
+            else res.sendStatus(200);
+        } else {
+            res.sendStatus(500);
+        }
+    });
+});
+
+module.exports = { mods, findMod, addMod, editMod, removeMod, getModOTW, findMultipleMods, router };

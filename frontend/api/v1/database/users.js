@@ -8,6 +8,10 @@ const findUser = (data, callback) => {
     db.find("users", data, callback);
 };
 
+const findMultipleUsers = (data, callback) => {
+    db.findMultiple("users", data, callback);
+};
+
 const addUser = (data, callback) => {
     db.add("users", data, callback);
 };
@@ -22,13 +26,14 @@ const removeUser = (id, callback) => {
 
 const router = require("express").Router();
 
-router.post("/edit", (req, res) => {
+router.patch("/", (req, res) => {
     if (!req.user) {
-        res.status(401).redirect("/forbidden");
+        res.sendStatus(401);
         return;
     }
-    if (!res.body) {
+    if (!req.body) {
         res.sendStatus(400);
+        return;
     }
     editUser(req.user._id, req.body, (err, user) => {
         if (!err && user) {
@@ -36,13 +41,13 @@ router.post("/edit", (req, res) => {
             res.sendStatus(200);
             return;
         } else {
-            res.sendStatus(501);
+            res.sendStatus(500);
         }
     });
 });
 router.get("/", (req, res) => {
     if (!req.isAuthenticated()) {
-        res.status(401).redirect("/forbidden");
+        res.sendStatus(401);
         return;
     }
     users((err, users) => {
@@ -58,13 +63,13 @@ router.get("/", (req, res) => {
             });
             res.json(users);
         } else {
-            res.sendStatus(501);
+            res.sendStatus(500);
         }
     });
 });
 router.get("/:id", (req, res) => {
     if (!req.isAuthenticated()) {
-        res.status(401).redirect("/forbidden");
+        res.sendStatus(401);
         return;
     }
     findUser({ discordId: req.params.id }, (err, user) => {
@@ -81,9 +86,9 @@ router.get("/:id", (req, res) => {
         } else if (!err) {
             res.sendStatus(404);
         } else {
-            res.sendStatus(501);
+            res.sendStatus(500);
         }
     });
 });
 
-module.exports = { users, findUser, addUser, editUser, removeUser, router };
+module.exports = { users, findUser, addUser, editUser, removeUser, findMultipleUsers, router };

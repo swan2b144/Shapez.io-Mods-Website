@@ -26,6 +26,26 @@ const find = (collection, data, callback) => {
             });
     });
 };
+const findMultiple = (collection, data, callback) => {
+    if (!data || !collection) callback(null, null);
+
+    getConnection((client, db) => {
+        db.collection(collection)
+            .find(data)
+            .toArray((err, docs) => {
+                if (err) {
+                    callback(err, null);
+                    client.close();
+                } else if (docs.length > 0) {
+                    callback(null, docs);
+                    client.close();
+                } else {
+                    callback(null, null);
+                    client.close();
+                }
+            });
+    });
+};
 
 const findAll = (collection, callback) => {
     if (!collection) callback(null, null);
@@ -37,7 +57,7 @@ const findAll = (collection, callback) => {
                 if (err) {
                     callback(err, null);
                     client.close();
-                } else if (docs.length > 0) {
+                } else if (docs.length >= 0) {
                     callback(null, docs);
                     client.close();
                 } else {
@@ -67,22 +87,43 @@ const add = (collection, data, callback) => {
 
 const edit = (collection, id, data, callback) => {
     getConnection((client, db) => {
-        db.collection(collection).updateOne({ _id: new mongo.ObjectID(id) }, {
-                $set: data,
-            },
-            (err, result) => {
-                if (err) {
-                    callback(err, null);
-                    client.close();
-                } else if (result) {
-                    find(collection, { _id: new mongo.ObjectID(id) }, callback);
-                    client.close();
-                } else {
-                    callback(null, null);
-                    client.close();
+        if (data.$push) {
+            let { $push, ...$set } = data;
+            db.collection(collection).updateOne({ _id: new mongo.ObjectID(id) }, {
+                    $set: $set,
+                    $push: $push,
+                },
+                (err, result) => {
+                    if (err) {
+                        callback(err, null);
+                        client.close();
+                    } else if (result) {
+                        find(collection, { _id: new mongo.ObjectID(id) }, callback);
+                        client.close();
+                    } else {
+                        callback(null, null);
+                        client.close();
+                    }
                 }
-            }
-        );
+            );
+        } else {
+            db.collection(collection).updateOne({ _id: new mongo.ObjectID(id) }, {
+                    $set: data,
+                },
+                (err, result) => {
+                    if (err) {
+                        callback(err, null);
+                        client.close();
+                    } else if (result) {
+                        find(collection, { _id: new mongo.ObjectID(id) }, callback);
+                        client.close();
+                    } else {
+                        callback(null, null);
+                        client.close();
+                    }
+                }
+            );
+        }
     });
 };
 
@@ -114,4 +155,4 @@ const remove = (collection, id, callback) => {
     });
 };
 
-module.exports = { getConnection, find, findAll, add, edit, remove };
+module.exports = { getConnection, find, findAll, add, edit, remove, findMultiple };

@@ -7,6 +7,10 @@ const findPost = (data, callback) => {
     db.find("posts", data, callback);
 };
 
+const findMultiplePosts = (data, callback) => {
+    db.findMultiple("posts", data, callback);
+};
+
 const addPost = (data, callback) => {
     db.add("posts", data, callback);
 };
@@ -19,4 +23,4 @@ const removePost = (id, callback) => {
     db.remove("posts", id, callback);
 };
 
-module.exports = { posts, findPost, addPost, editPost, removePost };
+module.exports = { posts, findPost, addPost, editPost, removePost, findMultiplePosts };

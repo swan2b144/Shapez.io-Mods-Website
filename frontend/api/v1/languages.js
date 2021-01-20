@@ -77,6 +77,12 @@ let en = {
         mods: {
             title: "Mods",
             content: {
+                addVersion: {
+                    post: "Add version",
+                },
+                updateMod: {
+                    post: "Update mod",
+                },
                 addMod: {
                     title: "Add new mod",
                     post: "Add mod",
@@ -175,6 +181,12 @@ let nl = {
         mods: {
             title: "Mods",
             content: {
+                addVersion: {
+                    post: "Voeg versie toe",
+                },
+                updateMod: {
+                    post: "Update mod",
+                },
                 addMod: {
                     title: "Voeg nieuwe mod toe",
                     post: "Voeg mod toe",

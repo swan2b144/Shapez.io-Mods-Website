@@ -2,15 +2,20 @@ require("./api/v1/auth/discord");
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
-const users = require("./api/v1/database/users");
+const usersDB = require("./api/v1/database/users");
 const languages = require("./api/v1/languages");
+const dashboard = require("./dashboard/dashboard");
 
 const PORT = 3007;
 const HOST = "http://localhost";
 
 var app = express();
 app.set("view engine", "ejs");
-app.use(express.json()); // for parsing application/json
+app.use(
+    express.json({
+        limit: "1mb",
+    })
+); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 //Auth
@@ -90,254 +95,12 @@ app.get("/dashboard/:category?", function(req, res) {
         res.redirect("/forbidden");
         return;
     }
-    let categories = [{
-            id: "mods",
-            icon: "/static/images/icon.svg",
-            invert: false,
-            text: req.language.dashboard.mods.title,
-            visible: true,
-            content: [{
-                    contentType: "button",
-                    title: "Shrimp's modbrowser",
-                    desc: "blasldadsf!",
-                    category: "settings",
-                },
-                {
-                    title: req.language.dashboard.mods.content.addMod.title,
-                    post: {
-                        title: req.language.dashboard.mods.content.addMod.post,
-                        onChange: (languages, language, user) => (button) => {
-                            document
-                                .getElementById("mods-content")
-                                .getElementsByClassName("incorrect")
-                                .forEach((element) => {
-                                    element.classList.remove("incorrect");
-                                });
-                            let name = document.getElementById("mod-name");
-                            let description = document.getElementById("mod-description");
-                            let page = document.getElementById("mod-add-new-mod-page");
-                            let modid = document.getElementById("mod-modid");
-                            let collaberators = document.getElementById("mod-collaberators");
-                            let version = document.getElementById("mod-version");
-                            let gameversion = document.getElementById("mod-gameversion");
-                            let photos = document.getElementById("mod-photos");
-                            let bundle = document.getElementById("mod-bundle");
 
-                            let incorrect = false;
-
-                            if (name.value.length > 255) {
-                                name.classList.add("incorrect");
-                                incorrect = true;
-                            }
-
-                            if (description.value.length > 255) {
-                                description.classList.add("incorrect");
-                                incorrect = true;
-                            }
-
-                            if (modid.value.length > 255 || !/^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i.test(modid.value)) {
-                                modid.classList.add("incorrect");
-                                incorrect = true;
-                            }
-
-                            var xhr = new XMLHttpRequest();
-                            xhr.open(`GET`, `http://localhost:3007/api/v1/database/mods`, false);
-                            xhr.send(modid);
-                            if (xhr.status !== 200) {
-                                modid.classList.add("incorrect");
-                                incorrect = true;
-                            }
-
-                            if (version.value.length > 255) {
-                                version.classList.add("incorrect");
-                                incorrect = true;
-                            }
-
-                            if (bundle.files.length !== 0) {
-                                bundle.classList.add("incorrect");
-                                incorrect = true;
-                            }
-
-                            if (photos.files.length > 3) {
-                                photos.classList.add("incorrect");
-                                incorrect = true;
-                            }
-                            //TODO: upload and check on server side
-                        },
-                    },
-                    contentType: "form",
-                    content: [{
-                            type: "text",
-                            id: "mod-name",
-                            title: req.language.dashboard.mods.content.addMod.fields.name,
-                            classes: [],
-                            onChange: (languages, language, user) => (value) => {},
-                        },
-                        {
-                            type: "text",
-                            id: "mod-description",
-                            title: req.language.dashboard.mods.content.addMod.fields.description,
-                            classes: [],
-                            onChange: (languages, language, user) => (value) => {},
-                        },
-                        {
-                            type: "page",
-                            id: "mod-add-new-mod-page",
-                            title: req.language.dashboard.mods.content.addMod.fields.modPage,
-                            classes: [],
-                            onChange: (languages, language, user) => (value) => {},
-                        },
-                        {
-                            type: "text",
-                            id: "mod-modid",
-                            title: req.language.dashboard.mods.content.addMod.fields.modId,
-                            classes: [],
-                            onChange: (languages, language, user) => (value) => {},
-                        },
-                        {
-                            type: "list",
-                            id: "mod-collaberators",
-                            title: req.language.dashboard.mods.content.addMod.fields.collaberators,
-                            classes: [],
-                            onChange: (languages, language, user) => (value) => {},
-                            getText: (languages, language, user) => (value) => {
-                                var xhr = new XMLHttpRequest();
-                                xhr.open(`GET`, `http://localhost:3007/api/v1/database/users/${value}`, false);
-                                xhr.send();
-                                try {
-                                    return JSON.parse(xhr.response).username;
-                                } catch (error) {
-                                    return value;
-                                }
-                            },
-                        },
-                        {
-                            type: "text",
-                            id: "mod-version",
-                            title: req.language.dashboard.mods.content.addMod.fields.version,
-                            classes: [],
-                            onChange: (languages, language, user) => (value) => {},
-                        },
-                        {
-                            type: "select",
-                            id: "mod-gameversion",
-                            title: req.language.dashboard.mods.content.addMod.fields.gameVersion,
-                            options: ["1007"],
-                            classes: [],
-                            getText: (languages, language, user) => (value) => value,
-                            onChange: (languages, language, user) => (value) => {},
-                        },
-                        {
-                            type: "images",
-                            id: "mod-photos",
-                            max: 3,
-                            title: req.language.dashboard.mods.content.addMod.fields.photos,
-                            classes: [],
-                            onChange: (languages, language, user) => (value) => {},
-                        },
-                        {
-                            type: "js",
-                            id: "mod-bundle",
-                            max: 1,
-                            title: req.language.dashboard.mods.content.addMod.fields.bundle,
-                            classes: [],
-                            onChange: (languages, language, user) => (value) => {},
-                        },
-                    ],
-                },
-            ],
-        },
-        {
-            id: "settings",
-            icon: "/static/images/settings.png",
-            invert: true,
-            text: req.language.dashboard.settings.title,
-            visible: true,
-            content: [{
-                    contentType: "setting",
-                    type: "enum",
-                    options: Object.keys(languages.languages),
-                    getText: (languages, language, user) => (option) => {
-                        return languages[option].name;
-                    },
-                    onChange: (languages, language, user) => (option) => {
-                        var xhr = new XMLHttpRequest();
-                        xhr.onreadystatechange = function() {
-                            if (xhr.readyState == XMLHttpRequest.DONE) {
-                                window.location.reload();
-                            }
-                        };
-                        xhr.open(`POST`, `http://localhost:3007/api/v1/database/users/edit`, true);
-                        xhr.setRequestHeader(`Content-Type`, `application/json`);
-                        xhr.send(
-                            JSON.stringify({
-                                [`settings.language`]: option,
-                            })
-                        );
-                    },
-                    value: req.user.settings.language,
-                    title: req.language.dashboard.settings.content.language.title,
-                    desc: req.language.dashboard.settings.content.language.description,
-                },
-                // {
-                //     contentType: "setting",
-                //     type: "range",
-                //     min: 0,
-                //     max: 200,
-                //     step: 2,
-                //     getText: (value) => Math.floor(value) + "%",
-                //     onChange: (value) => {
-                //         console.log(value);
-                //     },
-                //     value: 6,
-                //     title: "Geluidsvolume",
-                //     desc: "Stel het volume voor geluidseffecten in.",
-                // },
-                {
-                    contentType: "setting",
-                    type: "boolean",
-                    onChange: (languages, language, user) => (value) => {
-                        var xhr = new XMLHttpRequest();
-                        xhr.open(`POST`, `http://localhost:3007/api/v1/database/users/edit`, true);
-                        xhr.setRequestHeader(`Content-Type`, `application/json`);
-                        xhr.send(
-                            JSON.stringify({
-                                [`settings.publicTag`]: value,
-                            })
-                        );
-                    },
-                    value: req.user.settings.publicTag,
-                    title: req.language.dashboard.settings.content.publicTag.title,
-                    desc: req.language.dashboard.settings.content.publicTag.description,
-                },
-                {
-                    title: "Profile",
-                    contentType: "form",
-                    content: [{
-                        type: "page",
-                        id: "profile-page",
-                        classes: [],
-                        value: req.user.description,
-                        onChange: (languages, language, user) => (value) => {
-                            var xhr = new XMLHttpRequest();
-                            xhr.open(`POST`, `http://localhost:3007/api/v1/database/users/edit`, true);
-                            xhr.setRequestHeader(`Content-Type`, `application/json`);
-                            xhr.send(
-                                JSON.stringify({
-                                    [`description`]: value,
-                                })
-                            );
-                        },
-                    }, ],
-                },
-            ],
-        },
-    ];
-    res.render("pages/dashboard", { user: req.user, languages: languages.languages, language: req.language, title: "Shapez.io - Dashboard", categories: categories, category: req.params.category });
+    return dashboard.getDashbaord(req, res);
 });
 
 app.get("/user/:id", function(req, res) {
-    users.findUser({ discordId: req.params.id }, (err, user) => {
+    usersDB.findUser({ discordId: req.params.id }, (err, user) => {
         if (err) {
             res.render("pages/notfound", { user: req.user, language: req.language, title: "Shapez.io - Not found" });
             return;

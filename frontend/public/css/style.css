@@ -942,6 +942,19 @@ footer .text img {
     color: #abafc7;
 }
 
+.dashboard .content input[type="text"] {
+    outline: none;
+    border: none;
+    background-color: white;
+    font-family: "Barlow", sans-serif;
+    font-size: var(--font-middle);
+    border-radius: var(--border-radius);
+    padding: 5px;
+    color: #484c58;
+    width: calc(100% - 10px);
+    box-sizing: content-box;
+}
+
 .dashboard .content .switch {
     margin-top: 5px;
     width: 40px;
@@ -1218,6 +1231,10 @@ footer .text img {
     cursor: pointer;
     color: white;
     text-align: center;
+}
+
+.dashboard .content .form .upload.incorrect {
+    background-color: var(--red);
 }
 
 .dashboard .content .upload~input[type="file"] {

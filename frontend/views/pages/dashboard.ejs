@@ -14,7 +14,7 @@
                         <div class="categories">
                             <% for(let i = 0; i < categories.length; i++){ %>
                                 <a id="<%= categories[i].id %>" href="/dashboard/<%= categories[i].id %>" <%- categories[i].visible ? "": `style="display: none;" `%> class="category <%= category === categories[i].id ? " active ":" "%>"><img src="<%=categories[i].icon%>" <%= categories[i].invert ? 'class=invert':""%> />
-							<div class="text"><%=categories[i].text%></div>
+							<div class="text"><%=categories[i].title%></div>
 						</a>
                                 <% } %>
                         </div>
@@ -46,6 +46,7 @@
                                                         <label><%=setting.getText (languages, language, user)(setting.value)%></label>
                                                         <input oninput="let getText = <%=setting.getText (languages, language, user)%>; let onChange = <%-setting.onChange (languages, language, user)%>; onChange(this.value); this.previousElementSibling.innerText = getText(this.value);" class="rangeInput" type="range"
                                                             value="<%=setting.value%>" min="<%=setting.min%>" max="<%=setting.max%>" step="<%=setting.step%>">
+
                                                         <% } %>
 
                                         </div>
@@ -62,55 +63,55 @@
                                         <% for(let x = 0; x < setting.content.length; x++){ let formElement = setting.content[x];%>
                                             <% if(formElement.type === "text") {  %>
                                                 <label for="<%= formElement.id %>"><%= formElement.title %></label>
-                                                <input oninput="let onChange = <%= formElement.onChange (languages, language, user) %>; onChange(this.value);" type="text" id="<%= formElement.id %>" class="<%= formElement.classes.join(" ")%>" <%=formElement.value ? `value="${formElement.value}" ` :
+                                                <input oninput="let onChange = <%= formElement.onChange (languages, language, user) %>; onChange(this.value);" type="text" id="<%= formElement.id %>" class="<%= formElement.classes.join(" ")%>" <%-formElement.value ? `value="${formElement.value}" ` :
                                                     ""%>>
                                                 <% } else if(formElement.type === "page"){ %>
                                                     <label for="<%= formElement.id %>"><%= formElement.title %></label>
-                                                    <textarea oninput="textareaChanged(this);let onChange = <%= formElement.onChange (languages, language, user) %>; onChange(this.value);" id="<%= formElement.id %>" rows="10"> <%-formElement.value ? formElement.value :
+                                                    <textarea oninput="textareaChanged(this);let onChange = <%= formElement.onChange (languages, language, user) %>; onChange(this.value);" id="<%= formElement.id %>" rows="10"><%-formElement.value ? formElement.value :
                                                         ""%></textarea>
                                                     <h2>Preview</h2>
                                                     <div id="<%= formElement.id %>-preview" class="preview"></div>
                                                     <% } else if(formElement.type === "list"){ %>
                                                         <label for="<%= formElement.id %>"><%= formElement.title %></label>
                                                         <ul id="<%= formElement.id %>">
-                                                            <% if(formElement.value){ %>
-                                                                <%formElement.value.forEach(element => {%>
-                                                                    <li>
-                                                                        <a onclick="removeListItem(<%= formElement.id %>, this.parentNode)">
-                                                                            <%= element %>
-                                                                        </a>
-                                                                    </li>
-                                                                    <%}); %>
-                                                                        <% }%>
                                                         </ul>
-                                                        <input onchange="addListItem('<%= formElement.id %>', <%= formElement.getText(languages, language, user) %>, this.value);" type="text" id="<%= formElement.id %>-add" class="<%= formElement.classes.join(" ")%>">
-                                                        <% } else if(formElement.type === "select"){ %>
-                                                            <label for="<%= formElement.id %>"><%= formElement.title %></label>
-                                                            <select id="<%= formElement.id %>" oninput="let onChange = <%=formElement.onChange (languages, language, user)%>; onChange(this.value); ">
+                                                        <% if(formElement.value){ %>
+                                                            <%formElement.value.forEach(element => {%>
+                                                                <script>
+                                                                    window.onload = () => {
+                                                                        addListItem('<%= formElement.id %>', <%- formElement.getText(languages, language, user) %>, '<%=element%>')
+                                                                    };
+                                                                </script>
+                                                                <%}); %>
+                                                                    <% }%>
+                                                                        <input onchange="addListItem('<%= formElement.id %>', <%= formElement.getText(languages, language, user) %>, this.value);" type="text" id="<%= formElement.id %>-add" class="<%= formElement.classes.join(" ")%>">
+                                                                        <% } else if(formElement.type === "select"){ %>
+                                                                            <label for="<%= formElement.id %>"><%= formElement.title %></label>
+                                                                            <select id="<%= formElement.id %>" oninput="let onChange = <%=formElement.onChange (languages, language, user)%>; onChange(this.value); ">
                                                                 <%for(let y = 0;y < formElement.options.length;y++){let option = formElement.options[y];%>
                                                                 <option value="<%=option%>"><%= formElement.getText (languages, language, user)(option) %></option>
                                                                 <% } %>
                                                 </select>
-                                                            <% } else if(formElement.type === "images"){ %>
-                                                                <label for="<%= formElement.id %>"><%= formElement.title %></label>
-                                                                <label for="<%= formElement.id %>" class="upload">
+                                                                            <% } else if(formElement.type === "images"){ %>
+                                                                                <label for="<%= formElement.id %>"><%= formElement.title %></label>
+                                                                                <label for="<%= formElement.id %>" class="upload">
                                                                     <div class="upload-title"><%= language.dashboard.upload%></div>
                                                                 </label>
-                                                                <input type="file" id="<%= formElement.id %>" accept="image/png" multiple data-maxImages="<%= formElement.max %>">
-                                                                <% } else if(formElement.type === "js"){ %>
-                                                                    <label for="<%= formElement.id %>"><%= formElement.title %></label>
-                                                                    <label for="<%= formElement.id %>" class="upload">
+                                                                                <input type="file" id="<%= formElement.id %>" accept="image/png" multiple data-minImages="<%= formElement.min %>" data-maxImages="<%= formElement.max %>">
+                                                                                <% } else if(formElement.type === "js"){ %>
+                                                                                    <label for="<%= formElement.id %>"><%= formElement.title %></label>
+                                                                                    <label for="<%= formElement.id %>" class="upload">
                                                                         <div class="upload-title"><%= language.dashboard.upload%></div>
                                                                     </label>
-                                                                    <input type="file" id="<%= formElement.id %>" accept=".js" multiple data-maxJs="<%= formElement.max %>">
+                                                                                    <input type="file" id="<%= formElement.id %>" accept=".js" multiple data-minJs="<%= formElement.min %>" data-maxJs="<%= formElement.max %>">
 
-                                                                    <% } %>
-                                                                        <% } %>
-                                                                            <%if(setting.post){%>
-                                                                                <a onclick="let onChange = <%=setting.post.onChange (languages, language, user)%>; onChange(this);" class="post">
-                                                                                    <%= setting.post.title %>
-                                                                                </a>
-                                                                                <% } %>
+                                                                                    <% } %>
+                                                                                        <% } %>
+                                                                                            <%if(setting.post){%>
+                                                                                                <a onclick="let onChange = <%=setting.post.onChange (languages, language, user)%>; onChange(this);" class="post">
+                                                                                                    <%= setting.post.title %>
+                                                                                                </a>
+                                                                                                <% } %>
                                     </div>
                                     <% } else if(setting.contentType ==="button"){ %>
                                         <a <%-setting.category ? `onclick="setActive('${setting.category}')" `: setting.href ? `href=${setting.href} ` : "" %> class="setting button">
@@ -138,6 +139,24 @@
     </div>
     </div>
     <script>
+        const readFile = (file) => {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onloadend = (e) => {
+                    resolve(e.target.result)
+                };
+                reader.readAsText(file);
+            });
+        };
+        const readFileDataURL = (file) => {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onloadend = (e) => {
+                    resolve(e.target.result)
+                };
+                reader.readAsDataURL(file);
+            });
+        };
         let textareaChanged = (textarea) => {
             document.getElementById(textarea.id + "-preview").innerHTML = format(textarea.value);
             let codeParents = document.getElementById(textarea.id + "-preview").getElementsByTagName('pre');
@@ -215,6 +234,24 @@
             });
         }
 
+        let minFiles = (input, min, type) => {
+            input.onclick = (e) => {
+                e.target.value = '';
+            }
+            input.onchange = (e) => {
+                if (e.target.files.length < min) {
+                    alert(`Minimal ${min} files accepted.`);
+                    e.preventDefault();
+                    e.target.value = '';
+                    e.target.previousElementSibling.removeAttribute("style");
+                    e.target.previousElementSibling.getElementsByClassName('upload-title')[0].innerText = "<%= language.dashboard.upload%>";
+                } else {
+                    e.target.previousElementSibling.style.backgroundColor = '#66bb6a';
+                    e.target.previousElementSibling.getElementsByClassName('upload-title')[0].innerText = "<%= language.dashboard.uploaded%>";
+                }
+            }
+        }
+
         let maxFiles = (input, max, type) => {
             input.onclick = (e) => {
                 e.target.value = '';
@@ -233,11 +270,19 @@
             }
         }
 
+        let minMaxFiles = (input, min, max, type) => {
+            maxFiles(input, max, type);
+            minFiles(input, min, type);
+        }
+
         let input = document.getElementsByTagName('input')
         for (var i = 0; i < input.length; i++) {
             if (input[i].getAttribute("type") !== "file") continue;
-            if (input[i].getAttribute("accept") === "image/png") maxFiles(input[i], input[i].getAttribute("data-maxImages"), 'image/png');
-            if (input[i].getAttribute("accept") === ".js") maxFiles(input[i], input[i].getAttribute("data-maxJs"), '.js')
+            if (input[i].getAttribute("accept") === "image/png")
+                minMaxFiles(input[i], input[i].getAttribute("data-minImages"), input[i].getAttribute("data-maxImages"), 'image/png');
+
+            if (input[i].getAttribute("accept") === ".js")
+                minMaxFiles(input[i], input[i].getAttribute("data-minJs"), input[i].getAttribute("data-maxJs"), '.js')
         }
 
 
