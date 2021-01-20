@@ -21,6 +21,7 @@
         "mongodb": "^3.6.3",
         "passport": "^0.4.1",
         "passport-discord": "^0.1.4",
-        "request": "^2.88.2"
+        "request": "^2.88.2",
+        "rimraf": "^3.0.2"
     }
 }

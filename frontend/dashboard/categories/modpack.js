@@ -1,25 +1,25 @@
 const version = require("../../api/v1/version");
-module.exports = (req, res, mod) => {
+module.exports = (req, res, modpack) => {
     return {
-        id: `mod-${mod.modid}-${mod._id}`,
-        title: mod.name,
+        id: `modpack-${modpack.modpackid}-${modpack._id}`,
+        title: modpack.name,
         visible: false,
         content: [{
                 post: {
-                    title: req.language.dashboard.mods.content.updateMod.post,
+                    title: req.language.dashboard.modpacks.content.updateModpack.post,
                     onChange: (languages, language, user) => async(button) => {
                         let fomeElements = document.getElementsByClassName("category active")[0].getElementsByClassName("incorrect");
                         for (let i = 0; i < fomeElements.length; i++) {
                             fomeElements[i].classList.remove("incorrect");
                         }
                         let idList = document.getElementsByClassName("category active")[0].id.split("-");
-                        let modid = `${idList[1]}-${idList[2]}-${idList[3]}-${idList[4]}-${idList[5]}`;
+                        let modpackid = `${idList[1]}-${idList[2]}-${idList[3]}-${idList[4]}-${idList[5]}`;
                         let _id = idList[6];
-                        let name = document.getElementById(`mod-${modid}-name`);
-                        let description = document.getElementById(`mod-${modid}-description`);
-                        let page = document.getElementById(`mod-${modid}-page`);
-                        let collaberators = document.getElementById(`mod-${modid}-collaberators`);
-                        let photos = document.getElementById(`mod-${modid}-photos`);
+                        let name = document.getElementById(`modpack-${modpackid}-name`);
+                        let description = document.getElementById(`modpack-${modpackid}-description`);
+                        let page = document.getElementById(`modpack-${modpackid}-page`);
+                        let collaberators = document.getElementById(`modpack-${modpackid}-collaberators`);
+                        let photos = document.getElementById(`modpack-${modpackid}-photos`);
 
                         let incorrect = false;
 
@@ -57,7 +57,10 @@ module.exports = (req, res, mod) => {
                         }
                         var xhr = new XMLHttpRequest();
                         xhr.withCredentials = true;
-                        xhr.open(`PATCH`, `http://localhost:3007/api/v1/database/mods/${_id}`, true);
+                        xhr.open(`PATCH`, `http://localhost:3007/api/v1/database/modpacks/${_id}`, true);
+                        xhr.onreadystatechange = async(e) => {
+                            window.location.reload();
+                        };
                         xhr.setRequestHeader(`Content-Type`, `application/json`);
                         xhr.send(JSON.stringify(data));
                     },
@@ -65,33 +68,33 @@ module.exports = (req, res, mod) => {
                 contentType: "form",
                 content: [{
                         type: "text",
-                        id: `mod-${mod.modid}-name`,
-                        title: req.language.dashboard.mods.content.addMod.fields.name,
-                        value: mod.name,
+                        id: `modpack-${modpack.modpackid}-name`,
+                        title: req.language.dashboard.modpacks.content.addModpack.fields.name,
+                        value: modpack.name,
                         classes: [],
                         onChange: (languages, language, user) => (value) => {},
                     },
                     {
                         type: "text",
-                        id: `mod-${mod.modid}-description`,
-                        value: mod.description,
-                        title: req.language.dashboard.mods.content.addMod.fields.description,
+                        id: `modpack-${modpack.modpackid}-description`,
+                        value: modpack.description,
+                        title: req.language.dashboard.modpacks.content.addModpack.fields.description,
                         classes: [],
                         onChange: (languages, language, user) => (value) => {},
                     },
                     {
                         type: "page",
-                        id: `mod-${mod.modid}-page`,
-                        value: mod.page,
-                        title: req.language.dashboard.mods.content.addMod.fields.modPage,
+                        id: `modpack-${modpack.modpackid}-page`,
+                        value: modpack.page,
+                        title: req.language.dashboard.modpacks.content.addModpack.fields.modpackPage,
                         classes: [],
                         onChange: (languages, language, user) => (value) => {},
                     },
                     {
                         type: "list",
-                        id: `mod-${mod.modid}-collaberators`,
-                        value: mod.collaberators,
-                        title: req.language.dashboard.mods.content.addMod.fields.collaberators,
+                        id: `modpack-${modpack.modpackid}-collaberators`,
+                        value: modpack.collaberators,
+                        title: req.language.dashboard.modpacks.content.addModpack.fields.collaberators,
                         classes: [],
                         onChange: (languages, language, user) => (value) => {},
                         getText: (languages, language, user) => (value) => {
@@ -108,10 +111,10 @@ module.exports = (req, res, mod) => {
                     },
                     {
                         type: "images",
-                        id: `mod-${mod.modid}-photos`,
+                        id: `modpack-${modpack.modpackid}-photos`,
                         max: 3,
                         min: 2,
-                        title: req.language.dashboard.mods.content.addMod.fields.photos,
+                        title: req.language.dashboard.modpacks.content.addModpack.fields.photos,
                         classes: [],
                         onChange: (languages, language, user) => (value) => {},
                     },
@@ -119,18 +122,18 @@ module.exports = (req, res, mod) => {
             },
             {
                 post: {
-                    title: req.language.dashboard.mods.content.addVersion.post,
+                    title: req.language.dashboard.modpacks.content.addVersion.post,
                     onChange: (languages, language, user) => async(button) => {
-                        let fomeElements = docuemnt.getElementsByClassName("category active")[0].getElementsByClassName("incorrect");
+                        let fomeElements = document.getElementsByClassName("category active")[0].getElementsByClassName("incorrect");
                         for (let i = 0; i < fomeElements.length; i++) {
                             fomeElements[i].classList.remove("incorrect");
                         }
                         let idList = document.getElementsByClassName("category active")[0].id.split("-");
-                        let modid = `${idList[1]}-${idList[2]}-${idList[3]}-${idList[4]}-${idList[5]}`;
+                        let modpackid = `${idList[1]}-${idList[2]}-${idList[3]}-${idList[4]}-${idList[5]}`;
                         let _id = idList[6];
-                        let version = document.getElementById(`mod-${modid}-version`);
-                        let gameversion = document.getElementById(`mod-${modid}-gameversion`);
-                        let bundle = document.getElementById(`mod-${modid}-bundle`);
+                        let version = document.getElementById(`modpack-${modpackid}-version`);
+                        let gameversion = document.getElementById(`modpack-${modpackid}-gameversion`);
+                        let bundle = document.getElementById(`modpack-${modpackid}-bundle`);
 
                         let incorrect = false;
 
@@ -151,16 +154,16 @@ module.exports = (req, res, mod) => {
                         let data = {};
                         data.version = {
                             id: version.value,
-                            modid: modid,
+                            modpackid: modpackid,
                             gameversion: gameversion.value,
                             bundle: await readFile(bundle.files[0]),
                         };
                         var xhr = new XMLHttpRequest();
                         xhr.withCredentials = true;
-                        xhr.open(`PATCH`, `http://localhost:3007/api/v1/database/mods/${_id}`, true);
+                        xhr.open(`PATCH`, `http://localhost:3007/api/v1/database/modpacks/${_id}`, true);
                         xhr.setRequestHeader(`Content-Type`, `application/json`);
                         xhr.onreadystatechange = async(e) => {
-                            if (e.target.status === 200) window.location.reload();
+                            window.location.reload();
                         };
                         xhr.send(JSON.stringify(data));
                     },
@@ -168,15 +171,15 @@ module.exports = (req, res, mod) => {
                 contentType: "form",
                 content: [{
                         type: "text",
-                        id: `mod-${mod.modid}-version`,
-                        title: req.language.dashboard.mods.content.addMod.fields.version,
+                        id: `modpack-${modpack.modpackid}-version`,
+                        title: req.language.dashboard.modpacks.content.addModpack.fields.version,
                         classes: [],
                         onChange: (languages, language, user) => (value) => {},
                     },
                     {
                         type: "select",
-                        id: `mod-${mod.modid}-gameversion`,
-                        title: req.language.dashboard.mods.content.addMod.fields.gameVersion,
+                        id: `modpack-${modpack.modpackid}-gameversion`,
+                        title: req.language.dashboard.modpacks.content.addModpack.fields.gameVersion,
                         options: version.gameVersions,
                         classes: [],
                         getText: (languages, language, user) => (value) => value,
@@ -184,10 +187,10 @@ module.exports = (req, res, mod) => {
                     },
                     {
                         type: "js",
-                        id: `mod-${mod.modid}-bundle`,
+                        id: `modpack-${modpack.modpackid}-bundle`,
                         max: 1,
                         min: 1,
-                        title: req.language.dashboard.mods.content.addMod.fields.bundle,
+                        title: req.language.dashboard.modpacks.content.addModpack.fields.bundle,
                         classes: [],
                         onChange: (languages, language, user) => (value) => {},
                     },
@@ -196,16 +199,16 @@ module.exports = (req, res, mod) => {
             {
                 post: {
                     red: true,
-                    title: req.language.dashboard.mods.content.deleteMod.post,
+                    title: req.language.dashboard.modpacks.content.deleteModpack.post,
                     onChange: (languages, language, user) => async(button) => {
                         let idList = document.getElementsByClassName("category active")[0].id.split("-");
-                        let modid = `${idList[1]}-${idList[2]}-${idList[3]}-${idList[4]}-${idList[5]}`;
+                        let modpackid = `${idList[1]}-${idList[2]}-${idList[3]}-${idList[4]}-${idList[5]}`;
                         let _id = idList[6];
                         let fomeElements = document.getElementsByClassName("category active")[0].getElementsByClassName("incorrect");
                         for (let i = 0; i < fomeElements.length; i++) {
                             fomeElements[i].classList.remove("incorrect");
                         }
-                        let deleteName = document.getElementById(`mod-${modid}-delete`);
+                        let deleteName = document.getElementById(`modpack-${modpackid}-delete`);
 
                         let incorrect = false;
 
@@ -226,7 +229,7 @@ module.exports = (req, res, mod) => {
 
                         var xhr = new XMLHttpRequest();
                         xhr.withCredentials = true;
-                        xhr.open(`DELETE`, `http://localhost:3007/api/v1/database/mods/${_id}`, true);
+                        xhr.open(`DELETE`, `http://localhost:3007/api/v1/database/modpacks/${_id}`, true);
                         xhr.setRequestHeader(`Content-Type`, `application/json`);
                         xhr.onreadystatechange = async(e) => {
                             if (e.target.status === 200) window.location.reload();
@@ -241,8 +244,8 @@ module.exports = (req, res, mod) => {
                 contentType: "form",
                 content: [{
                     type: "text",
-                    id: `mod-${mod.modid}-delete`,
-                    title: req.language.dashboard.mods.content.deleteMod.fields.delete,
+                    id: `modpack-${modpack.modpackid}-delete`,
+                    title: req.language.dashboard.modpacks.content.deleteModpack.fields.delete,
                     classes: [],
                     onChange: (languages, language, user) => (value) => {},
                 }, ],

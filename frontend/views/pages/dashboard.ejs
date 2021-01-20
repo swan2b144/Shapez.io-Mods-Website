@@ -108,7 +108,7 @@
                                                                                     <% } %>
                                                                                         <% } %>
                                                                                             <%if(setting.post){%>
-                                                                                                <a onclick="let onChange = <%=setting.post.onChange (languages, language, user)%>; onChange(this);" class="post">
+                                                                                                <a onclick="let onChange = <%=setting.post.onChange (languages, language, user)%>; onChange(this);" <%=setting.post.red ? "style=background-color:var(--red);": ""%> class="post">
                                                                                                     <%= setting.post.title %>
                                                                                                 </a>
                                                                                                 <% } %>

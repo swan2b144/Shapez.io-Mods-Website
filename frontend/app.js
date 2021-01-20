@@ -48,7 +48,11 @@ app.use("/static", express.static(__dirname + "/public"));
 //Update language
 app.use((req, res, next) => {
     if (!req.language) req.language = languages.languages[languages.baseLanguage];
-    if (req.user) req.language = languages.languages[req.user.settings.language];
+    if (req.user) {
+        let baseLanguage = Object.assign({}, languages.languages[languages.baseLanguage]);
+        languages.matchDataRecursive(baseLanguage, languages.languages[req.user.settings.language]);
+        req.language = baseLanguage;
+    }
     next();
 });
 

@@ -74,6 +74,40 @@ let en = {
                 },
             },
         },
+        modpacks: {
+            title: "Modpacks",
+            content: {
+                addVersion: {
+                    post: "Add version",
+                },
+                updateModpack: {
+                    post: "Update modpack",
+                },
+                deleteModpack: {
+                    post: "Delete modpack",
+                    fields: {
+                        delete: "Name",
+                    },
+                },
+                addModpack: {
+                    title: "Add new modpack",
+                    post: "Add modpack",
+                    fields: {
+                        name: "Name",
+                        description: "Description",
+                        modpackPage: "Modpack page",
+                        preview: "Preview",
+                        modpackId: "Modpack id",
+                        collaberators: "Collaberators",
+                        mods: "mods",
+                        version: "Version",
+                        gameVersion: "Game version",
+                        photos: "Photos",
+                        bundle: "Bundle",
+                    },
+                },
+            },
+        },
         mods: {
             title: "Mods",
             content: {
@@ -83,11 +117,17 @@ let en = {
                 updateMod: {
                     post: "Update mod",
                 },
+                deleteMod: {
+                    post: "Delete mod",
+                    fields: {
+                        delete: "Name",
+                    },
+                },
                 addMod: {
                     title: "Add new mod",
                     post: "Add mod",
                     fields: {
-                        title: "Title",
+                        name: "Name",
                         description: "Description",
                         modPage: "Mod page",
                         preview: "Preview",

@@ -1,6 +1,9 @@
 const db = require("./db");
 const fs = require("fs");
 const path = require("path");
+const mongo = require("mongodb");
+var rimraf = require("rimraf");
+
 const mods = (callback) => {
     db.findAll("mods", callback);
 };
@@ -62,6 +65,33 @@ const getModOTW = (callback) => {
 };
 
 const router = require("express").Router();
+router.delete("/:id", (req, res) => {
+    findMod({ _id: new mongo.ObjectID(req.params.id) }, (err, mod) => {
+        if (err) {
+            return res.sendStatus(500);
+        }
+        if (!mod) return res.sendStatus(404);
+        if (!req.user || !req.user.verified || mod.owner !== req.user.discordId) {
+            res.sendStatus(401);
+            return;
+        }
+        if (!req.body) {
+            res.sendStatus(400);
+            return;
+        }
+        removeMod(req.params.id, (err, mod) => {
+            if (err) return res.sendStatus(500);
+
+            if (!mod) return res.sendStatus(500);
+            let dir = path.join(__dirname, "..", "..", "..", "public", "mods", `${mod.modid}`);
+            rimraf(dir, (err) => {
+                if (err) return res.sendStatus(500);
+                res.sendStatus(200);
+            });
+        });
+    });
+});
+
 router.post("/", (req, res) => {
     if (!req.user || !req.user.verified) {
         res.sendStatus(401);
@@ -115,7 +145,7 @@ router.post("/", (req, res) => {
                     description: description,
                     page: page,
                     modid: modid,
-                    owner: user.discordId,
+                    owner: req.user.discordId,
                     collaberators: collaberators,
                     currentVersion: version,
                     version: [{
@@ -143,7 +173,6 @@ router.post("/", (req, res) => {
                 }
             );
         } else {
-            console.log(err);
             res.sendStatus(500);
             return;
         }
@@ -151,72 +180,75 @@ router.post("/", (req, res) => {
 });
 
 router.patch("/:id", (req, res) => {
-    if (!req.user || !req.user.verified) {
-        res.sendStatus(401);
-        return;
-    }
-    if (!req.body) {
-        res.sendStatus(400);
-        return;
-    }
-
-    let data = {};
-
-    let version = req.body.version;
-    if (version) {
-        if (!version.id || !version.gameversion || !version.bundle || !version.modid) return res.sendStatus(400);
-
-        data.currentGameversion = version.gameversion;
-        data.currentVersion = version.id;
-        if (!data.$push) data.$push = {};
-        data.$push.versions = {
-            id: version.id,
-            gameversion: version.gameversion,
-            date: new Date(),
-        };
-    }
-
-    let name = req.body.name;
-    if (name) {
-        name = name.trim();
-        if (name.length < 5 || name.length > 255) return res.sendStatus(400);
-
-        data.name = name;
-    }
-
-    let description = req.body.description;
-    if (description) {
-        description = description.trim();
-        if (description.length < 5 || description.length > 255) return res.sendStatus(400);
-
-        data.description = description;
-    }
-
-    let collaberators = req.body.collaberators;
-    if (collaberators) data.collaberators = collaberators;
-
-    let page = req.body.page;
-    if (page) data.page = page.trim();
-
-    let photos = req.body.photos;
-    if (photos) {
-        if (photos.length < 2 && photos.length > 3) return res.sendStatus(400);
-        data.photos = photos;
-    }
-
-    editMod(req.params.id, data, (err, mod) => {
-        if (err) {
-            console.log(err);
-            return res.sendStatus(500);
+    findMod({ _id: new mongo.ObjectID(req.params.id) }, (err, mod) => {
+        if (!mod) return res.sendStatus(404);
+        if (!req.user || !req.user.verified || mod.owner !== req.user.discordId) {
+            res.sendStatus(401);
+            return;
         }
+        if (!req.body) {
+            res.sendStatus(400);
+            return;
+        }
+
+        let data = {};
+
+        let version = req.body.version;
         if (version) {
-            let dir = path.join(__dirname, "..", "..", "..", "public", "mods", `${version.modid}`);
-            if (!fs.existsSync(dir)) {
-                fs.mkdirSync(dir);
-            }
-            fs.writeFileSync(path.join(dir, `${version.id}.js`), version.bundle);
+            if (!version.id || !version.gameversion || !version.bundle || !version.modid) return res.sendStatus(400);
+
+            data.currentGameversion = version.gameversion;
+            data.currentVersion = version.id;
+            if (!data.$push) data.$push = {};
+            data.$push.versions = {
+                id: version.id,
+                gameversion: version.gameversion,
+                date: new Date(),
+            };
         }
-        res.sendStatus(200);
+
+        let name = req.body.name;
+        if (name) {
+            name = name.trim();
+            if (name.length < 5 || name.length > 255) return res.sendStatus(400);
+
+            data.name = name;
+        }
+
+        let description = req.body.description;
+        if (description) {
+            description = description.trim();
+            if (description.length < 5 || description.length > 255) return res.sendStatus(400);
+
+            data.description = description;
+        }
+
+        let collaberators = req.body.collaberators;
+        if (collaberators) data.collaberators = collaberators;
+
+        let page = req.body.page;
+        if (page) data.page = page.trim();
+
+        let photos = req.body.photos;
+        if (photos) {
+            if (photos.length < 2 && photos.length > 3) return res.sendStatus(400);
+            data.photos = photos;
+        }
+
+        editMod(req.params.id, data, (err, mod) => {
+            if (err) {
+                console.log(err);
+                return res.sendStatus(500);
+            }
+            if (version) {
+                let dir = path.join(__dirname, "..", "..", "..", "public", "mods", `${version.modid}`);
+                if (!fs.existsSync(dir)) {
+                    fs.mkdirSync(dir);
+                }
+                fs.writeFileSync(path.join(dir, `${version.id}.js`), version.bundle);
+            }
+            res.sendStatus(200);
+        });
     });
 });
 

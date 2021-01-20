@@ -36,7 +36,7 @@ const findMultiple = (collection, data, callback) => {
                 if (err) {
                     callback(err, null);
                     client.close();
-                } else if (docs.length > 0) {
+                } else if (docs.length >= 0) {
                     callback(null, docs);
                     client.close();
                 } else {
@@ -129,17 +129,17 @@ const edit = (collection, id, data, callback) => {
 
 const remove = (collection, id, callback) => {
     getConnection((client, db) => {
-        find(collection, { _id: new mongo.ObjectID(id) }, (err, docs) => {
+        find(collection, { _id: new mongo.ObjectID(id) }, (err, doc) => {
             if (err) {
                 callback(err, null);
                 client.close();
-            } else if (docs.length > 0) {
+            } else if (doc) {
                 db.collection(collection).deleteOne({ _id: new mongo.ObjectID(id) }, (err, result) => {
                     if (err) {
                         callback(err, null);
                         client.close();
                     } else if (result) {
-                        callback(null, docs[0]);
+                        callback(null, doc);
                         client.close();
                     } else {
                         callback(null, null);
