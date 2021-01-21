@@ -27,38 +27,45 @@ const editModpack = (id, data, callback) => {
 const removeModpack = (id, callback) => {
     db.remove("modpacks", id, callback);
 };
-const getModpackOTW = (callback) => {
+
+const calcScore = (modpack) => {
+    const now = new Date();
+    let likes = 0;
+    for (let j = 0; j < modpack.likes.length; j++) {
+        const likeData = modpack.likes[j];
+        if (likeData.getWeek() !== now.getWeek()) continue;
+        likes++;
+    }
+    let downloads = 0;
+    for (let j = 0; j < modpack.downloads.length; j++) {
+        const downloadData = modpack.downloads[j];
+        if (downloadData.getWeek() !== now.getWeek()) continue;
+        downloads++;
+    }
+    let seen = 0;
+    for (let j = 0; j < modpack.seen.length; j++) {
+        const seenData = modpack.seen[j];
+        if (seenData.getWeek() !== now.getWeek()) continue;
+        seen++;
+    }
+    let rated = likes + downloads;
+    let score;
+    if (rated === 0 && seen === 0) score = 0;
+    else score = rated / seen;
+    return score;
+};
+
+const getModpacksOTW = (callback) => {
     modpacks((err, docs) => {
         if (err) callback(err, null);
         else if (docs.length > 0) {
-            let best = { score: 0, mod: null };
+            let modpacks = [];
             for (let i = 0; i < docs.length; i++) {
                 const modpack = docs[i];
-                const now = new Date();
-                let likes = 0;
-                for (let j = 0; j < modpack.likes.length; j++) {
-                    const likeData = modpack.likes[j];
-                    if (likeData.getWeek() !== now.getWeek()) continue;
-                    likes++;
-                }
-                let downloads = 0;
-                for (let j = 0; j < modpack.downloads.length; j++) {
-                    const downloadData = modpack.downloads[j];
-                    if (downloadData.getWeek() !== now.getWeek()) continue;
-                    downloads++;
-                }
-                let seen = 0;
-                for (let j = 0; j < modpack.seen.length; j++) {
-                    const seenData = modpack.seen[j];
-                    if (seenData.getWeek() !== now.getWeek()) continue;
-                    seen++;
-                }
-                let rated = likes + downloads;
-                if (rated === 0) continue;
-                let score = rated / seen;
-                if (score >= bestScore) best = { score: score, modpack: modpack };
+                modpacks.push({ score: calcScore(modpack), modpack: modpack });
             }
-            callback(null, best);
+            modpacks.sort(({ score1, modpack1 }, { score2, modpack2 }) => score1 - score2);
+            callback(null, modpacks);
         } else callback(null, null);
     });
 };
@@ -271,4 +278,4 @@ router.get("/uuid", (req, res) => {
         }
     });
 });
-module.exports = { modpacks, findModpack, addModpack, editModpack, removeModpack, getModpackOTW, findMultipleModpacks, router };
+module.exports = { modpacks, findModpack, addModpack, editModpack, removeModpack, getModpacksOTW, findMultipleModpacks, router };

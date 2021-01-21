@@ -28,38 +28,44 @@ const removeMod = (id, callback) => {
     db.remove("mods", id, callback);
 };
 
-const getModOTW = (callback) => {
+const calcScore = (mod) => {
+    const now = new Date();
+    let likes = 0;
+    for (let j = 0; j < mod.likes.length; j++) {
+        const likeData = mod.likes[j];
+        if (likeData.getWeek() !== now.getWeek()) continue;
+        likes++;
+    }
+    let downloads = 0;
+    for (let j = 0; j < mod.downloads.length; j++) {
+        const downloadData = mod.downloads[j];
+        if (downloadData.getWeek() !== now.getWeek()) continue;
+        downloads++;
+    }
+    let seen = 0;
+    for (let j = 0; j < mod.seen.length; j++) {
+        const seenData = mod.seen[j];
+        if (seenData.getWeek() !== now.getWeek()) continue;
+        seen++;
+    }
+    let rated = likes + downloads;
+    let score;
+    if (rated === 0 && seen === 0) score = 0;
+    else score = rated / seen;
+    return score;
+};
+
+const getModsOTW = (callback) => {
     mods((err, docs) => {
         if (err) callback(err, null);
         else if (docs.length > 0) {
-            let best = { score: 0, mod: null };
+            let mods = [];
             for (let i = 0; i < docs.length; i++) {
                 const mod = docs[i];
-                const now = new Date();
-                let likes = 0;
-                for (let j = 0; j < mod.likes.length; j++) {
-                    const likeData = mod.likes[j];
-                    if (likeData.getWeek() !== now.getWeek()) continue;
-                    likes++;
-                }
-                let downloads = 0;
-                for (let j = 0; j < mod.downloads.length; j++) {
-                    const downloadData = mod.downloads[j];
-                    if (downloadData.getWeek() !== now.getWeek()) continue;
-                    downloads++;
-                }
-                let seen = 0;
-                for (let j = 0; j < mod.seen.length; j++) {
-                    const seenData = mod.seen[j];
-                    if (seenData.getWeek() !== now.getWeek()) continue;
-                    seen++;
-                }
-                let rated = likes + downloads;
-                if (rated === 0) continue;
-                let score = rated / seen;
-                if (score >= bestScore) best = { score: score, mod: mod };
+                mods.push({ score: calcScore(mod), mod: mod });
             }
-            callback(null, best);
+            mods.sort(({ score1, mod1 }, { score2, mod2 }) => score1 - score2);
+            callback(null, mods);
         } else callback(null, null);
     });
 };
@@ -272,4 +278,4 @@ router.get("/uuid", (req, res) => {
     });
 });
 
-module.exports = { mods, findMod, addMod, editMod, removeMod, getModOTW, findMultipleMods, router };
+module.exports = { mods, findMod, addMod, editMod, removeMod, getModsOTW, findMultipleMods, router };

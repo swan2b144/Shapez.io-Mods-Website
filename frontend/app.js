@@ -2,9 +2,12 @@ require("./api/v1/auth/discord");
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
-const usersDB = require("./api/v1/database/users");
 const languages = require("./api/v1/languages");
 const dashboard = require("./dashboard/dashboard");
+const mods = require("./mods");
+const user = require("./user");
+const mod = require("./mod");
+const modpack = require("./modpack");
 
 const PORT = 3007;
 const HOST = "http://localhost";
@@ -60,34 +63,8 @@ app.get("/", function(req, res) {
     res.render("pages/index", { user: req.user, language: req.language, title: "Shapez.io - Mods" });
 });
 
-app.get("/profile", function(req, res) {
-    res.render("pages/profile", { user: req.user, language: req.language, title: "Shapez.io - Profile" });
-});
-
 app.get("/mods", function(req, res) {
-    res.render("pages/mods", {
-        user: req.user,
-        language: req.language,
-        title: "Shapez.io - Mods",
-        //TODO: read from data base
-        modOTW: {
-            id: "c56721f4-7907-4882-a67b-2dc221265c54",
-            authors: [{
-                    id: 337667762484674572,
-                    username: "Shrimp The Neko",
-                },
-                {
-                    id: 324243324342324234,
-                    username: "Shadow",
-                },
-                {
-                    id: 359712922877952000,
-                    username: "Thomas (DJ1TJOO)",
-                },
-            ],
-            images: ["/static/images/mod_test/cube.gif", "/static/images/mod_test/colorz.gif", "/static/images/mod_test/counter.gif"],
-        },
-    });
+    return mods.getMods(req, res);
 });
 
 app.get("/about", function(req, res) {
@@ -104,51 +81,16 @@ app.get("/dashboard/:category?", function(req, res) {
 });
 
 app.get("/user/:id", function(req, res) {
-    usersDB.findUser({ discordId: req.params.id }, (err, user) => {
-        if (err) {
-            res.render("pages/notfound", { user: req.user, language: req.language, title: "Shapez.io - Not found" });
-            return;
-        }
-        if (!user) {
-            res.render("pages/notfound", { user: req.user, language: req.language, title: "Shapez.io - Not found" });
-            return;
-        }
-        res.render("pages/user", { user: req.user, language: req.language, requestedUser: user, description: format(user.description), title: "Shapez.io - " + user.username });
-    });
+    return user.getUser(req, res);
 });
 
-function format(inputText) {
-    //Escape html
-    inputText = inputText.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-    inputText = inputText.replace(/\*\*(.*?)\*\*/g, "<b>$1</b>");
-    inputText = inputText.replace(/==(.*?)==/g, "<h1>$1</h1>");
-    inputText = inputText.replace(/-=(.*?)=-/g, "<h2>$1</h2>");
-    inputText = inputText.replace(/=-(.*?)-=/g, "<h3>$1</h3>");
-    inputText = inputText.replace(/__(.*?)__/g, "<u>$1</u>");
-    inputText = inputText.replace(/~~(.*?)~~/g, "<i>$1</i>");
-    inputText = inputText.replace(/--(.*?)--/g, "<del>$1</del>");
-    inputText = inputText.replace(/```([a-z]*)(.*?)```/gms, (match, group1, group2, offset, input_string) => {
-        return "<pre class='" + group1 + "'><code style='background-color: #535866; margin: 0;' class='" + group1 + "'>" + group2.trim() + "</code></pre>";
-    });
-    inputText = inputText.replace(/---/g, "<hr>");
-    inputText = inputText.replace(/(?:\r\n|\r|\n)/g, "<br>");
+app.get("/mod/:id", function(req, res) {
+    return mod.getMod(req, res);
+});
 
-    var replacedText, replacePattern1, replacePattern2, replacePattern3;
-
-    //URLs starting with http://, https://, or ftp://
-    replacePattern1 = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gim;
-    replacedText = inputText.replace(replacePattern1, '<a href="$1" target="_blank">$1</a>');
-
-    //URLs starting with "www." (without // before it, or it'd re-link the ones done above).
-    replacePattern2 = /(^|[^\/])(www\.[\S]+(\b|$))/gim;
-    replacedText = replacedText.replace(replacePattern2, '$1<a href="http://$2" target="_blank">$2</a>');
-
-    //Change email addresses to mailto:: links.
-    replacePattern3 = /(([a-zA-Z0-9\-\_\.])+@[a-zA-Z\_]+?(\.[a-zA-Z]{2,6})+)/gim;
-    replacedText = replacedText.replace(replacePattern3, '<a href="mailto:$1">$1</a>');
-
-    return replacedText;
-}
+app.get("/modpack/:id", function(req, res) {
+    return modpack.getModpack(req, res);
+});
 
 app.get("/forbidden", function(req, res) {
     res.render("pages/forbidden", { user: req.user, language: req.language, title: "Shapez.io - Forbidden" });

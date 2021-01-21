@@ -5,24 +5,22 @@
     hljs.initHighlightingOnLoad();
 </script>
 <%- include('../partials/header.ejs') %>
-    <div class="users">
+    <div class="modpacks">
         <div class="wrapper">
-            <div class="user">
-                <div class="username">
+            <div class="modpack">
+                <div class="modpackname">
                     <div class="avatar">
-                        <img src="https://cdn.discordapp.com/avatars/<%= requestedUser.discordId%>/<%= requestedUser.avatar%>" />
+                        <img src="<%=modpack.photos[0]%>" />
                         <div class="title">
-                            <% let username = requestedUser.username + (requestedUser.settings.publicTag ? "#"+requestedUser.tag:"") %>
-                                <%=username %>
+                            <%=modpack.name %>
                         </div>
                     </div>
                 </div>
 
                 <div class="description">
-                    <%- description %>
+                    <%- modpack.page %>
                 </div>
             </div>
-            <%- include('../partials/browse.ejs') %>
         </div>
     </div>
     <%- include('../partials/footer.ejs') %>
