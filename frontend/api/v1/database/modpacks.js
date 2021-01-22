@@ -71,8 +71,35 @@ const getModpacksOTW = (callback) => {
 };
 
 const router = require("express").Router();
+router.get("/:id", (req, res) => {
+    if (!req.isAuthenticated()) {
+        res.sendStatus(401);
+        return;
+    }
+    let data = {};
+    if (/^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i.test(req.params.id)) {
+        data = { modpackid: req.params.id };
+    } else {
+        data = { _id: new mongo.ObjectID(req.params.id) };
+    }
+    findModpack(data, (err, modpack) => {
+        if (!err && modpack) {
+            res.json(modpack);
+        } else if (!err) {
+            res.sendStatus(404);
+        } else {
+            res.sendStatus(500);
+        }
+    });
+});
 router.delete("/:id", (req, res) => {
-    findModpack({ _id: new mongo.ObjectID(req.params.id) }, (err, modpack) => {
+    let data = {};
+    if (/^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i.test(req.params.id)) {
+        data = { modpackid: req.params.id };
+    } else {
+        data = { _id: new mongo.ObjectID(req.params.id) };
+    }
+    findModpack(data, (err, modpack) => {
         if (err) {
             return res.sendStatus(500);
         }
@@ -187,9 +214,15 @@ router.post("/", (req, res) => {
 });
 
 router.patch("/:id", (req, res) => {
-    findModpack({ _id: new mongo.ObjectID(req.params.id) }, (err, modpack) => {
+    let data = {};
+    if (/^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i.test(req.params.id)) {
+        data = { modpackid: req.params.id };
+    } else {
+        data = { _id: new mongo.ObjectID(req.params.id) };
+    }
+    findModpack(data, (err, modpack) => {
         if (!modpack) return res.sendStatus(404);
-        if (!req.user || !req.user.verified || modpack.owner !== req.user.discordId) {
+        if (!req.user || !req.user.verified || (!req.user.roles.includes("mod") && modpack.owner !== req.user.discordId)) {
             res.sendStatus(401);
             return;
         }
@@ -201,7 +234,7 @@ router.patch("/:id", (req, res) => {
         let data = {};
 
         let version = req.body.version;
-        if (version) {
+        if (typeof version !== "undefined") {
             if (!version.id || !version.gameversion || !version.bundle || !version.modpackid) return res.sendStatus(400);
 
             data.currentGameversion = version.gameversion;
@@ -215,7 +248,7 @@ router.patch("/:id", (req, res) => {
         }
 
         let name = req.body.name;
-        if (name) {
+        if (typeof name !== "undefined") {
             name = name.trim();
             if (name.length < 5 || name.length > 255) return res.sendStatus(400);
 
@@ -223,7 +256,7 @@ router.patch("/:id", (req, res) => {
         }
 
         let description = req.body.description;
-        if (description) {
+        if (typeof description !== "undefined") {
             description = description.trim();
             if (description.length < 5 || description.length > 255) return res.sendStatus(400);
 
@@ -231,18 +264,21 @@ router.patch("/:id", (req, res) => {
         }
 
         let collaberators = req.body.collaberators;
-        if (collaberators) data.collaberators = collaberators;
+        if (typeof collaberators !== "undefined") data.collaberators = collaberators;
 
         let page = req.body.page;
-        if (page) data.page = page.trim();
+        if (typeof page !== "undefined") data.page = page.trim();
 
         let photos = req.body.photos;
-        if (photos) {
+        if (typeof photos !== "undefined") {
             if (photos.length < 2 && photos.length > 3) return res.sendStatus(400);
             data.photos = photos;
         }
 
-        editModpack(req.params.id, data, (err, mod) => {
+        let verified = req.body.verified;
+        if (typeof verified !== "undefined") data.verified = verified;
+
+        editModpack(modpack._id, data, (err, mod) => {
             if (err) {
                 console.log(err);
                 return res.sendStatus(500);

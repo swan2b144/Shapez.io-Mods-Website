@@ -74,6 +74,23 @@ let en = {
                 },
             },
         },
+        verify: {
+            title: "Verify",
+            content: {
+                mod: {
+                    post: "(Un)verify mod",
+                    fields: {
+                        id: "Mod id",
+                    },
+                },
+                modpack: {
+                    post: "(Un)verify modpack",
+                    fields: {
+                        id: "Modpack id",
+                    },
+                },
+            },
+        },
         modpacks: {
             title: "Modpacks",
             content: {
@@ -218,6 +235,56 @@ let nl = {
                 },
             },
         },
+        verify: {
+            title: "Verifiëren",
+            content: {
+                mod: {
+                    post: "Verifieer mod or verificatie ongedaan maken",
+                    fields: {
+                        id: "Mod id",
+                    },
+                },
+                modpack: {
+                    post: "Verifieer modpack or verificatie ongedaan maken",
+                    fields: {
+                        id: "Modpack id",
+                    },
+                },
+            },
+        },
+        modpacks: {
+            title: "Modpacks",
+            content: {
+                addVersion: {
+                    post: "Voeg versie toe",
+                },
+                updateModpack: {
+                    post: "Update modpack",
+                },
+                deleteModpack: {
+                    post: "Verwijder modpack",
+                    fields: {
+                        delete: "Naam",
+                    },
+                },
+                addModpack: {
+                    title: "Voeg nieuwe modpack toe",
+                    post: "Voeg modack toe",
+                    fields: {
+                        name: "Naam",
+                        description: "Beschrijving",
+                        modPage: "Mod pagina",
+                        preview: "Voorbeeld",
+                        modId: "Modpack id",
+                        collaberators: "Medewerkers",
+                        version: "Versie",
+                        gameVersion: "Spel versie",
+                        photos: "Fotos",
+                        bundle: "Bundle",
+                    },
+                },
+            },
+        },
         mods: {
             title: "Mods",
             content: {
@@ -226,6 +293,12 @@ let nl = {
                 },
                 updateMod: {
                     post: "Update mod",
+                },
+                deleteMod: {
+                    post: "Verwijder mod",
+                    fields: {
+                        delete: "Naam",
+                    },
                 },
                 addMod: {
                     title: "Voeg nieuwe mod toe",

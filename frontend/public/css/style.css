@@ -610,6 +610,19 @@ footer .text img {
     max-height: 128px;
 }
 
+.mods .mod .authors {
+    display: block;
+    font-size: var(--font-small);
+    color: #abafc7;
+}
+
+.mods .mod .authors .author {
+    display: inline-block;
+    text-decoration: none;
+    color: #abafc7;
+    cursor: pointer;
+}
+
 .mods .mod .description {
     color: white;
 }
@@ -627,6 +640,138 @@ footer .text img {
 }
 
 .mods .mod .description h3 {
+    font-size: var(--font-middle);
+}
+
+.modpacks .card {
+    background-color: #484c58;
+    border-radius: var(--border-radius);
+    width: calc(100% - 40px);
+    padding: 20px;
+    text-decoration: none;
+    cursor: pointer;
+    border-bottom: 2px var(--blue) solid;
+}
+
+.modpacks .card .title {
+    display: block;
+    font-size: var(--font-larger);
+    color: white;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.modpacks .card .authors {
+    display: block;
+    font-size: var(--font-small);
+    color: #abafc7;
+}
+
+.modpacks .card .authors .author {
+    display: inline-block;
+    text-decoration: none;
+    color: #abafc7;
+}
+
+.modpacks .card .subtitle {
+    margin-top: 5px;
+    display: block;
+    font-size: var(--font-middle);
+    color: #abafc7;
+    text-decoration: none;
+}
+
+.modpacks .card .images {
+    width: 100%;
+    display: flex;
+    margin-top: 10px;
+    gap: 20px;
+    text-decoration: none;
+}
+
+.modpacks .card .images .image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    max-height: 15em;
+}
+
+.modpacks .card .images .image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+.modpacks~footer {
+    margin-top: 20px;
+    position: unset;
+}
+
+.modpacks .modpack {
+    margin-top: 20px;
+    background-color: #484c58;
+    border-radius: var(--border-radius);
+    width: calc(100% - 40px);
+    padding: 20px;
+    text-decoration: none;
+    border-bottom: 2px var(--blue) solid;
+}
+
+.modpacks .modpack .modpackname {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modpacks .modpack .avatar .title {
+    margin-top: 20px;
+    display: block;
+    font-size: var(--font-larger);
+    color: white;
+    font-weight: 500;
+    text-decoration: none;
+    text-align: center;
+}
+
+.modpacks .modpack .avatar img {
+    display: block;
+    margin: auto;
+    object-fit: cover;
+    max-width: 128px;
+    max-height: 128px;
+}
+
+.modpacks .modpack .authors {
+    display: block;
+    font-size: var(--font-small);
+    color: #abafc7;
+}
+
+.modpacks .modpack .authors .author {
+    display: inline-block;
+    text-decoration: none;
+    color: #abafc7;
+    cursor: pointer;
+}
+
+.modpacks .modpack .description {
+    color: white;
+}
+
+.modpacks .modpack .description a {
+    color: var(--blue);
+}
+
+.modpacks .modpack .description h1 {
+    font-size: var(--font-large);
+}
+
+.modpacks .modpack .description h2 {
+    font-size: var(--font-larger);
+}
+
+.modpacks .modpack .description h3 {
     font-size: var(--font-middle);
 }
 

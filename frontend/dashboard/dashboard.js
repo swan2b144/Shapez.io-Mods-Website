@@ -56,6 +56,10 @@ let getDashbaord = async(req, res) => {
     let mods = await getMods(req, res, req.user.discordId);
     let modpacks = await getModpacks(req, res, req.user.discordId);
     let categories = [require("./categories/mods")(req, res, mods), require("./categories/modpacks")(req, res, modpacks), require("./categories/settings")(req, res), ...mods.categories, ...modpacks.categories];
+
+    if (req.user.roles.includes("mod")) {
+        categories.splice(2, 0, require("./categories/verify")(req, res));
+    }
     return res.render("pages/dashboard", { user: req.user, languages: languages.languages, language: req.language, title: "Shapez.io - Dashboard", categories: categories, category: req.params.category });
 };
 
