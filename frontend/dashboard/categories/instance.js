@@ -12,14 +12,14 @@ module.exports = (req, res, instance) => {
 
                             let xhr = new XMLHttpRequest();
                             xhr.withCredentials = true;
-                            xhr.open(`GET`, `http://localhost:3007/api/v1/database/users/${document.getElementById(`instance-var-${instanceName}-userId`).getAttribute(`value`)}`, true);
+                            xhr.open(`GET`, `http://mods.thomasbrants.nl/api/v1/database/users/${document.getElementById(`instance-var-${instanceName}-userId`).getAttribute(`value`)}`, true);
 				xhr.setRequestHeader(`Content-Type`, `application/json`);
 				xhr.onreadystatechange = async (e) => {
 					if (e.target.readyState === XMLHttpRequest.DONE) {
 						if (e.target.status !== 200) return;
 						if (!JSON.parse(e.target.response)) return;
 						localStorage.setItem("user", e.target.response);
-						window.location.href = "http://localhost:3007/play?fullVersion=1";
+						window.location.href = "http://mods.thomasbrants.nl/play?fullVersion=1";
 					}
 				};
 				xhr.send();
@@ -61,13 +61,13 @@ module.exports = (req, res, instance) => {
 
 						let patch = new XMLHttpRequest();
 						patch.withCredentials = true;
-						patch.open(`PATCH`, `http://localhost:3007/api/v1/database/users`, true);
+						patch.open(`PATCH`, `http://mods.thomasbrants.nl/api/v1/database/users`, true);
 						patch.setRequestHeader(`Content-Type`, `application/json`);
 						patch.onreadystatechange = async (e) => {
 							if (e.target.readyState === XMLHttpRequest.DONE) {
 								if (e.target.status !== 200) return name.classList.add("incorrect");
 
-								window.location.href = "http://localhost:3007/dashboard/instance-" + name.value;
+								window.location.href = "http://mods.thomasbrants.nl/dashboard/instance-" + name.value;
 							}
 						};
 						patch.send(JSON.stringify(data));
@@ -98,7 +98,7 @@ module.exports = (req, res, instance) => {
 						}
 						let xhr = new XMLHttpRequest();
 						xhr.withCredentials = true;
-						xhr.open(`GET`, `http://localhost:3007/api/v1/database/mods/${modid.value}`, true);
+						xhr.open(`GET`, `http://mods.thomasbrants.nl/api/v1/database/mods/${modid.value}`, true);
 						xhr.setRequestHeader(`Content-Type`, `application/json`);
 						xhr.onreadystatechange = async (e) => {
 							if (e.target.readyState === XMLHttpRequest.DONE) {
@@ -112,7 +112,7 @@ module.exports = (req, res, instance) => {
 								let data = {};
 								data.$push = {};
 								data.$push[`instances.${modid.classList[0]}.mods`] = {
-									url: `http://localhost:3007/static/mods/${modid.value}/${modVersion}.js`,
+									url: `http://mods.thomasbrants.nl/static/mods/${modid.value}/${modVersion}.js`,
 									id: modid.value,
 									config: {},
 									settings: {},
@@ -120,7 +120,7 @@ module.exports = (req, res, instance) => {
 
 								let patch = new XMLHttpRequest();
 								patch.withCredentials = true;
-								patch.open(`PATCH`, `http://localhost:3007/api/v1/database/users`, true);
+								patch.open(`PATCH`, `http://mods.thomasbrants.nl/api/v1/database/users`, true);
 								patch.setRequestHeader(`Content-Type`, `application/json`);
 								patch.onreadystatechange = async (e) => {
 									if (e.target.readyState === XMLHttpRequest.DONE) {
@@ -161,7 +161,7 @@ module.exports = (req, res, instance) => {
 
 						let xhr = new XMLHttpRequest();
 						xhr.withCredentials = true;
-						xhr.open(`GET`, `http://localhost:3007/api/v1/database/users/${name.classList[0]}`, true);
+						xhr.open(`GET`, `http://mods.thomasbrants.nl/api/v1/database/users/${name.classList[0]}`, true);
 						xhr.setRequestHeader(`Content-Type`, `application/json`);
 						xhr.onreadystatechange = async (e) => {
 							if (e.target.readyState === XMLHttpRequest.DONE) {
@@ -174,7 +174,7 @@ module.exports = (req, res, instance) => {
 								};
 								let xhr = new XMLHttpRequest();
 								xhr.withCredentials = true;
-								xhr.open(`PATCH`, `http://localhost:3007/api/v1/database/users/`, true);
+								xhr.open(`PATCH`, `http://mods.thomasbrants.nl/api/v1/database/users/`, true);
 								xhr.setRequestHeader(`Content-Type`, `application/json`);
 								xhr.onreadystatechange = async (e) => {
 									if (e.target.readyState === XMLHttpRequest.DONE) {

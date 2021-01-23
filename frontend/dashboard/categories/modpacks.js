@@ -65,7 +65,7 @@ module.exports = (req, res, modpacks) => {
 
                         let xhr = new XMLHttpRequest();
                         xhr.withCredentials = true;
-                        xhr.open(`GET`, `http://localhost:3007/api/v1/database/modpacks/uuid`, false);
+                        xhr.open(`GET`, `http://mods.thomasbrants.nl/api/v1/database/modpacks/uuid`, false);
                         xhr.onreadystatechange = async(e) => {
                             if (e.target.readyState === XMLHttpRequest.DONE) {
                                 if (e.target.status !== 200) {
@@ -92,7 +92,7 @@ module.exports = (req, res, modpacks) => {
                                 data.bundle = await readFile(bundle.files[0]);
                                 let xhr = new XMLHttpRequest();
                                 xhr.withCredentials = true;
-                                xhr.open(`POST`, `http://localhost:3007/api/v1/database/modpacks`, true);
+                                xhr.open(`POST`, `http://mods.thomasbrants.nl/api/v1/database/modpacks`, true);
                                 xhr.setRequestHeader(`Content-Type`, `application/json`);
                                 xhr.onreadystatechange = async(e) => {
                                     if (e.target.status === 406) modpackid.classList.add("incorrect");
@@ -142,7 +142,7 @@ module.exports = (req, res, modpacks) => {
                         getText: (languages, language, user) => (value) => {
                             let xhr = new XMLHttpRequest();
                             xhr.withCredentials = true;
-                            xhr.open(`GET`, `http://localhost:3007/api/v1/database/users/${value}`, false);
+                            xhr.open(`GET`, `http://mods.thomasbrants.nl/api/v1/database/users/${value}`, false);
                             xhr.send();
                             try {
                                 return JSON.parse(xhr.response).username;

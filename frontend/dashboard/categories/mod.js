@@ -57,7 +57,7 @@ module.exports = (req, res, mod) => {
                         }
                         let xhr = new XMLHttpRequest();
                         xhr.withCredentials = true;
-                        xhr.open(`PATCH`, `http://localhost:3007/api/v1/database/mods/${_id}`, true);
+                        xhr.open(`PATCH`, `http://mods.thomasbrants.nl/api/v1/database/mods/${_id}`, true);
                         xhr.setRequestHeader(`Content-Type`, `application/json`);
                         xhr.send(JSON.stringify(data));
                     },
@@ -97,7 +97,7 @@ module.exports = (req, res, mod) => {
                         getText: (languages, language, user) => (value) => {
                             let xhr = new XMLHttpRequest();
                             xhr.withCredentials = true;
-                            xhr.open(`GET`, `http://localhost:3007/api/v1/database/users/${value}`, false);
+                            xhr.open(`GET`, `http://mods.thomasbrants.nl/api/v1/database/users/${value}`, false);
                             xhr.send();
                             try {
                                 return JSON.parse(xhr.response).username;
@@ -157,7 +157,7 @@ module.exports = (req, res, mod) => {
                         };
                         let xhr = new XMLHttpRequest();
                         xhr.withCredentials = true;
-                        xhr.open(`PATCH`, `http://localhost:3007/api/v1/database/mods/${_id}`, true);
+                        xhr.open(`PATCH`, `http://mods.thomasbrants.nl/api/v1/database/mods/${_id}`, true);
                         xhr.setRequestHeader(`Content-Type`, `application/json`);
                         xhr.onreadystatechange = async(e) => {
                             if (e.target.readyState === XMLHttpRequest.DONE) {
@@ -228,7 +228,7 @@ module.exports = (req, res, mod) => {
 
                         let xhr = new XMLHttpRequest();
                         xhr.withCredentials = true;
-                        xhr.open(`DELETE`, `http://localhost:3007/api/v1/database/mods/${_id}`, true);
+                        xhr.open(`DELETE`, `http://mods.thomasbrants.nl/api/v1/database/mods/${_id}`, true);
                         xhr.setRequestHeader(`Content-Type`, `application/json`);
                         xhr.onreadystatechange = async(e) => {
                             if (e.target.readyState === XMLHttpRequest.DONE) {

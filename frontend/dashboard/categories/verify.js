@@ -23,7 +23,7 @@ module.exports = (req, res) => {
 
                         let xhr = new XMLHttpRequest();
                         xhr.withCredentials = true;
-                        xhr.open(`GET`, `http://localhost:3007/api/v1/database/mods/${modid.value}`, false);
+                        xhr.open(`GET`, `http://mods.thomasbrants.nl/api/v1/database/mods/${modid.value}`, false);
                         xhr.onreadystatechange = async(e) => {
                             if (e.target.readyState === XMLHttpRequest.DONE) {
                                 if (e.target.status !== 200) {
@@ -42,7 +42,7 @@ module.exports = (req, res) => {
                                 let verify = !mod.verified;
                                 let xhr = new XMLHttpRequest();
                                 xhr.withCredentials = true;
-                                xhr.open(`PATCH`, `http://localhost:3007/api/v1/database/mods/${modid.value}`, true);
+                                xhr.open(`PATCH`, `http://mods.thomasbrants.nl/api/v1/database/mods/${modid.value}`, true);
                                 xhr.setRequestHeader(`Content-Type`, `application/json`);
                                 xhr.onreadystatechange = async(e) => {
                                     if (e.target.status === 200) return window.location.reload();
@@ -84,7 +84,7 @@ module.exports = (req, res) => {
 
                         let xhr = new XMLHttpRequest();
                         xhr.withCredentials = true;
-                        xhr.open(`GET`, `http://localhost:3007/api/v1/database/modpacks/${modpackid.value}`, false);
+                        xhr.open(`GET`, `http://mods.thomasbrants.nl/api/v1/database/modpacks/${modpackid.value}`, false);
                         xhr.onreadystatechange = async(e) => {
                             if (e.target.readyState === XMLHttpRequest.DONE) {
                                 if (e.target.status !== 200) {
@@ -102,7 +102,7 @@ module.exports = (req, res) => {
                                 // }
                                 let xhr = new XMLHttpRequest();
                                 xhr.withCredentials = true;
-                                xhr.open(`PATCH`, `http://localhost:3007/api/v1/database/modpacks/${modpackid.value}`, true);
+                                xhr.open(`PATCH`, `http://mods.thomasbrants.nl/api/v1/database/modpacks/${modpackid.value}`, true);
                                 xhr.setRequestHeader(`Content-Type`, `application/json`);
                                 xhr.onreadystatechange = async(e) => {
                                     if (e.target.status === 200) return window.location.reload();

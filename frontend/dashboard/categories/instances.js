@@ -22,7 +22,7 @@ module.exports = (req, res, instances) => {
 
                         let xhr = new XMLHttpRequest();
                         xhr.withCredentials = true;
-                        xhr.open(`GET`, `http://localhost:3007/api/v1/database/users/${name.classList[0]}`, true);
+                        xhr.open(`GET`, `http://mods.thomasbrants.nl/api/v1/database/users/${name.classList[0]}`, true);
                         xhr.setRequestHeader(`Content-Type`, `application/json`);
                         xhr.onreadystatechange = async(e) => {
                             if (e.target.readyState === XMLHttpRequest.DONE) {
@@ -37,7 +37,7 @@ module.exports = (req, res, instances) => {
                                 };
                                 let xhr = new XMLHttpRequest();
                                 xhr.withCredentials = true;
-                                xhr.open(`PATCH`, `http://localhost:3007/api/v1/database/users/`, true);
+                                xhr.open(`PATCH`, `http://mods.thomasbrants.nl/api/v1/database/users/`, true);
                                 xhr.setRequestHeader(`Content-Type`, `application/json`);
                                 xhr.onreadystatechange = async(e) => {
                                     if (e.target.readyState === XMLHttpRequest.DONE) {

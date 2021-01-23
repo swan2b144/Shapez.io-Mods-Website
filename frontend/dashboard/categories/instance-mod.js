@@ -42,7 +42,7 @@ module.exports = (req, res, instance, modInstance, mod) => {
 
                         let patch = new XMLHttpRequest();
                         patch.withCredentials = true;
-                        patch.open(`PATCH`, `http://localhost:3007/api/v1/database/users`, true);
+                        patch.open(`PATCH`, `http://mods.thomasbrants.nl/api/v1/database/users`, true);
                         patch.setRequestHeader(`Content-Type`, `application/json`);
                         patch.onreadystatechange = async(e) => {
                             if (e.target.readyState === XMLHttpRequest.DONE) {
