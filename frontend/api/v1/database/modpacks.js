@@ -203,7 +203,7 @@ router.post("/", (req, res) => {
                     owner: req.user.discordId,
                     collaberators: collaberators,
                     currentVersion: version,
-                    version: [{
+                    versions: [{
                         id: version,
                         date: new Date(),
                         gameversion: gameversion,

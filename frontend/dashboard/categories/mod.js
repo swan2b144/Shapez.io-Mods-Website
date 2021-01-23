@@ -121,7 +121,7 @@ module.exports = (req, res, mod) => {
                 post: {
                     title: req.language.dashboard.mods.content.addVersion.post,
                     onChange: (languages, language, user) => async(button) => {
-                        let fomeElements = docuemnt.getElementsByClassName("category active")[0].getElementsByClassName("incorrect");
+                        let fomeElements = document.getElementsByClassName("category active")[0].getElementsByClassName("incorrect");
                         for (let i = 0; i < fomeElements.length; i++) {
                             fomeElements[i].classList.remove("incorrect");
                         }
