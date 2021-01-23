@@ -67,7 +67,7 @@
                                                     ""%>>
                                                 <% } else if(formElement.type === "page"){ %>
                                                     <label for="<%= formElement.id %>"><%= formElement.title %></label>
-                                                    <textarea oninput="textareaChanged(this);let onChange = <%= formElement.onChange (languages, language, user) %>; onChange(this.value);" id="<%= formElement.id %>" rows="10" class="<%= formElement.classes.join(" ")%>page"><%-formElement.value ? formElement.value :
+                                                    <textarea oninput="pageChanged(this);let onChange = <%= formElement.onChange (languages, language, user) %>; onChange(this.value);" id="<%= formElement.id %>" rows="10" class="<%= formElement.classes.join(" ")%>page"><%-formElement.value ? formElement.value :
                                                         ""%></textarea>
                                                     <h2>Preview</h2>
                                                     <div id="<%= formElement.id %>-preview" class="preview"></div>
