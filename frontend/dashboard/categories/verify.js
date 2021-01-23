@@ -21,7 +21,7 @@ module.exports = (req, res) => {
                             return;
                         }
 
-                        var xhr = new XMLHttpRequest();
+                        let xhr = new XMLHttpRequest();
                         xhr.withCredentials = true;
                         xhr.open(`GET`, `http://localhost:3007/api/v1/database/mods/${modid.value}`, false);
                         xhr.onreadystatechange = async(e) => {
@@ -40,7 +40,7 @@ module.exports = (req, res) => {
                                 //     return;
                                 // }
                                 let verify = !mod.verified;
-                                var xhr = new XMLHttpRequest();
+                                let xhr = new XMLHttpRequest();
                                 xhr.withCredentials = true;
                                 xhr.open(`PATCH`, `http://localhost:3007/api/v1/database/mods/${modid.value}`, true);
                                 xhr.setRequestHeader(`Content-Type`, `application/json`);
@@ -82,7 +82,7 @@ module.exports = (req, res) => {
                             return;
                         }
 
-                        var xhr = new XMLHttpRequest();
+                        let xhr = new XMLHttpRequest();
                         xhr.withCredentials = true;
                         xhr.open(`GET`, `http://localhost:3007/api/v1/database/modpacks/${modpackid.value}`, false);
                         xhr.onreadystatechange = async(e) => {
@@ -100,7 +100,7 @@ module.exports = (req, res) => {
                                 //     modpackid.classList.add("incorrect");
                                 //     return;
                                 // }
-                                var xhr = new XMLHttpRequest();
+                                let xhr = new XMLHttpRequest();
                                 xhr.withCredentials = true;
                                 xhr.open(`PATCH`, `http://localhost:3007/api/v1/database/modpacks/${modpackid.value}`, true);
                                 xhr.setRequestHeader(`Content-Type`, `application/json`);

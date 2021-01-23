@@ -87,43 +87,24 @@ const add = (collection, data, callback) => {
 
 const edit = (collection, id, data, callback) => {
     getConnection((client, db) => {
-        if (data.$push) {
-            let { $push, ...$set } = data;
-            db.collection(collection).updateOne({ _id: new mongo.ObjectID(id) }, {
-                    $set: $set,
-                    $push: $push,
-                },
-                (err, result) => {
-                    if (err) {
-                        callback(err, null);
-                        client.close();
-                    } else if (result) {
-                        find(collection, { _id: new mongo.ObjectID(id) }, callback);
-                        client.close();
-                    } else {
-                        callback(null, null);
-                        client.close();
-                    }
-                }
-            );
-        } else {
-            db.collection(collection).updateOne({ _id: new mongo.ObjectID(id) }, {
-                    $set: data,
-                },
-                (err, result) => {
-                    if (err) {
-                        callback(err, null);
-                        client.close();
-                    } else if (result) {
-                        find(collection, { _id: new mongo.ObjectID(id) }, callback);
-                        client.close();
-                    } else {
-                        callback(null, null);
-                        client.close();
-                    }
-                }
-            );
-        }
+        let update = {};
+        let { $push, $pull, ...$set } = data;
+        if ($set && Object.keys($set).length > 0) update.$set = $set;
+        if ($push && Object.keys($push).length > 0) update.$push = $push;
+        if ($pull && Object.keys($pull).length > 0) update.$pull = $pull;
+        if (!update || !Object.keys(update).length > 0) return callback("No updates", null);
+        db.collection(collection).updateOne({ _id: new mongo.ObjectID(id) }, update, (err, result) => {
+            if (err) {
+                callback(err, null);
+                client.close();
+            } else if (result) {
+                find(collection, { _id: new mongo.ObjectID(id) }, callback);
+                client.close();
+            } else {
+                callback(null, null);
+                client.close();
+            }
+        });
     });
 };
 

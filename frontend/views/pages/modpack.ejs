@@ -13,6 +13,9 @@
                         <img src="<%=modpack.photos[0]%>" />
                         <div class="title">
                             <%=modpack.name %>
+                                <%if(modpack.verified){%>
+                                    <span class="verified"></span>
+                                    <%}%>
                         </div>
                         <div class="authors">
                             <%=language.mods.mobBy%>
@@ -25,6 +28,11 @@
                                         </div>
                                         <% } %>
                         </div>
+                        <div class="get">
+                            <a download="<%=mod.name%>-<%=mod.currentVersion%>.js" href="/static/<%=mod.modid ? `mods`:`modpacks`%>/<%= mod.modid?mod.modid:mod.modpackid%>/<%=mod.currentVersion%>.js" class="download link">Download</a>
+                            <a onclick="copyTextToClipboard('<%= mod.modid?mod.modid:mod.modpackid%>'); this.classList.add('active'); setTimeout(()=>{this.classList.remove('active');}, 500)" class="copy link">Copy id</a>
+                        </div>
+                        <script src="/static/js/copy.js"></script>
                     </div>
                 </div>
 

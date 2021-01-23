@@ -67,70 +67,81 @@
                                                     ""%>>
                                                 <% } else if(formElement.type === "page"){ %>
                                                     <label for="<%= formElement.id %>"><%= formElement.title %></label>
-                                                    <textarea oninput="textareaChanged(this);let onChange = <%= formElement.onChange (languages, language, user) %>; onChange(this.value);" id="<%= formElement.id %>" rows="10"><%-formElement.value ? formElement.value :
+                                                    <textarea oninput="textareaChanged(this);let onChange = <%= formElement.onChange (languages, language, user) %>; onChange(this.value);" id="<%= formElement.id %>" rows="10" class="<%= formElement.classes.join(" ")%>page"><%-formElement.value ? formElement.value :
                                                         ""%></textarea>
                                                     <h2>Preview</h2>
                                                     <div id="<%= formElement.id %>-preview" class="preview"></div>
-                                                    <% } else if(formElement.type === "list"){ %>
+                                                    <% } else if(formElement.type === "textarea"){ %>
                                                         <label for="<%= formElement.id %>"><%= formElement.title %></label>
-                                                        <ul id="<%= formElement.id %>">
-                                                        </ul>
-                                                        <% if(formElement.value){ %>
-                                                            <%formElement.value.forEach(element => {%>
-                                                                <script>
-                                                                    window.onload = () => {
-                                                                        addListItem('<%= formElement.id %>', <%- formElement.getText(languages, language, user) %>, '<%=element%>')
-                                                                    };
-                                                                </script>
-                                                                <%}); %>
-                                                                    <% }%>
-                                                                        <input onchange="addListItem('<%= formElement.id %>', <%= formElement.getText(languages, language, user) %>, this.value);" type="text" id="<%= formElement.id %>-add" class="<%= formElement.classes.join(" ")%>">
-                                                                        <% } else if(formElement.type === "select"){ %>
-                                                                            <label for="<%= formElement.id %>"><%= formElement.title %></label>
-                                                                            <select id="<%= formElement.id %>" oninput="let onChange = <%=formElement.onChange (languages, language, user)%>; onChange(this.value); ">
+                                                        <textarea oninput="let onChange = <%= formElement.onChange (languages, language, user) %>; onChange(this.value);" id="<%= formElement.id %>" rows="10" class="<%= formElement.classes.join(" ")%> textarea"><%-formElement.value ? formElement.value :
+                                                        ""%></textarea>
+                                                        <% } else if(formElement.type === "list"){ %>
+                                                            <label for="<%= formElement.id %>"><%= formElement.title %></label>
+                                                            <ul id="<%= formElement.id %>">
+                                                            </ul>
+                                                            <% if(formElement.value){ %>
+                                                                <%formElement.value.forEach(element => {%>
+                                                                    <script>
+                                                                        window.onload = () => {
+                                                                            addListItem('<%= formElement.id %>', <%- formElement.getText(languages, language, user) %>, '<%=element%>')
+                                                                        };
+                                                                    </script>
+                                                                    <%}); %>
+                                                                        <% }%>
+                                                                            <input onchange="addListItem('<%= formElement.id %>', <%= formElement.getText(languages, language, user) %>, this.value);" type="text" id="<%= formElement.id %>-add" class="<%= formElement.classes.join(" ")%>">
+                                                                            <% } else if(formElement.type === "select"){ %>
+                                                                                <label for="<%= formElement.id %>"><%= formElement.title %></label>
+                                                                                <select id="<%= formElement.id %>" oninput="let onChange = <%=formElement.onChange (languages, language, user)%>; onChange(this.value); ">
                                                                 <%for(let y = 0;y < formElement.options.length;y++){let option = formElement.options[y];%>
                                                                 <option value="<%=option%>"><%= formElement.getText (languages, language, user)(option) %></option>
                                                                 <% } %>
                                                 </select>
-                                                                            <% } else if(formElement.type === "images"){ %>
-                                                                                <label for="<%= formElement.id %>"><%= formElement.title %></label>
-                                                                                <label for="<%= formElement.id %>" class="upload">
-                                                                    <div class="upload-title"><%= language.dashboard.upload%></div>
-                                                                </label>
-                                                                                <input type="file" id="<%= formElement.id %>" accept="image/png" multiple data-minImages="<%= formElement.min %>" data-maxImages="<%= formElement.max %>">
-                                                                                <% } else if(formElement.type === "js"){ %>
+                                                                                <% } else if(formElement.type === "images"){ %>
                                                                                     <label for="<%= formElement.id %>"><%= formElement.title %></label>
                                                                                     <label for="<%= formElement.id %>" class="upload">
+                                                                    <div class="upload-title"><%= language.dashboard.upload%></div>
+                                                                </label>
+                                                                                    <input type="file" id="<%= formElement.id %>" accept="image/png" multiple data-minImages="<%= formElement.min %>" data-maxImages="<%= formElement.max %>">
+                                                                                    <% } else if(formElement.type === "js"){ %>
+                                                                                        <label for="<%= formElement.id %>"><%= formElement.title %></label>
+                                                                                        <label for="<%= formElement.id %>" class="upload">
                                                                         <div class="upload-title"><%= language.dashboard.upload%></div>
                                                                     </label>
-                                                                                    <input type="file" id="<%= formElement.id %>" accept=".js" multiple data-minJs="<%= formElement.min %>" data-maxJs="<%= formElement.max %>">
+                                                                                        <input type="file" id="<%= formElement.id %>" accept=".js" multiple data-minJs="<%= formElement.min %>" data-maxJs="<%= formElement.max %>">
 
-                                                                                    <% } %>
                                                                                         <% } %>
-                                                                                            <%if(setting.post){%>
-                                                                                                <a onclick="let onChange = <%=setting.post.onChange (languages, language, user)%>; onChange(this);" <%=setting.post.red ? "style=background-color:var(--red);": ""%> class="post">
+                                                                                            <% } %>
+                                                                                                <%if(setting.post){%>
+                                                                                                    <a onclick="let onChange = <%=setting.post.onChange (languages, language, user)%>; onChange(this);" <%=setting.post.red ? "style=background-color:var(--red);": ""%> class="post">
                                                                                                     <%= setting.post.title %>
                                                                                                 </a>
-                                                                                                <% } %>
+                                                                                                    <% } %>
                                     </div>
-                                    <% } else if(setting.contentType ==="button"){ %>
-                                        <a <%-setting.category ? `onclick="setActive('${setting.category}')" `: setting.href ? `href=${setting.href} ` : "" %> class="setting button">
-                                            <div class="row">
-                                                <label><%= setting.title%></label>
-                                                <div class="value">
-                                                    <% if(setting.category){ %>
-                                                        <img src="/static/images/edit_key.png">
-                                                        <% }else if(setting.href){ %>
-                                                            <img src="/static/images/link.png">
-                                                            <% } %>
-                                                </div>
-                                            </div>
-                                            <div class="desc">
-                                                <%= setting.desc%>
-                                            </div>
-                                        </a>
-                                        <% } %>
+                                    <% } else if(setting.contentType === "var"){ %>
+                                        <div style="display: none;" value="<%=setting.value%>" id="<%=setting.id%>"></div>
+                                        <% } else if(setting.contentType ==="button"){ %>
+                                            <a <%-setting.category ? `onclick="setActive('${setting.category}')" `: setting.href ? `href=${setting.href} ` : ""%>
+                                                <%if(setting.play){%>onclick="let play =
+                                                    <%=setting.play%>; play();"
+                                                        <% } %> class="setting button">
+                                                            <div class="row">
+                                                                <label><%= setting.title%></label>
+                                                                <div class="value" style="z-index: 0;">
+                                                                    <% if(setting.category){ %>
+                                                                        <img src="/static/images/edit_key.png">
+                                                                        <% }else if(setting.href){ %>
+                                                                            <img src="/static/images/link.png">
+                                                                            <% }else if(setting.play){ %>
+                                                                                <img style="filter: invert();" src="/static/images/play.png">
+                                                                                <% } %>
+                                                                </div>
+                                                            </div>
+                                                            <div class="desc">
+                                                                <%= setting.desc%>
+                                                            </div>
+                                            </a>
                                             <% } %>
+                                                <% } %>
                         </div>
                         <% } %>
                 </div>
@@ -158,28 +169,9 @@
                 reader.readAsDataURL(file);
             });
         };
-        let textareaChanged = (textarea) => {
-            document.getElementById(textarea.id + "-preview").innerHTML = format(textarea.value);
-            let codeParents = document.getElementById(textarea.id + "-preview").getElementsByTagName('pre');
-            for (let i = 0; i < codeParents.length; i++) {
-                let codes = codeParents[i].getElementsByTagName('code');
-                for (let j = 0; j < codes.length; j++) {
-                    hljs.highlightBlock(codes[j]);
-                }
-            }
-        }
 
-        let textarea = document.getElementsByTagName('textarea')
+        let textarea = document.getElementsByClassName('textarea')
         for (var i = 0; i < textarea.length; i++) {
-            textarea[i].nextElementSibling.onclick = (e) => {
-                var target = e.target || e.srcElement;
-                if (target.nextElementSibling.style.maxHeight === '0px')
-                    target.nextElementSibling.removeAttribute("style");
-                else {
-                    target.nextElementSibling.style.maxHeight = '0px';
-                    target.nextElementSibling.style.padding = '0px';
-                }
-            };
             textarea[i].addEventListener('keydown', function(e) {
                 e = e || window.event;
                 var target = e.target || e.srcElement;
@@ -190,12 +182,53 @@
 
                     // set textarea value to: text before caret + tab + text after caret
                     this.value = this.value.substring(0, start) +
+                        "    " + this.value.substring(end);
+
+                    // put caret at right position again
+                    this.selectionStart =
+                        this.selectionEnd = start + 1;
+                }
+            });
+        }
+
+        let pageChanged = (page) => {
+            document.getElementById(page.id + "-preview").innerHTML = format(page.value);
+            let codeParents = document.getElementById(page.id + "-preview").getElementsByTagName('pre');
+            for (let i = 0; i < codeParents.length; i++) {
+                let codes = codeParents[i].getElementsByTagName('code');
+                for (let j = 0; j < codes.length; j++) {
+                    hljs.highlightBlock(codes[j]);
+                }
+            }
+        }
+
+        let page = document.getElementsByClassName('page')
+        for (var i = 0; i < page.length; i++) {
+            page[i].nextElementSibling.onclick = (e) => {
+                var target = e.target || e.srcElement;
+                if (target.nextElementSibling.style.maxHeight === '0px')
+                    target.nextElementSibling.removeAttribute("style");
+                else {
+                    target.nextElementSibling.style.maxHeight = '0px';
+                    target.nextElementSibling.style.padding = '0px';
+                }
+            };
+            page[i].addEventListener('keydown', function(e) {
+                e = e || window.event;
+                var target = e.target || e.srcElement;
+                if (e.key == 'Tab') {
+                    e.preventDefault();
+                    var start = this.selectionStart;
+                    var end = this.selectionEnd;
+
+                    // set page value to: text before caret + tab + text after caret
+                    this.value = this.value.substring(0, start) +
                         "\t" + this.value.substring(end);
 
                     // put caret at right position again
                     this.selectionStart =
                         this.selectionEnd = start + 1;
-                    textareaChanged(target);
+                    pageChanged(target);
                 }
             });
         }

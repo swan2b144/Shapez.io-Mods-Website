@@ -41,6 +41,7 @@ router.patch("/", (req, res) => {
             res.sendStatus(200);
             return;
         } else {
+            console.log(err);
             res.sendStatus(500);
         }
     });

@@ -246,6 +246,7 @@ nav .user {
     width: 200px;
     box-sizing: border-box;
     border-bottom: 2px var(--blue) solid;
+    z-index: 100;
 }
 
 nav .user .option {
@@ -570,6 +571,43 @@ footer .text img {
     object-fit: cover;
 }
 
+.mods .get .link {
+    margin-top: 10px;
+    display: inline-block;
+    padding: 10px;
+    width: 150px;
+    color: white;
+    background-color: var(--blue);
+    text-align: center;
+    border-radius: var(--border-radius);
+    transition: background-color 0.3s ease-in-out;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.mods .get {
+    display: flex;
+    justify-content: center;
+}
+
+.mods .get .link:not(:first-child) {
+    margin-left: 10px;
+}
+
+.mods .get .link:hover {
+    background-color: #5faef3;
+}
+
+.mods .get .link.active,
+.mods .get .link-green {
+    background-color: #66bb6a;
+}
+
+.mods .get .link-green:hover,
+.mods .get .link.active:hover {
+    background-color: #7eca82;
+}
+
 .mods~footer {
     margin-top: 20px;
     position: unset;
@@ -614,6 +652,7 @@ footer .text img {
     display: block;
     font-size: var(--font-small);
     color: #abafc7;
+    text-align: center;
 }
 
 .mods .mod .authors .author {
@@ -702,6 +741,43 @@ footer .text img {
     object-fit: cover;
 }
 
+.modpacks .get .link {
+    margin-top: 10px;
+    display: inline-block;
+    padding: 10px;
+    width: 150px;
+    color: white;
+    background-color: var(--blue);
+    text-align: center;
+    border-radius: var(--border-radius);
+    transition: background-color 0.3s ease-in-out;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modpacks .get {
+    display: flex;
+    justify-content: center;
+}
+
+.modpacks .get .link:not(:first-child) {
+    margin-left: 10px;
+}
+
+.modpacks .get .link:hover {
+    background-color: #5faef3;
+}
+
+.modpacks .get .link.active,
+.modpacks .get .link-green {
+    background-color: #66bb6a;
+}
+
+.modpacks .get .link-green:hover,
+.modpacks .get .link.active:hover {
+    background-color: #7eca82;
+}
+
 .modpacks~footer {
     margin-top: 20px;
     position: unset;
@@ -746,6 +822,7 @@ footer .text img {
     display: block;
     font-size: var(--font-small);
     color: #abafc7;
+    text-align: center;
 }
 
 .modpacks .modpack .authors .author {

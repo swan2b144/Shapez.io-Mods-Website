@@ -38,32 +38,37 @@
     </div>
     <div class="content">
         <% for (let i = 0; i < combined.length; i++) { const mod = combined[i];%>
-            <a href="/<%=mod.modid ? `mod`:`modpack`%>/<%= mod.modid?mod.modid:mod.modpackid%>" data-mod-type="<%=mod.modid ? `mod`:`modpack`%>" <%=mod.verified ? "data-mod-verified": ""%> class="card">
-                <div class="title">
+            <div data-mod-type="<%=mod.modid ? `mod`:`modpack`%>" <%=mod.verified ? "data-mod-verified": ""%> class="card">
+                <a href="/<%=mod.modid ? `mod`:`modpack`%>/<%= mod.modid?mod.modid:mod.modpackid%>" class="title">
                     <%=mod.name%>
                         <%if(mod.verified){%>
                             <span class="verified"></span>
                             <%}%>
-                </div>
+                </a>
                 <div class="authors">
                     <%=language.mods.mobBy%>
                         <% for(let j=0; j < mod.authors.length; j++){ %>
                             <% let author = mod.authors[j]; %>
-                                <div onclick="window.location.href = `/user/<%= author.id %>`" class="author">
+                                <a onclick="window.location.href = `/user/<%= author.id %>`" class="author">
                                     <% let str = author.username + (mod.authors.length-2 ===j ? " & ": mod.authors.length-1 === j ? "":", "); %>
                                         <%str.trim();%>
                                             <%= str %>
-                                </div>
+                                </a>
                                 <% } %>
                 </div>
-                <div class="subtitle">
+                <a href="/<%=mod.modid ? `mod`:`modpack`%>/<%= mod.modid?mod.modid:mod.modpackid%>" class="subtitle">
                     <%= mod.description%>
-                </div>
-                <div class="image">
+                </a>
+                <a href="/<%=mod.modid ? `mod`:`modpack`%>/<%= mod.modid?mod.modid:mod.modpackid%>" class="image">
                     <img src="<%= mod.photos[0]%>" />
+                </a>
+                <div class="get">
+                    <a download="<%=mod.name%>-<%=mod.currentVersion%>.js" href="/static/<%=mod.modid ? `mods`:`modpacks`%>/<%= mod.modid?mod.modid:mod.modpackid%>/<%=mod.currentVersion%>.js" class="download link">Download</a>
+                    <a onclick="copyTextToClipboard('<%= mod.modid?mod.modid:mod.modpackid%>'); this.classList.add('active'); setTimeout(()=>{this.classList.remove('active');}, 500)" class="copy link">Copy id</a>
                 </div>
-            </a>
+            </div>
             <% } %>
     </div>
+    <script src="/static/js/copy.js"></script>
     <script src="/static/js/search.js"></script>
 </div>

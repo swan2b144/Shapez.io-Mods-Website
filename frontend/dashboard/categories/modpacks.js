@@ -63,7 +63,7 @@ module.exports = (req, res, modpacks) => {
                             return;
                         }
 
-                        var xhr = new XMLHttpRequest();
+                        let xhr = new XMLHttpRequest();
                         xhr.withCredentials = true;
                         xhr.open(`GET`, `http://localhost:3007/api/v1/database/modpacks/uuid`, false);
                         xhr.onreadystatechange = async(e) => {
@@ -90,7 +90,7 @@ module.exports = (req, res, modpacks) => {
                                     data.photos.push(await readFileDataURL(photos.files[i]));
                                 }
                                 data.bundle = await readFile(bundle.files[0]);
-                                var xhr = new XMLHttpRequest();
+                                let xhr = new XMLHttpRequest();
                                 xhr.withCredentials = true;
                                 xhr.open(`POST`, `http://localhost:3007/api/v1/database/modpacks`, true);
                                 xhr.setRequestHeader(`Content-Type`, `application/json`);
@@ -100,6 +100,7 @@ module.exports = (req, res, modpacks) => {
                                 xhr.send(JSON.stringify(data));
                             }
                         };
+                        xhr.setRequestHeader(`Content-Type`, `application/json`);
                         xhr.send(JSON.stringify({ modpackid: modpackid.value }));
                     },
                 },
@@ -139,7 +140,7 @@ module.exports = (req, res, modpacks) => {
                         classes: [],
                         onChange: (languages, language, user) => (value) => {},
                         getText: (languages, language, user) => (value) => {
-                            var xhr = new XMLHttpRequest();
+                            let xhr = new XMLHttpRequest();
                             xhr.withCredentials = true;
                             xhr.open(`GET`, `http://localhost:3007/api/v1/database/users/${value}`, false);
                             xhr.send();

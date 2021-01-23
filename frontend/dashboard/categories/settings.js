@@ -14,7 +14,7 @@ module.exports = (req, res) => {
                     return languages[option].name;
                 },
                 onChange: (languages, language, user) => (option) => {
-                    var xhr = new XMLHttpRequest();
+                    let xhr = new XMLHttpRequest();
                     xhr.withCredentials = true;
                     xhr.onreadystatechange = function() {
                         if (xhr.readyState == XMLHttpRequest.DONE) {
@@ -51,7 +51,7 @@ module.exports = (req, res) => {
                 contentType: "setting",
                 type: "boolean",
                 onChange: (languages, language, user) => (value) => {
-                    var xhr = new XMLHttpRequest();
+                    let xhr = new XMLHttpRequest();
                     xhr.withCredentials = true;
                     xhr.open(`PATCH`, `http://localhost:3007/api/v1/database/users/edit`, true);
                     xhr.setRequestHeader(`Content-Type`, `application/json`);
@@ -74,7 +74,7 @@ module.exports = (req, res) => {
                     classes: [],
                     value: req.user.description,
                     onChange: (languages, language, user) => (value) => {
-                        var xhr = new XMLHttpRequest();
+                        let xhr = new XMLHttpRequest();
                         xhr.withCredentials = true;
                         xhr.open(`PATCH`, `http://localhost:3007/api/v1/database/users/edit`, true);
                         xhr.setRequestHeader(`Content-Type`, `application/json`);

@@ -55,7 +55,7 @@ module.exports = (req, res, mod) => {
                                 data.photos.push(await readFileDataURL(photos.files[i]));
                             }
                         }
-                        var xhr = new XMLHttpRequest();
+                        let xhr = new XMLHttpRequest();
                         xhr.withCredentials = true;
                         xhr.open(`PATCH`, `http://localhost:3007/api/v1/database/mods/${_id}`, true);
                         xhr.setRequestHeader(`Content-Type`, `application/json`);
@@ -95,7 +95,7 @@ module.exports = (req, res, mod) => {
                         classes: [],
                         onChange: (languages, language, user) => (value) => {},
                         getText: (languages, language, user) => (value) => {
-                            var xhr = new XMLHttpRequest();
+                            let xhr = new XMLHttpRequest();
                             xhr.withCredentials = true;
                             xhr.open(`GET`, `http://localhost:3007/api/v1/database/users/${value}`, false);
                             xhr.send();
@@ -155,12 +155,14 @@ module.exports = (req, res, mod) => {
                             gameversion: gameversion.value,
                             bundle: await readFile(bundle.files[0]),
                         };
-                        var xhr = new XMLHttpRequest();
+                        let xhr = new XMLHttpRequest();
                         xhr.withCredentials = true;
                         xhr.open(`PATCH`, `http://localhost:3007/api/v1/database/mods/${_id}`, true);
                         xhr.setRequestHeader(`Content-Type`, `application/json`);
                         xhr.onreadystatechange = async(e) => {
-                            if (e.target.status === 200) window.location.reload();
+                            if (e.target.readyState === XMLHttpRequest.DONE) {
+                                if (e.target.status === 200) window.location.reload();
+                            }
                         };
                         xhr.send(JSON.stringify(data));
                     },
@@ -224,12 +226,14 @@ module.exports = (req, res, mod) => {
                             return;
                         }
 
-                        var xhr = new XMLHttpRequest();
+                        let xhr = new XMLHttpRequest();
                         xhr.withCredentials = true;
                         xhr.open(`DELETE`, `http://localhost:3007/api/v1/database/mods/${_id}`, true);
                         xhr.setRequestHeader(`Content-Type`, `application/json`);
                         xhr.onreadystatechange = async(e) => {
-                            if (e.target.status === 200) window.location.reload();
+                            if (e.target.readyState === XMLHttpRequest.DONE) {
+                                if (e.target.status === 200) window.location.reload();
+                            }
                         };
                         xhr.send(
                             JSON.stringify({

@@ -58,6 +58,39 @@ let en = {
         title: "Dashboard",
         upload: "Upload",
         uploaded: "Uploaded",
+        instances: {
+            title: "Instances",
+            content: {
+                play: "Play",
+                updateInstance: {
+                    post: "Update instance",
+                    fields: {
+                        name: "Name",
+                        config: "Config",
+                        settings: "Settings",
+                    },
+                },
+                addInstance: {
+                    post: "Add instance",
+                    fields: {
+                        name: "Name",
+                        gameVersion: "Game version",
+                    },
+                },
+                deleteInstance: {
+                    post: "Delete instance",
+                    fields: {
+                        name: "Name",
+                    },
+                },
+                addMod: {
+                    post: "Add mod",
+                    fields: {
+                        id: "Mod id",
+                    },
+                },
+            },
+        },
         settings: {
             title: "Settings",
             content: {

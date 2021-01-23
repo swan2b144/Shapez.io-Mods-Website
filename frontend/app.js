@@ -8,6 +8,7 @@ const mods = require("./mods");
 const user = require("./user");
 const mod = require("./mod");
 const modpack = require("./modpack");
+const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 const PORT = 3007;
 const HOST = "http://localhost";
@@ -48,6 +49,7 @@ app.listen(PORT, function() {
 });
 
 app.use("/static", express.static(__dirname + "/public"));
+app.use("/v", express.static(__dirname + "/play/v"));
 //Update language
 app.use((req, res, next) => {
     if (!req.language) req.language = languages.languages[languages.baseLanguage];
@@ -57,6 +59,13 @@ app.use((req, res, next) => {
         req.language = baseLanguage;
     }
     next();
+});
+
+//Put /build/index.html in /play
+//Put other files in /play/v/<commit hash>/
+app.get("/play", function(req, res) {
+    if (!req.user) return res.redirect("/api/v1/auth/login");
+    res.sendFile(__dirname + "/play/index.html");
 });
 
 app.get("/", function(req, res) {
