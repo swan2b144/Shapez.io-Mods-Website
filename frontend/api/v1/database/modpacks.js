@@ -71,6 +71,27 @@ const getModpacksOTW = (callback) => {
 };
 
 const router = require("express").Router();
+
+router.get("/uuid", (req, res) => {
+    if (!req.user) {
+        res.sendStatus(401);
+        return;
+    }
+    if (!req.body) {
+        res.sendStatus(400);
+        return;
+    }
+    modpacks((err, modpacks) => {
+        if (!err && modpacks) {
+            let exists = modpacks.some((mod) => mod.modpackid === req.body.modpackid);
+            if (exists) res.sendStatus(406);
+            else res.sendStatus(200);
+        } else {
+            res.sendStatus(500);
+        }
+    });
+});
+
 router.get("/:id", (req, res) => {
     if (!req.isAuthenticated()) {
         res.sendStatus(401);
@@ -292,26 +313,6 @@ router.patch("/:id", (req, res) => {
             }
             res.sendStatus(200);
         });
-    });
-});
-
-router.get("/uuid", (req, res) => {
-    if (!req.user) {
-        res.sendStatus(401);
-        return;
-    }
-    if (!req.body) {
-        res.sendStatus(400);
-        return;
-    }
-    modpacks((err, modpacks) => {
-        if (!err && modpacks) {
-            let exists = modpacks.some((mod) => mod.modpackid === req.body.modpackid);
-            if (exists) res.sendStatus(406);
-            else res.sendStatus(200);
-        } else {
-            res.sendStatus(500);
-        }
     });
 });
 module.exports = { modpacks, findModpack, addModpack, editModpack, removeModpack, getModpacksOTW, findMultipleModpacks, router };

@@ -71,6 +71,27 @@ const getModsOTW = (callback) => {
 };
 
 const router = require("express").Router();
+
+router.get("/uuid", (req, res) => {
+    if (!req.user) {
+        res.sendStatus(401);
+        return;
+    }
+    if (!req.body) {
+        res.sendStatus(400);
+        return;
+    }
+    mods((err, mods) => {
+        if (!err && mods) {
+            let exists = mods.some((mod) => mod.modid === req.body.modid);
+            if (exists) res.sendStatus(406);
+            else res.sendStatus(200);
+        } else {
+            res.sendStatus(500);
+        }
+    });
+});
+
 router.get("/:id", (req, res) => {
     if (!req.isAuthenticated()) {
         res.sendStatus(401);
@@ -291,26 +312,6 @@ router.patch("/:id", (req, res) => {
             }
             res.sendStatus(200);
         });
-    });
-});
-
-router.get("/uuid", (req, res) => {
-    if (!req.user) {
-        res.sendStatus(401);
-        return;
-    }
-    if (!req.body) {
-        res.sendStatus(400);
-        return;
-    }
-    mods((err, mods) => {
-        if (!err && mods) {
-            let exists = mods.some((mod) => mod.modid === req.body.modid);
-            if (exists) res.sendStatus(406);
-            else res.sendStatus(200);
-        } else {
-            res.sendStatus(500);
-        }
     });
 });
 
