@@ -252,6 +252,39 @@ let nl = {
         title: "Dashboard",
         upload: "Uploaden",
         uploaded: "Geüpload",
+        instances: {
+            title: "Instanties",
+            content: {
+                play: "Spelen",
+                updateInstance: {
+                    post: "Instantie bijwerken",
+                    fields: {
+                        name: "Naam",
+                        config: "Configuratie",
+                        settings: "Instellingen",
+                    },
+                },
+                addInstance: {
+                    post: "Instantie toevoegen",
+                    fields: {
+                        name: "Naam",
+                        gameVersion: "Game versie",
+                    },
+                },
+                deleteInstance: {
+                    post: "Instantie verwijderen",
+                    fields: {
+                        name: "Naam",
+                    },
+                },
+                addMod: {
+                    post: "Voeg mod toe",
+                    fields: {
+                        id: "Mod id",
+                    },
+                },
+            },
+        },
         settings: {
             title: "Instellingen",
             content: {
