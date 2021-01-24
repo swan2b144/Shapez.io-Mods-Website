@@ -21,7 +21,7 @@ module.exports = (req, res) => {
                             window.location.reload();
                         }
                     };
-                    xhr.open(`PATCH`, `/api/v1/database/users/edit`, true);
+                    xhr.open(`PATCH`, `/api/v1/database/users/`, true);
                     xhr.setRequestHeader(`Content-Type`, `application/json`);
                     xhr.send(
                         JSON.stringify({
@@ -53,7 +53,7 @@ module.exports = (req, res) => {
                 onChange: (languages, language, user) => (value) => {
                     let xhr = new XMLHttpRequest();
                     xhr.withCredentials = true;
-                    xhr.open(`PATCH`, `/api/v1/database/users/edit`, true);
+                    xhr.open(`PATCH`, `/api/v1/database/users/`, true);
                     xhr.setRequestHeader(`Content-Type`, `application/json`);
                     xhr.send(
                         JSON.stringify({
@@ -76,7 +76,7 @@ module.exports = (req, res) => {
                     onChange: (languages, language, user) => (value) => {
                         let xhr = new XMLHttpRequest();
                         xhr.withCredentials = true;
-                        xhr.open(`PATCH`, `/api/v1/database/users/edit`, true);
+                        xhr.open(`PATCH`, `/api/v1/database/users/`, true);
                         xhr.setRequestHeader(`Content-Type`, `application/json`);
                         xhr.send(
                             JSON.stringify({

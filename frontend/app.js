@@ -9,7 +9,15 @@ const mods = require("./mods");
 const user = require("./user");
 const mod = require("./mod");
 const modpack = require("./modpack");
-const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+const { findUser } = require("./api/v1/database/users");
+let findUserPromise = (data) =>
+    new Promise((resolve, reject) =>
+        findUser(data, (err, user) => {
+            if (user) resolve(user);
+            if (err) reject(err);
+            reject();
+        })
+    );
 
 var app = express();
 app.set("view engine", "ejs");
@@ -48,11 +56,13 @@ app.listen(process.env.PORT, function() {
 
 app.use("/static", express.static(__dirname + "/public"));
 app.use("/v", express.static(__dirname + "/play/v"));
-//Update language
-app.use((req, res, next) => {
+//Update user and language
+app.use(async(req, res, next) => {
     if (!req.language) req.language = languages.languages[languages.baseLanguage];
     if (req.user) {
-        let baseLanguage = Object.assign({}, languages.languages[languages.baseLanguage]);
+        let baseLanguage = JSON.parse(JSON.stringify(languages.languages[languages.baseLanguage]));
+        let user = await findUserPromise({ discordId: req.user.discordId });
+        if (user) req.user = user;
         languages.matchDataRecursive(baseLanguage, languages.languages[req.user.settings.language]);
         req.language = baseLanguage;
     }
