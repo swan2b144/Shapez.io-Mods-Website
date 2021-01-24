@@ -148,7 +148,7 @@ let en = {
                         modpackPage: "Modpack page",
                         preview: "Preview",
                         modpackId: "Modpack id",
-                        collaberators: "Collaberators",
+                        collaborators: "collaborators",
                         mods: "mods",
                         version: "Version",
                         gameVersion: "Game version",
@@ -161,6 +161,16 @@ let en = {
         mods: {
             title: "Mods",
             content: {
+                versions: {
+                    title: "Versions",
+                    post: "Update version",
+                    fields: {
+                        version: "Version",
+                        delete: "Delete version",
+                        name: "Name",
+                        bundle: "Bundle",
+                    },
+                },
                 addVersion: {
                     post: "Add version",
                 },
@@ -182,7 +192,7 @@ let en = {
                         modPage: "Mod page",
                         preview: "Preview",
                         modId: "Mod id",
-                        collaberators: "Collaberators",
+                        collaborators: "collaborators",
                         version: "Version",
                         gameVersion: "Game version",
                         photos: "Photos",
@@ -342,7 +352,7 @@ let nl = {
                         modPage: "Mod pagina",
                         preview: "Voorbeeld",
                         modId: "Modpack id",
-                        collaberators: "Medewerkers",
+                        collaborators: "Medewerkers",
                         version: "Versie",
                         gameVersion: "Spel versie",
                         photos: "Fotos",
@@ -375,7 +385,7 @@ let nl = {
                         modPage: "Mod pagina",
                         preview: "Voorbeeld",
                         modId: "Mod id",
-                        collaberators: "Medewerkers",
+                        collaborators: "Medewerkers",
                         version: "Versie",
                         gameVersion: "Spel versie",
                         photos: "Fotos",

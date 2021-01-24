@@ -21,7 +21,7 @@ module.exports = (req, res, modpacks) => {
                         let description = document.getElementById("modpack-description");
                         let page = document.getElementById("modpack-add-new-modpack-page");
                         let modpackid = document.getElementById("modpack-modpackid");
-                        let collaberators = document.getElementById("modpack-collaberators");
+                        let collaborators = document.getElementById("modpack-collaborators");
                         let version = document.getElementById("modpack-version");
                         let gameversion = document.getElementById("modpack-gameversion");
                         let photos = document.getElementById("modpack-photos");
@@ -65,7 +65,7 @@ module.exports = (req, res, modpacks) => {
 
                         let xhr = new XMLHttpRequest();
                         xhr.withCredentials = true;
-                        xhr.open(`GET`, `http://mods.thomasbrants.nl/api/v1/database/modpacks/uuid`, false);
+                        xhr.open(`GET`, `/api/v1/database/modpacks/uuid`, false);
                         xhr.onreadystatechange = async(e) => {
                             if (e.target.readyState === XMLHttpRequest.DONE) {
                                 if (e.target.status !== 200) {
@@ -82,7 +82,7 @@ module.exports = (req, res, modpacks) => {
                                 data.modpackid = modpackid.value;
                                 data.version = version.value;
                                 data.gameversion = gameversion.value;
-                                data.collaberators = [...collaberators.children].map((li) => {
+                                data.collaborators = [...collaborators.children].map((li) => {
                                     return li.id.split("-")[2];
                                 });
                                 data.photos = [];
@@ -92,7 +92,7 @@ module.exports = (req, res, modpacks) => {
                                 data.bundle = await readFile(bundle.files[0]);
                                 let xhr = new XMLHttpRequest();
                                 xhr.withCredentials = true;
-                                xhr.open(`POST`, `http://mods.thomasbrants.nl/api/v1/database/modpacks`, true);
+                                xhr.open(`POST`, `/api/v1/database/modpacks`, true);
                                 xhr.setRequestHeader(`Content-Type`, `application/json`);
                                 xhr.onreadystatechange = async(e) => {
                                     if (e.target.status === 406) modpackid.classList.add("incorrect");
@@ -135,14 +135,14 @@ module.exports = (req, res, modpacks) => {
                     },
                     {
                         type: "list",
-                        id: "modpack-collaberators",
-                        title: req.language.dashboard.modpacks.content.addModpack.fields.collaberators,
+                        id: "modpack-collaborators",
+                        title: req.language.dashboard.modpacks.content.addModpack.fields.collaborators,
                         classes: [],
                         onChange: (languages, language, user) => (value) => {},
                         getText: (languages, language, user) => (value) => {
                             let xhr = new XMLHttpRequest();
                             xhr.withCredentials = true;
-                            xhr.open(`GET`, `http://mods.thomasbrants.nl/api/v1/database/users/${value}`, false);
+                            xhr.open(`GET`, `/api/v1/database/users/${value}`, false);
                             xhr.send();
                             try {
                                 return JSON.parse(xhr.response).username;

@@ -2,7 +2,6 @@ const modsDB = require("../api/v1/database/mods");
 const modpacksDB = require("../api/v1/database/modpacks");
 const userDB = require("../api/v1/database/users");
 const languages = require("../api/v1/languages");
-const mod = require("./categories/mod");
 
 let getMod = (id) => {
     return new Promise((resolve, reject) => {
@@ -20,8 +19,22 @@ let getMods = (req, res, discordId) => {
 
             let buttons = [];
             let categories = [];
+            let versionsCategories = [];
             for (let i = 0; i < mods.length; i++) {
-                const mod = mods[i];
+                let mod = mods[i];
+                mod.versionButtons = [];
+                for (let x = 0; x < mod.versions.length; x++) {
+                    let version = mod.versions[x];
+                    version.index = x;
+                    mod.versionButtons.push({
+                        contentType: "button",
+                        title: version.id,
+                        desc: "",
+                        category: `mod-${mod.modid}-${mod._id}-version-${version.id}`,
+                    });
+                    versionsCategories.push(require("./categories/mod-version")(req, res, mod, version));
+                }
+                versionsCategories.push(require("./categories/mod-versions")(req, res, mod));
                 buttons.push({
                     contentType: "button",
                     title: mod.name,
@@ -33,6 +46,7 @@ let getMods = (req, res, discordId) => {
             resolve({
                 buttons: buttons,
                 categories: categories,
+                versionsCategories: versionsCategories,
             });
         });
     });
@@ -45,8 +59,22 @@ let getModpacks = (req, res, discordId) => {
 
             let buttons = [];
             let categories = [];
+            let versionsCategories = [];
             for (let i = 0; i < modpacks.length; i++) {
                 const modpack = modpacks[i];
+                mod.versionButtons = [];
+                for (let x = 0; x < modpack.versions.length; x++) {
+                    let version = modpack.versions[x];
+                    version.index = x;
+                    modpack.versionButtons.push({
+                        contentType: "button",
+                        title: version.id,
+                        desc: "",
+                        category: `mod-${modpack.modpackid}-${modpack._id}-version-${version.id}`,
+                    });
+                    versionsCategories.push(require("./categories/modpack-version")(req, res, modpack, version));
+                }
+                versionsCategories.push(require("./categories/modpack-versions")(req, res, modpack));
                 buttons.push({
                     contentType: "button",
                     title: modpack.name,
@@ -58,6 +86,7 @@ let getModpacks = (req, res, discordId) => {
             resolve({
                 buttons: buttons,
                 categories: categories,
+                versionsCategories: versionsCategories,
             });
         });
     });
@@ -112,7 +141,7 @@ let getDashbaord = async(req, res) => {
     let mods = await getMods(req, res, req.user.discordId);
     let modpacks = await getModpacks(req, res, req.user.discordId);
     let instances = await getInstances(req, res, req.user);
-    let categories = [require("./categories/instances")(req, res, instances), require("./categories/mods")(req, res, mods), require("./categories/modpacks")(req, res, modpacks), require("./categories/settings")(req, res), ...mods.categories, ...modpacks.categories, ...instances.categories, ...instances.modCategories];
+    let categories = [require("./categories/instances")(req, res, instances), require("./categories/mods")(req, res, mods), require("./categories/modpacks")(req, res, modpacks), require("./categories/settings")(req, res), ...mods.categories, ...modpacks.categories, ...instances.categories, ...instances.modCategories, ...mods.versionsCategories, ...modpacks.versionsCategories];
 
     if (req.user.roles.includes("mod")) {
         categories.splice(3, 0, require("./categories/verify")(req, res));

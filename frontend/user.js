@@ -28,7 +28,8 @@ let getUser = (req, res) => {
                 let users = await getUsers();
                 for (let i = 0; i < combined.length; i++) {
                     const mod = combined[i];
-                    mod.authors = mod.collaberators.slice();
+                    if (mod.collaborators) mod.authors = mod.collaborators.slice();
+                    else mod.authors = [];
                     mod.authors = mod.authors.map((id) => {
                         if (users) {
                             for (let i = 0; i < users.length; i++) {

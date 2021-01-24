@@ -1,3 +1,4 @@
+require("dotenv").config();
 require("./api/v1/auth/discord");
 const express = require("express");
 const session = require("express-session");
@@ -9,9 +10,6 @@ const user = require("./user");
 const mod = require("./mod");
 const modpack = require("./modpack");
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-
-const PORT = 3007;
-const HOST = "http://localhost";
 
 var app = express();
 app.set("view engine", "ejs");
@@ -44,8 +42,8 @@ app.use(passport.session());
 app.use("/api/v1", require("./api/v1"));
 
 // Binding express app to port 3007
-app.listen(PORT, function() {
-    console.log(`Node server running @ ${HOST}:${PORT}`);
+app.listen(process.env.PORT, function() {
+    console.log(`Node server running @ ${process.env.HOST}:${process.env.ENABLE_PORT ? ":" + process.env.PORT : ""}`);
 });
 
 app.use("/static", express.static(__dirname + "/public"));

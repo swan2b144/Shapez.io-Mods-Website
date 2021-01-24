@@ -19,7 +19,7 @@ let getModpack = (req, res) => {
             });
         let users = await getUsers();
         modpack.page = format.format(modpack.page);
-        mod.authors = mod.collaberators.slice();
+        mod.authors = mod.collaborators.slice();
         modpack.authors = modpack.authors.map((id) => {
             if (users) {
                 for (let i = 0; i < users.length; i++) {

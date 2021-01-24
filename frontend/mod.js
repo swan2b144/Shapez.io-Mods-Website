@@ -19,7 +19,7 @@ let getMod = (req, res) => {
             });
         let users = await getUsers();
         mod.page = format.format(mod.page);
-        mod.authors = mod.collaberators.slice();
+        mod.authors = mod.collaborators.slice();
         mod.authors = mod.authors.map((id) => {
             if (users) {
                 for (let i = 0; i < users.length; i++) {

@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
         }
 
         results.map((mod) => {
-            mod.collaberators = JSON.parse(mod.collaberators);
+            mod.collaborators = JSON.parse(mod.collaborators);
             return mod;
         });
 
@@ -30,18 +30,18 @@ router.post("/", (req, res) => {
     let description = req.body.description;
     let page = req.body.page;
     let modid = req.body.modid;
-    let collaberators = req.body.collaberators;
+    let collaborators = req.body.collaborators;
     let version = req.body.version;
     let gameversion = req.body.gameversion;
     let photos = req.body.photos;
-    if (!title || !description || !page || !modid || !collaberators || !version || !gameversion)
+    if (!title || !description || !page || !modid || !collaborators || !version || !gameversion)
         return res.status(403).send({
             status: 403,
             error: "Bad request",
         });
 
     let connection = require("../database").getConnection();
-    connection.query(`INSERT INTO mods (title, description, page, modid, collaberators, version, gameversion${photos ? ", photos" : ""}) VALUES ('${title}', '${description}', '${page}', '${modid}', '${collaberators}', '${version}', '${gameversion}'${photos ? ", '" + photos + "'" : ""})`, function(error, results, fields) {
+    connection.query(`INSERT INTO mods (title, description, page, modid, collaborators, version, gameversion${photos ? ", photos" : ""}) VALUES ('${title}', '${description}', '${page}', '${modid}', '${collaborators}', '${version}', '${gameversion}'${photos ? ", '" + photos + "'" : ""})`, function(error, results, fields) {
         if (error) {
             console.log(error);
             return res.status(501).send({
@@ -97,7 +97,7 @@ router.get("/:id", (req, res) => {
             });
 
         results.map((mod) => {
-            mod.collaberators = JSON.parse(mod.collaberators);
+            mod.collaborators = JSON.parse(mod.collaborators);
             return mod;
         });
 
@@ -113,14 +113,14 @@ router.patch("/:id", (req, res) => {
     let title = req.body.title;
     let description = req.body.description;
     let page = req.body.page;
-    let collaberators = req.body.collaberators;
+    let collaborators = req.body.collaborators;
     let version = req.body.version;
     let gameversion = req.body.gameversion;
     let seen = req.body.seen;
     let likes = req.body.likes;
     let photos = req.body.photos;
     let downloads = req.body.downloads;
-    if (!title && !description && !page && !collaberators && !version && !gameversion && !seen && !likes && !photos && !downloads)
+    if (!title && !description && !page && !collaborators && !version && !gameversion && !seen && !likes && !photos && !downloads)
         return res.status(403).send({
             status: 403,
             error: "Bad request",
@@ -129,7 +129,7 @@ router.patch("/:id", (req, res) => {
     let values = "";
     if (title) values += ` title = '${title}'`;
     if (description) values += ` description = '${description}'`;
-    if (collaberators) values += ` collaberators = '${collaberators}'`;
+    if (collaborators) values += ` collaborators = '${collaborators}'`;
     if (version) values += ` version = '${version}'`;
     if (gameversion) values += ` gameversion = '${gameversion}'`;
     if (likes) values += ` likes = '${likes}'`;
@@ -194,7 +194,7 @@ router.delete("/:id", (req, res) => {
             });
 
         results.map((mod) => {
-            mod.collaberators = JSON.parse(mod.collaberators);
+            mod.collaborators = JSON.parse(mod.collaborators);
             return mod;
         });
 

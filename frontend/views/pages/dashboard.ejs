@@ -23,125 +23,77 @@
                 <div class="content" id="content">
                     <%for(let i = 0; i < categories.length; i++){let category = categories[i];%>
                         <div id="<%= category.id%>-content">
-                            <div class="title">
-                                <%= category.title%>
-                            </div>
-                            <%for(let j = 0; j < category.content.length;j++){let setting = category.content[j];if(setting.contentType ==="setting"){%>
-                                <div class="setting">
-                                    <div class="row">
-                                        <label><%= setting.title%></label>
-                                        <div class="value <%= setting.type%>">
-                                            <% if(setting.type === "enum") { %>
-                                                <select oninput="let onChange = <%-setting.onChange (languages, language, user)%>; onChange(this.value); ">
+                            <% if(category.back){%>
+                                <a onclick="setActive('<%=category.back%>')" class="title" style="display: inline-block; cursor: pointer;"><img src="/static/images/back.png" style="filter: invert(); height: 23px;">
+                                    <%= category.title%>
+                                </a>
+                                <%}else{%>
+                                    <div class="title">
+                                        <%= category.title%>
+                                    </div>
+                                    <%}%>
+
+                                        <%for(let j = 0; j < category.content.length;j++){let setting = category.content[j];if(setting.contentType ==="setting"){%>
+                                            <div class="setting">
+                                                <div class="row">
+                                                    <label><%= setting.title%></label>
+                                                    <div class="value <%= setting.type%>">
+                                                        <% if(setting.type === "enum") { %>
+                                                            <select oninput="let onChange = <%-setting.onChange (languages, language, user)%>; onChange(this.value); ">
                                                     <%for(let x = 0; x < setting.options.length;x++){let option = setting.options[x];%>
                                                     <option value="<%=option%>" <%= option === setting.value ? "selected":"" %>><%= setting.getText (languages, language, user)(option) %></option>
                                                     <% } %>
                                     </select>
-                                                <% } else if(setting.type === "boolean"){ %>
-                                                    <label class="switch">
+                                                            <% } else if(setting.type === "boolean"){ %>
+                                                                <label class="switch">
                                             <input type="checkbox" oninput="let onChange = <%-setting.onChange (languages, language, user)%>; onChange(this.checked);" <%= setting.value ? "checked":""%> />
                                             <span class="slider round"></span>
                                         </label>
-                                                    <% }else if(setting.type === "range"){ %>
-                                                        <label><%=setting.getText (languages, language, user)(setting.value)%></label>
-                                                        <input oninput="let getText = <%=setting.getText (languages, language, user)%>; let onChange = <%-setting.onChange (languages, language, user)%>; onChange(this.value); this.previousElementSibling.innerText = getText(this.value);" class="rangeInput" type="range"
-                                                            value="<%=setting.value%>" min="<%=setting.min%>" max="<%=setting.max%>" step="<%=setting.step%>">
+                                                                <% }else if(setting.type === "range"){ %>
+                                                                    <label><%=setting.getText (languages, language, user)(setting.value)%></label>
+                                                                    <input oninput="let getText = <%=setting.getText (languages, language, user)%>; let onChange = <%-setting.onChange (languages, language, user)%>; onChange(this.value); this.previousElementSibling.innerText = getText(this.value);" class="rangeInput" type="range"
+                                                                        value="<%=setting.value%>" min="<%=setting.min%>" max="<%=setting.max%>" step="<%=setting.step%>">
 
-                                                        <% } %>
+                                                                    <% } %>
 
-                                        </div>
-                                    </div>
-                                    <div class="desc">
-                                        <%= setting.desc%>
-                                    </div>
-                                </div>
-                                <% } else if(setting.contentType ==="form"){ %>
-                                    <div class="form">
-                                        <div class="title">
-                                            <%= setting.title%>
-                                        </div>
-                                        <% for(let x = 0; x < setting.content.length; x++){ let formElement = setting.content[x];%>
-                                            <% if(formElement.type === "text") {  %>
-                                                <label for="<%= formElement.id %>"><%= formElement.title %></label>
-                                                <input oninput="let onChange = <%= formElement.onChange (languages, language, user) %>; onChange(this.value);" type="text" id="<%= formElement.id %>" class="<%= formElement.classes.join(" ")%>" <%-formElement.value ? `value="${formElement.value}" ` :
-                                                    ""%>>
-                                                <% } else if(formElement.type === "page"){ %>
-                                                    <label for="<%= formElement.id %>"><%= formElement.title %></label>
-                                                    <textarea oninput="pageChanged(this);let onChange = <%= formElement.onChange (languages, language, user) %>; onChange(this.value);" id="<%= formElement.id %>" rows="10" class="<%= formElement.classes.join(" ")%>page"><%-formElement.value ? formElement.value :
-                                                        ""%></textarea>
-                                                    <h2>Preview</h2>
-                                                    <div id="<%= formElement.id %>-preview" class="preview"></div>
-                                                    <% } else if(formElement.type === "textarea"){ %>
-                                                        <label for="<%= formElement.id %>"><%= formElement.title %></label>
-                                                        <textarea oninput="let onChange = <%= formElement.onChange (languages, language, user) %>; onChange(this.value);" id="<%= formElement.id %>" rows="10" class="<%= formElement.classes.join(" ")%> textarea"><%-formElement.value ? formElement.value :
-                                                        ""%></textarea>
-                                                        <% } else if(formElement.type === "list"){ %>
-                                                            <label for="<%= formElement.id %>"><%= formElement.title %></label>
-                                                            <ul id="<%= formElement.id %>">
-                                                            </ul>
-                                                            <% if(formElement.value){ %>
-                                                                <%formElement.value.forEach(element => {%>
-                                                                    <script>
-                                                                        window.onload = () => {
-                                                                            addListItem('<%= formElement.id %>', <%- formElement.getText(languages, language, user) %>, '<%=element%>')
-                                                                        };
-                                                                    </script>
-                                                                    <%}); %>
-                                                                        <% }%>
-                                                                            <input onchange="addListItem('<%= formElement.id %>', <%= formElement.getText(languages, language, user) %>, this.value);" type="text" id="<%= formElement.id %>-add" class="<%= formElement.classes.join(" ")%>">
-                                                                            <% } else if(formElement.type === "select"){ %>
-                                                                                <label for="<%= formElement.id %>"><%= formElement.title %></label>
-                                                                                <select id="<%= formElement.id %>" oninput="let onChange = <%=formElement.onChange (languages, language, user)%>; onChange(this.value); ">
-                                                                <%for(let y = 0;y < formElement.options.length;y++){let option = formElement.options[y];%>
-                                                                <option value="<%=option%>"><%= formElement.getText (languages, language, user)(option) %></option>
-                                                                <% } %>
-                                                </select>
-                                                                                <% } else if(formElement.type === "images"){ %>
-                                                                                    <label for="<%= formElement.id %>"><%= formElement.title %></label>
-                                                                                    <label for="<%= formElement.id %>" class="upload">
-                                                                    <div class="upload-title"><%= language.dashboard.upload%></div>
-                                                                </label>
-                                                                                    <input type="file" id="<%= formElement.id %>" accept="image/png" multiple data-minImages="<%= formElement.min %>" data-maxImages="<%= formElement.max %>">
-                                                                                    <% } else if(formElement.type === "js"){ %>
-                                                                                        <label for="<%= formElement.id %>"><%= formElement.title %></label>
-                                                                                        <label for="<%= formElement.id %>" class="upload">
-                                                                        <div class="upload-title"><%= language.dashboard.upload%></div>
-                                                                    </label>
-                                                                                        <input type="file" id="<%= formElement.id %>" accept=".js" multiple data-minJs="<%= formElement.min %>" data-maxJs="<%= formElement.max %>">
-
-                                                                                        <% } %>
+                                                    </div>
+                                                </div>
+                                                <div class="desc">
+                                                    <%= setting.desc%>
+                                                </div>
+                                            </div>
+                                            <% } else if(setting.contentType ==="form"){ %>
+                                                <div class="form">
+                                                    <div class="title">
+                                                        <%= setting.title%>
+                                                    </div>
+                                                    <%- include("../partials/form.ejs", {content: setting.content, post: setting.post}) %>
+                                                </div>
+                                                <% } else if(setting.contentType === "var"){ %>
+                                                    <div style="display: none;" value="<%=setting.value%>" id="<%=setting.id%>"></div>
+                                                    <% } else if(setting.contentType ==="button"){ %>
+                                                        <a <%-setting.category ? `onclick="setActive('${setting.category}')" `: setting.href ? `href=${setting.href} ` : ""%>
+                                                            <%if(setting.play){%>onclick="let play =
+                                                                <%=setting.play%>; play();"
+                                                                    <% } %> class="setting button">
+                                                                        <div class="row">
+                                                                            <label><%= setting.title%></label>
+                                                                            <div class="value" style="z-index: 0;">
+                                                                                <% if(setting.category){ %>
+                                                                                    <img src="/static/images/edit_key.png">
+                                                                                    <% }else if(setting.href){ %>
+                                                                                        <img src="/static/images/link.png">
+                                                                                        <% }else if(setting.play){ %>
+                                                                                            <img style="filter: invert();" src="/static/images/play.png">
                                                                                             <% } %>
-                                                                                                <%if(setting.post){%>
-                                                                                                    <a onclick="let onChange = <%=setting.post.onChange (languages, language, user)%>; onChange(this);" <%=setting.post.red ? "style=background-color:var(--red);": ""%> class="post">
-                                                                                                    <%= setting.post.title %>
-                                                                                                </a>
-                                                                                                    <% } %>
-                                    </div>
-                                    <% } else if(setting.contentType === "var"){ %>
-                                        <div style="display: none;" value="<%=setting.value%>" id="<%=setting.id%>"></div>
-                                        <% } else if(setting.contentType ==="button"){ %>
-                                            <a <%-setting.category ? `onclick="setActive('${setting.category}')" `: setting.href ? `href=${setting.href} ` : ""%>
-                                                <%if(setting.play){%>onclick="let play =
-                                                    <%=setting.play%>; play();"
-                                                        <% } %> class="setting button">
-                                                            <div class="row">
-                                                                <label><%= setting.title%></label>
-                                                                <div class="value" style="z-index: 0;">
-                                                                    <% if(setting.category){ %>
-                                                                        <img src="/static/images/edit_key.png">
-                                                                        <% }else if(setting.href){ %>
-                                                                            <img src="/static/images/link.png">
-                                                                            <% }else if(setting.play){ %>
-                                                                                <img style="filter: invert();" src="/static/images/play.png">
-                                                                                <% } %>
-                                                                </div>
-                                                            </div>
-                                                            <div class="desc">
-                                                                <%= setting.desc%>
-                                                            </div>
-                                            </a>
-                                            <% } %>
-                                                <% } %>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="desc">
+                                                                            <%= setting.desc%>
+                                                                        </div>
+                                                        </a>
+                                                        <% } %>
+                                                            <% } %>
                         </div>
                         <% } %>
                 </div>

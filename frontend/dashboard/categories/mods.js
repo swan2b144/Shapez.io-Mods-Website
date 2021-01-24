@@ -21,7 +21,7 @@ module.exports = (req, res, mods) => {
                         let description = document.getElementById("mod-description");
                         let page = document.getElementById("mod-add-new-mod-page");
                         let modid = document.getElementById("mod-modid");
-                        let collaberators = document.getElementById("mod-collaberators");
+                        let collaborators = document.getElementById("mod-collaborators");
                         let version = document.getElementById("mod-version");
                         let gameversion = document.getElementById("mod-gameversion");
                         let photos = document.getElementById("mod-photos");
@@ -65,7 +65,7 @@ module.exports = (req, res, mods) => {
 
                         let xhr = new XMLHttpRequest();
                         xhr.withCredentials = true;
-                        xhr.open(`GET`, `http://mods.thomasbrants.nl/api/v1/database/mods/uuid`, false);
+                        xhr.open(`GET`, `/api/v1/database/mods/uuid`, false);
                         xhr.onreadystatechange = async(e) => {
                             if (e.target.readyState === XMLHttpRequest.DONE) {
                                 if (e.target.status !== 200) {
@@ -82,7 +82,7 @@ module.exports = (req, res, mods) => {
                                 data.modid = modid.value;
                                 data.version = version.value;
                                 data.gameversion = gameversion.value;
-                                data.collaberators = [...collaberators.children].map((li) => {
+                                data.collaborators = [...collaborators.children].map((li) => {
                                     return li.id.split("-")[2];
                                 });
                                 data.photos = [];
@@ -92,7 +92,7 @@ module.exports = (req, res, mods) => {
                                 data.bundle = await readFile(bundle.files[0]);
                                 let xhr = new XMLHttpRequest();
                                 xhr.withCredentials = true;
-                                xhr.open(`POST`, `http://mods.thomasbrants.nl/api/v1/database/mods`, true);
+                                xhr.open(`POST`, `/api/v1/database/mods`, true);
                                 xhr.setRequestHeader(`Content-Type`, `application/json`);
                                 xhr.onreadystatechange = async(e) => {
                                     if (e.target.status === 406) modid.classList.add("incorrect");
@@ -135,14 +135,14 @@ module.exports = (req, res, mods) => {
                     },
                     {
                         type: "list",
-                        id: "mod-collaberators",
-                        title: req.language.dashboard.mods.content.addMod.fields.collaberators,
+                        id: "mod-collaborators",
+                        title: req.language.dashboard.mods.content.addMod.fields.collaborators,
                         classes: [],
                         onChange: (languages, language, user) => (value) => {},
                         getText: (languages, language, user) => (value) => {
                             let xhr = new XMLHttpRequest();
                             xhr.withCredentials = true;
-                            xhr.open(`GET`, `http://mods.thomasbrants.nl/api/v1/database/users/${value}`, false);
+                            xhr.open(`GET`, `/api/v1/database/users/${value}`, false);
                             xhr.send();
                             try {
                                 return JSON.parse(xhr.response).username;

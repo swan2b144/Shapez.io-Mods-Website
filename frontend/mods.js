@@ -29,7 +29,7 @@ let getMods = (req, res) => {
             combined = combined.map((best) => best.mod);
             for (let i = 0; i < combined.length; i++) {
                 const mod = combined[i];
-                mod.authors = mod.collaberators.slice();
+                mod.authors = mod.collaborators.slice();
                 mod.authors = mod.authors.map((id) => {
                     if (users) {
                         for (let i = 0; i < users.length; i++) {
@@ -62,7 +62,7 @@ let getMods = (req, res) => {
                         if (user.discordId === currentModOTW.owner) owner = user;
                     }
                 }
-                let authors = currentModOTW.collaberators.map(async(id) => {
+                let authors = currentModOTW.collaborators.map(async(id) => {
                     if (users) {
                         for (let i = 0; i < users.length; i++) {
                             const user = users[i];

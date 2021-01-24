@@ -1,6 +1,7 @@
 const languages = require("../../api/v1/languages");
 module.exports = (req, res, instance, modInstance, mod) => {
     return {
+        back: `instance-${instance.name}`,
         id: `instance-${instance.name}-mod-${mod.modid}-${instance.index}-${modInstance.index}`,
         icon: "/static/images/play.png",
         invert: true,
@@ -42,7 +43,7 @@ module.exports = (req, res, instance, modInstance, mod) => {
 
                         let patch = new XMLHttpRequest();
                         patch.withCredentials = true;
-                        patch.open(`PATCH`, `http://mods.thomasbrants.nl/api/v1/database/users`, true);
+                        patch.open(`PATCH`, `/api/v1/database/users`, true);
                         patch.setRequestHeader(`Content-Type`, `application/json`);
                         patch.onreadystatechange = async(e) => {
                             if (e.target.readyState === XMLHttpRequest.DONE) {

@@ -15,7 +15,7 @@ passport.use(
     new DiscordStrategy({
             clientID: apiVariables.clientID,
             clientSecret: apiVariables.secret,
-            callbackURL: "http://mods.thomasbrants.nl/api/v1/auth/discord/redirect",
+            callbackURL: `${process.env.HOST}${process.env.ENABLE_PORT ? ":" + process.env.PORT : ""}/api/v1/auth/discord/redirect`,
             scope: ["identify", "email", "guilds"],
         },
         async(accessToken, refreshToken, profile, done) => {

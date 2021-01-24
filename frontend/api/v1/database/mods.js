@@ -161,7 +161,7 @@ router.post("/", (req, res) => {
     let modid = req.body.modid.trim();
     let version = req.body.version.trim();
     let page = req.body.page.trim();
-    let collaberators = req.body.collaberators;
+    let collaborators = req.body.collaborators;
     let gameversion = req.body.gameversion;
     let photos = req.body.photos;
     let bundle = req.body.bundle;
@@ -200,7 +200,7 @@ router.post("/", (req, res) => {
                     page: page,
                     modid: modid,
                     owner: req.user.discordId,
-                    collaberators: collaberators,
+                    collaborators: collaborators,
                     currentVersion: version,
                     versions: [{
                         id: version,
@@ -255,16 +255,30 @@ router.patch("/:id", (req, res) => {
 
         let version = req.body.version;
         if (typeof version !== "undefined") {
-            if (!version.id || !version.gameversion || !version.bundle || !version.modid) return res.sendStatus(400);
+            if (typeof version.id === "undefined" || typeof version.modid === "undefined") return res.sendStatus(400);
 
-            data.currentGameversion = version.gameversion;
-            data.currentVersion = version.id;
-            if (!data.$push) data.$push = {};
-            data.$push.versions = {
-                id: version.id,
-                gameversion: version.gameversion,
-                date: new Date(),
-            };
+            if (mod.versions.find((v) => v.id === version.id)) {
+                if (version.delete) {
+                    if (!data.$pull) data.$pull = {};
+                    data.$pull.versions = {
+                        id: version.id,
+                    };
+                } else {
+                    if (typeof version.newId === "undefined" || typeof version.index === "undefined" || typeof version.gameversion === "undefined") return res.sendStatus(400);
+                    data[`versions.${version.index}.id`] = version.newId;
+                    data[`versions.${version.index}.gameversion`] = version.gameversion;
+                }
+            } else {
+                if (typeof version.bundle === "undefined" || typeof version.gameversion === "undefined") return res.sendStatus(400);
+                data.currentGameversion = version.gameversion;
+                data.currentVersion = version.id;
+                if (!data.$push) data.$push = {};
+                data.$push.versions = {
+                    id: version.id,
+                    gameversion: version.gameversion,
+                    date: new Date(),
+                };
+            }
         }
 
         let name = req.body.name;
@@ -283,8 +297,8 @@ router.patch("/:id", (req, res) => {
             data.description = description;
         }
 
-        let collaberators = req.body.collaberators;
-        if (typeof collaberators !== "undefined") data.collaberators = collaberators;
+        let collaborators = req.body.collaborators;
+        if (typeof collaborators !== "undefined") data.collaborators = collaborators;
 
         let page = req.body.page;
         if (typeof page !== "undefined") data.page = page.trim();
@@ -303,12 +317,15 @@ router.patch("/:id", (req, res) => {
                 console.log(err);
                 return res.sendStatus(500);
             }
-            if (version) {
-                let dir = path.join(__dirname, "..", "..", "..", "public", "mods", `${version.modid}`);
+            let dir = path.join(__dirname, "..", "..", "..", "public", "mods", `${version.modid}`);
+            let versionFile = path.join(dir, `${version.id}.js`);
+            if (version && version.bundle) {
                 if (!fs.existsSync(dir)) {
                     fs.mkdirSync(dir);
                 }
-                fs.writeFileSync(path.join(dir, `${version.id}.js`), version.bundle);
+                fs.writeFileSync(versionFile, version.bundle);
+            } else if (version && version.delete && fs.existsSync(versionFile)) {
+                fs.unlinkSync(versionFile);
             }
             res.sendStatus(200);
         });
