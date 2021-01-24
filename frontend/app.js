@@ -43,7 +43,7 @@ app.use("/api/v1", require("./api/v1"));
 
 // Binding express app to port 3007
 app.listen(process.env.PORT, function() {
-    console.log(`Node server running @ ${process.env.HOST}:${process.env.ENABLE_PORT ? ":" + process.env.PORT : ""}`);
+    console.log(`Node server running @ ${process.env.HOST}${process.env.ENABLE_PORT === "true" ? ":" + process.env.PORT : ""}`);
 });
 
 app.use("/static", express.static(__dirname + "/public"));
