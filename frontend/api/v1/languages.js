@@ -331,6 +331,16 @@ let nl = {
         modpacks: {
             title: "Modpacks",
             content: {
+                versions: {
+                    title: "Versies",
+                    post: "Update versie",
+                    fields: {
+                        version: "Versie",
+                        delete: "Verwijder versie",
+                        name: "Naam",
+                        bundle: "Bundle",
+                    },
+                },
                 addVersion: {
                     post: "Voeg versie toe",
                 },
@@ -364,6 +374,16 @@ let nl = {
         mods: {
             title: "Mods",
             content: {
+                versions: {
+                    title: "Versies",
+                    post: "Update versie",
+                    fields: {
+                        version: "Versie",
+                        delete: "Verwijder versie",
+                        name: "Naam",
+                        bundle: "Bundle",
+                    },
+                },
                 addVersion: {
                     post: "Voeg versie toe",
                 },
