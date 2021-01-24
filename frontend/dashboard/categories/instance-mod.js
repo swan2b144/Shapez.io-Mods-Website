@@ -18,6 +18,7 @@ module.exports = (req, res, instance, modInstance, mod) => {
                     let modIndex = idList[9];
                     let config = document.getElementById(`instances-${instanceName}-mod-${modId}-config`);
                     let settings = document.getElementById(`instances-${instanceName}-mod-${modId}-settings`);
+                    let version = document.getElementById(`instances-${instanceName}-mod-${modId}-version`);
                     try {
                         let configJson;
                         try {
@@ -40,6 +41,8 @@ module.exports = (req, res, instance, modInstance, mod) => {
                         let data = {};
                         data[`instances.${instanceIndex}.mods.${modIndex}.config`] = configJson;
                         data[`instances.${instanceIndex}.mods.${modIndex}.settings`] = settingsJson;
+                        data[`instances.${instanceIndex}.mods.${modIndex}.version`] = version.value;
+                        data[`instances.${instanceIndex}.mods.${modIndex}.url`] = `/static/mods/${modId}/${version.value}.js`;
 
                         let patch = new XMLHttpRequest();
                         patch.withCredentials = true;
@@ -61,6 +64,16 @@ module.exports = (req, res, instance, modInstance, mod) => {
             },
             contentType: "form",
             content: [{
+                    type: "select",
+                    id: `instances-${instance.name}-mod-${mod.modid}-version`,
+                    title: req.language.dashboard.instances.content.updateInstance.fields.version,
+                    options: mod.versions.map((version) => version.id),
+                    value: modInstance.version,
+                    classes: [],
+                    getText: (languages, language, user) => (value) => value,
+                    onChange: (languages, language, user) => (value) => {},
+                },
+                {
                     type: "textarea",
                     id: `instances-${instance.name}-mod-${mod.modid}-config`,
                     value: JSON.stringify(modInstance.config, null, 4),

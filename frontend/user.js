@@ -53,6 +53,14 @@ let getUser = (req, res) => {
                         });
                     }
                 }
+                usersDB.editUser(
+                    user._id, {
+                        $push: {
+                            seen: new Date(),
+                        },
+                    },
+                    (err, user) => {}
+                );
                 res.render("pages/user", { user: req.user, language: req.language, requestedUser: user, combined: combined, description: format.format(user.description), title: "Shapez.io - " + user.username });
             });
         });

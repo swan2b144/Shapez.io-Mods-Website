@@ -1,59 +1,59 @@
 <% for(let x = 0; x < content.length; x++){ let formElement = content[x];%>
-                                            <% if(formElement.type === "text") {  %>
-                                                <label for="<%= formElement.id %>"><%= formElement.title %></label>
-                                                <input oninput="let onChange = <%= formElement.onChange (languages, language, user) %>; onChange(this.value);" type="text" id="<%= formElement.id %>" class="<%= formElement.classes.join(" ")%>" <%-formElement.value ? `value="${formElement.value}" ` :
-                                                    ""%>>
-                                                <% } else if(formElement.type === "page"){ %>
-                                                    <label for="<%= formElement.id %>"><%= formElement.title %></label>
-                                                    <textarea oninput="pageChanged(this);let onChange = <%= formElement.onChange (languages, language, user) %>; onChange(this.value);" id="<%= formElement.id %>" rows="10" class="<%= formElement.classes.join(" ")%>page"><%-formElement.value ? formElement.value :
+    <% if(formElement.type === "text") {  %>
+        <label for="<%= formElement.id %>"><%= formElement.title %></label>
+        <input oninput="let onChange = <%= formElement.onChange (languages, language, user) %>; onChange(this.value);" type="text" id="<%= formElement.id %>" class="<%= formElement.classes.join(" ")%>" <%-formElement.value ? `value="${formElement.value}" ` :
+            ""%>>
+        <% } else if(formElement.type === "page"){ %>
+            <label for="<%= formElement.id %>"><%= formElement.title %></label>
+            <textarea oninput="pageChanged(this);let onChange = <%= formElement.onChange (languages, language, user) %>; onChange(this.value);" id="<%= formElement.id %>" rows="10" class="<%= formElement.classes.join(" ")%>page"><%-formElement.value ? formElement.value :
                                                         ""%></textarea>
-                                                    <h2>Preview</h2>
-                                                    <div id="<%= formElement.id %>-preview" class="preview"></div>
-                                                    <% } else if(formElement.type === "textarea"){ %>
-                                                        <label for="<%= formElement.id %>"><%= formElement.title %></label>
-                                                        <textarea oninput="let onChange = <%= formElement.onChange (languages, language, user) %>; onChange(this.value);" id="<%= formElement.id %>" rows="10" class="<%= formElement.classes.join(" ")%> textarea"><%-formElement.value ? formElement.value :
+            <h2>Preview</h2>
+            <div id="<%= formElement.id %>-preview" class="preview"></div>
+            <% } else if(formElement.type === "textarea"){ %>
+                <label for="<%= formElement.id %>"><%= formElement.title %></label>
+                <textarea oninput="let onChange = <%= formElement.onChange (languages, language, user) %>; onChange(this.value);" id="<%= formElement.id %>" rows="10" class="<%= formElement.classes.join(" ")%> textarea"><%-formElement.value ? formElement.value :
                                                         ""%></textarea>
-                                                        <% } else if(formElement.type === "list"){ %>
-                                                            <label for="<%= formElement.id %>"><%= formElement.title %></label>
-                                                            <ul id="<%= formElement.id %>">
-                                                            </ul>
-                                                            <% if(formElement.value){ %>
-                                                                <%formElement.value.forEach(element => {%>
-                                                                    <script>
-                                                                        window.onload = () => {
-                                                                            addListItem('<%= formElement.id %>', <%- formElement.getText(languages, language, user) %>, '<%=element%>')
-                                                                        };
-                                                                    </script>
-                                                                    <%}); %>
-                                                                        <% }%>
-                                                                            <input onchange="addListItem('<%= formElement.id %>', <%= formElement.getText(languages, language, user) %>, this.value);" type="text" id="<%= formElement.id %>-add" class="<%= formElement.classes.join(" ")%>">
-                                                                            <% } else if(formElement.type === "select"){ %>
-                                                                                <label for="<%= formElement.id %>"><%= formElement.title %></label>
-                                                                                <select id="<%= formElement.id %>" oninput="let onChange = <%=formElement.onChange (languages, language, user)%>; onChange(this.value); ">
+                <% } else if(formElement.type === "list"){ %>
+                    <label for="<%= formElement.id %>"><%= formElement.title %></label>
+                    <ul id="<%= formElement.id %>">
+                    </ul>
+                    <% if(formElement.value){ %>
+                        <%formElement.value.forEach(element => {%>
+                            <script>
+                                window.onload = () => {
+                                    addListItem('<%= formElement.id %>', <%- formElement.getText(languages, language, user) %>, '<%=element%>')
+                                };
+                            </script>
+                            <%}); %>
+                                <% }%>
+                                    <input onchange="addListItem('<%= formElement.id %>', <%= formElement.getText(languages, language, user) %>, this.value);" type="text" id="<%= formElement.id %>-add" class="<%= formElement.classes.join(" ")%>">
+                                    <% } else if(formElement.type === "select"){ %>
+                                        <label for="<%= formElement.id %>"><%= formElement.title %></label>
+                                        <select id="<%= formElement.id %>" oninput="let onChange = <%=formElement.onChange (languages, language, user)%>; onChange(this.value); ">
                                                                 <%for(let y = 0;y < formElement.options.length;y++){let option = formElement.options[y];%>
-                                                                <option value="<%=option%>"><%= formElement.getText (languages, language, user)(option) %></option>
+                                                                <option value="<%=option%>" <%= formElement.value === option ? 'selected': ''%>><%= formElement.getText (languages, language, user)(option) %></option>
                                                                 <% } %>
                                                 </select>
-                                                                                <% } else if(formElement.type === "images"){ %>
-                                                                                    <label for="<%= formElement.id %>"><%= formElement.title %></label>
-                                                                                    <label for="<%= formElement.id %>" class="upload">
+                                        <% } else if(formElement.type === "images"){ %>
+                                            <label for="<%= formElement.id %>"><%= formElement.title %></label>
+                                            <label for="<%= formElement.id %>" class="upload">
                                                                     <div class="upload-title"><%= language.dashboard.upload%></div>
                                                                 </label>
-                                                                                    <input type="file" id="<%= formElement.id %>" accept="image/png" multiple data-minImages="<%= formElement.min %>" data-maxImages="<%= formElement.max %>">
-                                                                                    <% } else if(formElement.type === "js"){ %>
-                                                                                        <label for="<%= formElement.id %>"><%= formElement.title %></label>
-                                                                                        <label for="<%= formElement.id %>" class="upload">
+                                            <input type="file" id="<%= formElement.id %>" accept="image/png" multiple data-minImages="<%= formElement.min %>" data-maxImages="<%= formElement.max %>">
+                                            <% } else if(formElement.type === "js"){ %>
+                                                <label for="<%= formElement.id %>"><%= formElement.title %></label>
+                                                <label for="<%= formElement.id %>" class="upload">
                                                                         <div class="upload-title"><%= language.dashboard.upload%></div>
                                                                     </label>
-                                                                                        <input type="file" id="<%= formElement.id %>" accept=".js" multiple data-minJs="<%= formElement.min %>" data-maxJs="<%= formElement.max %>">
-                                                                                <% } else if(formElement.type === "button"){ %>
-<a onclick="let onChange = <%=formElement.onChange (languages, language, user)%>; onChange(this);" <%=formElement.red ? "style=background-color:var(--red);": ""%> class="post">
+                                                <input type="file" id="<%= formElement.id %>" accept=".js" multiple data-minJs="<%= formElement.min %>" data-maxJs="<%= formElement.max %>">
+                                                <% } else if(formElement.type === "button"){ %>
+                                                    <a onclick="let onChange = <%=formElement.onChange (languages, language, user)%>; onChange(this);" <%=formElement.red ? "style=background-color:var(--red);": ""%> class="post">
                                                                                                     <%= formElement.title %>
                                                                                                 </a>
-                                                                                        <% } %>
-                                                                                            <% } %>
-                                                                                                <%if(post){%>
-                                                                                                    <a onclick="let onChange = <%=post.onChange (languages, language, user)%>; onChange(this);" <%=post.red ? "style=background-color:var(--red);": ""%> class="post">
+                                                    <% } %>
+                                                        <% } %>
+                                                            <%if(post){%>
+                                                                <a onclick="let onChange = <%=post.onChange (languages, language, user)%>; onChange(this);" <%=post.red ? "style=background-color:var(--red);": ""%> class="post">
                                                                                                     <%= post.title %>
                                                                                                 </a>
-                                                                                                    <% } %>
+                                                                <% } %>

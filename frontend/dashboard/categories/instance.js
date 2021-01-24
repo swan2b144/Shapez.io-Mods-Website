@@ -115,6 +115,7 @@ module.exports = (req, res, instance) => {
 								data.$push[`instances.${modid.classList[0]}.mods`] = {
 									url: `/static/mods/${modid.value}/${modVersion}.js`,
 									id: modid.value,
+									version: modVersion,
 									config: {},
 									settings: {},
 								};

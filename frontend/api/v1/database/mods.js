@@ -243,7 +243,22 @@ router.patch("/:id", (req, res) => {
     findMod(data, (err, mod) => {
         if (!mod) return res.sendStatus(404);
         if (!req.user || !req.user.verified || (!req.user.roles.includes("mod") && mod.owner !== req.user.discordId)) {
-            res.sendStatus(401);
+            if (req.body && req.body.seen)
+                editMod(mod._id, { $push: { seen: new Date() } }, (err, mod) => {
+                    if (mod) return res.sendStatus(200);
+                    return res.sendStatus(500);
+                });
+            else if (req.body && req.body.downloads)
+                editMod(mod._id, { $push: { downloads: new Date() } }, (err, mod) => {
+                    if (mod) return res.sendStatus(200);
+                    return res.sendStatus(500);
+                });
+            else if (req.body && req.body.likes)
+                editMod(mod._id, { $push: { likes: new Date() } }, (err, mod) => {
+                    if (mod) return res.sendStatus(200);
+                    return res.sendStatus(500);
+                });
+            else return res.sendStatus(401);
             return;
         }
         if (!req.body) {

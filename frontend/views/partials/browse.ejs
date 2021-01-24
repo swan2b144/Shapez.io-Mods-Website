@@ -63,8 +63,19 @@
                     <img src="<%= mod.photos[0]%>" />
                 </a>
                 <div class="get">
-                    <a download="<%=mod.name%>-<%=mod.currentVersion%>.js" href="/static/<%=mod.modid ? `mods`:`modpacks`%>/<%= mod.modid?mod.modid:mod.modpackid%>/<%=mod.currentVersion%>.js" class="download link">Download</a>
-                    <a onclick="copyTextToClipboard('<%= mod.modid?mod.modid:mod.modpackid%>'); this.classList.add('active'); setTimeout(()=>{this.classList.remove('active');}, 500)" class="copy link">Copy id</a>
+                    <a onclick="
+                    let xhr = new XMLHttpRequest();
+                    xhr.withCredentials = true;
+                    xhr.open(`PATCH`, `/api/v1/database/mods/<%=mod._id%>`, true);
+                    xhr.setRequestHeader(`Content-Type`, `application/json`);
+                    xhr.send(JSON.stringify({$push:{downloads: new Date()}}));
+                    " download="<%=mod.name%>-<%=mod.currentVersion%>.js" href="/static/<%=mod.modid ? `mods`:`modpacks`%>/<%= mod.modid?mod.modid:mod.modpackid%>/<%=mod.currentVersion%>.js" class="download link">Download</a>
+                    <a onclick="copyTextToClipboard('<%= mod.modid?mod.modid:mod.modpackid%>'); this.classList.add('active'); setTimeout(()=>{this.classList.remove('active');}, 500)
+                        let xhr = new XMLHttpRequest();
+                        xhr.withCredentials = true;
+                        xhr.open(`PATCH`, `/api/v1/database/mods/<%=mod._id%>`, true);
+                        xhr.setRequestHeader(`Content-Type`, `application/json`);
+                    xhr.send(JSON.stringify({$push:{downloads: new Date()}}));" class="copy link">Copy id</a>
                 </div>
             </div>
             <% } %>

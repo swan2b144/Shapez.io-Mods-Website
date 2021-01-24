@@ -42,6 +42,14 @@ let getModpack = (req, res) => {
                 username: owner.username,
             });
         }
+        modpacksDB.editMod(
+            modpack._id, {
+                $push: {
+                    seen: new Date(),
+                },
+            },
+            (err, modpack) => {}
+        );
         res.render("pages/modpack", { user: req.user, language: req.language, modpack: modpack, title: "Shapez.io - " + modpack.name });
     });
 };

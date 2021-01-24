@@ -42,6 +42,14 @@ let getMod = (req, res) => {
                 username: owner.username,
             });
         }
+        modsDB.editMod(
+            mod._id, {
+                $push: {
+                    seen: new Date(),
+                },
+            },
+            (err, mod) => {}
+        );
         res.render("pages/mod", { user: req.user, language: req.language, mod: mod, title: "Shapez.io - " + mod.name });
     });
 };

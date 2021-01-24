@@ -68,6 +68,7 @@ let en = {
                         name: "Name",
                         config: "Config",
                         settings: "Settings",
+                        version: "Version",
                     },
                 },
                 addInstance: {
@@ -272,6 +273,7 @@ let nl = {
                         name: "Naam",
                         config: "Configuratie",
                         settings: "Instellingen",
+                        version: "Versie",
                     },
                 },
                 addInstance: {

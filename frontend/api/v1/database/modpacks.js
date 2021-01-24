@@ -244,7 +244,22 @@ router.patch("/:id", (req, res) => {
     findModpack(data, (err, modpack) => {
         if (!modpack) return res.sendStatus(404);
         if (!req.user || !req.user.verified || (!req.user.roles.includes("mod") && modpack.owner !== req.user.discordId)) {
-            res.sendStatus(401);
+            if (req.body && req.body.seen)
+                editModpack(modpack._id, { $push: { seen: new Date() } }, (err, modpack) => {
+                    if (modpack) return res.sendStatus(200);
+                    return res.sendStatus(500);
+                });
+            else if (req.body && req.body.downloads)
+                editModpack(modpack._id, { $push: { downloads: new Date() } }, (err, modpack) => {
+                    if (modpack) return res.sendStatus(200);
+                    return res.sendStatus(500);
+                });
+            else if (req.body && req.body.likes)
+                editModpack(modpack._id, { $push: { likes: new Date() } }, (err, modpack) => {
+                    if (modpack) return res.sendStatus(200);
+                    return res.sendStatus(500);
+                });
+            else return res.sendStatus(401);
             return;
         }
         if (!req.body) {
