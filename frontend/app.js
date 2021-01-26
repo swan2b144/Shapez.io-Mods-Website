@@ -65,15 +65,23 @@ app.use(async(req, res, next) => {
         if (user) req.user = user;
         languages.matchDataRecursive(baseLanguage, languages.languages[req.user.settings.language]);
         req.language = baseLanguage;
+
+        if (req.user.instances && req.user.instances[0]) {
+            if (!req.user.instances[0].index) {
+                for (let i = 0; i < req.user.instances.length; i++) {
+                    req.user.instances[i].index = i;
+                }
+            }
+        }
     }
     next();
 });
 
 //Put /build/index.html in /play
 //Put other files in /play/v/<commit hash>/
-app.get("/play", function(req, res) {
+app.get("/play/:gameversion", function(req, res) {
     if (!req.user) return res.redirect("/api/v1/auth/login");
-    res.sendFile(__dirname + "/play/index.html");
+    res.sendFile(__dirname + "/play/" + req.params.gameversion + "/index.html");
 });
 
 app.get("/", function(req, res) {

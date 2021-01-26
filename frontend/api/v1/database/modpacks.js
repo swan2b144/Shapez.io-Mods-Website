@@ -55,6 +55,17 @@ const calcScore = (modpack) => {
     return score;
 };
 
+Date.prototype.getWeek = function() {
+    var date = new Date(this.getTime());
+    date.setHours(0, 0, 0, 0);
+    // Thursday in current week decides the year.
+    date.setDate(date.getDate() + 3 - ((date.getDay() + 6) % 7));
+    // January 4 is always in week 1.
+    var week1 = new Date(date.getFullYear(), 0, 4);
+    // Adjust to Thursday in week 1 and count number of weeks from date to week1.
+    return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + ((week1.getDay() + 6) % 7)) / 7);
+};
+
 const getModpacksOTW = (callback) => {
     modpacks((err, docs) => {
         if (err) callback(err, null);
@@ -64,7 +75,7 @@ const getModpacksOTW = (callback) => {
                 const modpack = docs[i];
                 modpacks.push({ score: calcScore(modpack), modpack: modpack });
             }
-            modpacks.sort(({ score1, modpack1 }, { score2, modpack2 }) => score1 - score2);
+            modpacks.sort((modpack1, modpack2) => modpack2.score - modpack1.score);
             callback(null, modpacks);
         } else callback(null, null);
     });
@@ -243,24 +254,26 @@ router.patch("/:id", (req, res) => {
     }
     findModpack(data, (err, modpack) => {
         if (!modpack) return res.sendStatus(404);
-        if (!req.user || !req.user.verified || (!req.user.roles.includes("mod") && modpack.owner !== req.user.discordId)) {
-            if (req.body && req.body.seen)
-                editModpack(modpack._id, { $push: { seen: new Date() } }, (err, modpack) => {
-                    if (modpack) return res.sendStatus(200);
-                    return res.sendStatus(500);
-                });
-            else if (req.body && req.body.downloads)
-                editModpack(modpack._id, { $push: { downloads: new Date() } }, (err, modpack) => {
-                    if (modpack) return res.sendStatus(200);
-                    return res.sendStatus(500);
-                });
-            else if (req.body && req.body.likes)
-                editModpack(modpack._id, { $push: { likes: new Date() } }, (err, modpack) => {
-                    if (modpack) return res.sendStatus(200);
-                    return res.sendStatus(500);
-                });
-            else return res.sendStatus(401);
+        if (req.body && req.body.seen) {
+            editModpack(modpack._id, { $push: { seen: new Date() } }, (err, modpack) => {
+                if (modpack) return res.sendStatus(200);
+                return res.sendStatus(500);
+            });
             return;
+        } else if (req.body && req.body.downloads) {
+            editModpack(modpack._id, { $push: { downloads: new Date() } }, (err, modpack) => {
+                if (modpack) return res.sendStatus(200);
+                return res.sendStatus(500);
+            });
+            return;
+        } else if (req.body && req.body.likes) {
+            editModpack(modpack._id, { $push: { likes: new Date() } }, (err, modpack) => {
+                if (modpack) return res.sendStatus(200);
+                return res.sendStatus(500);
+            });
+            return;
+        } else if (!req.user || !req.user.verified || (!req.user.roles.includes("mod") && modpack.owner !== req.user.discordId)) {
+            return res.sendStatus(401);
         }
         if (!req.body) {
             res.sendStatus(400);
@@ -333,15 +346,17 @@ router.patch("/:id", (req, res) => {
                 console.log(err);
                 return res.sendStatus(500);
             }
-            let dir = path.join(__dirname, "..", "..", "..", "public", "modpacks", `${version.modpackid}`);
-            let versionFile = path.join(dir, `${version.id}.js`);
-            if (version && version.bundle) {
-                if (!fs.existsSync(dir)) {
-                    fs.mkdirSync(dir);
+            if (version) {
+                let dir = path.join(__dirname, "..", "..", "..", "public", "modpacks", `${version.modpackid}`);
+                let versionFile = path.join(dir, `${version.id}.js`);
+                if (version.bundle) {
+                    if (!fs.existsSync(dir)) {
+                        fs.mkdirSync(dir);
+                    }
+                    fs.writeFileSync(versionFile, version.bundle);
+                } else if (version.delete && fs.existsSync(versionFile)) {
+                    fs.unlinkSync(versionFile);
                 }
-                fs.writeFileSync(versionFile, version.bundle);
-            } else if (version && version.delete && fs.existsSync(versionFile)) {
-                fs.unlinkSync(versionFile);
             }
             res.sendStatus(200);
         });

@@ -19,7 +19,7 @@ module.exports = (req, res, instance) => {
 						if (e.target.status !== 200) return;
 						if (!JSON.parse(e.target.response)) return;
 						localStorage.setItem("user", e.target.response);
-						window.location.href = `/play?fullVersion=1`;
+						window.location.href = `/play/${JSON.parse(document.getElementById(`instance-var-${instanceName}`).getAttribute(`value`)).gameversion}/?fullVersion=1`;
 					}
 				};
 				xhr.send();
@@ -163,10 +163,11 @@ module.exports = (req, res, instance) => {
 
 						let xhr = new XMLHttpRequest();
 						xhr.withCredentials = true;
-						xhr.open(`GET`, `/api/v1/database/users/${name.classList[0]}`, true);
+						xhr.open(`GET`, `/api/v1/database/users/${document.getElementById(`instance-var-${instanceName}-userId`).getAttribute("value")}`, true);
 						xhr.setRequestHeader(`Content-Type`, `application/json`);
 						xhr.onreadystatechange = async (e) => {
 							if (e.target.readyState === XMLHttpRequest.DONE) {
+								if (e.target.status !== 200) return name.classList.add("incorrect");
 								if (!JSON.parse(e.target.response).instances || !JSON.parse(e.target.response).instances.find((instance) => instance.name === name.value)) return name.classList.add("incorrect");
 
 								let data = {};

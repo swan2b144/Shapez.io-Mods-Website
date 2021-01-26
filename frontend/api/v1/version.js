@@ -1,2 +1,2 @@
-const gameVersions = ["1007"];
+const gameVersions = ["ML01"];
 module.exports = { gameVersions };

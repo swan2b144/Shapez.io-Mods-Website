@@ -68,18 +68,95 @@
                     xhr.withCredentials = true;
                     xhr.open(`PATCH`, `/api/v1/database/mods/<%=mod._id%>`, true);
                     xhr.setRequestHeader(`Content-Type`, `application/json`);
-                    xhr.send(JSON.stringify({$push:{downloads: new Date()}}));
+                    xhr.send(JSON.stringify({downloads: new Date()}));
                     " download="<%=mod.name%>-<%=mod.currentVersion%>.js" href="/static/<%=mod.modid ? `mods`:`modpacks`%>/<%= mod.modid?mod.modid:mod.modpackid%>/<%=mod.currentVersion%>.js" class="download link">Download</a>
                     <a onclick="copyTextToClipboard('<%= mod.modid?mod.modid:mod.modpackid%>'); this.classList.add('active'); setTimeout(()=>{this.classList.remove('active');}, 500)
+                        <%if(user && mod.modid){%>//TODO: create isntance from modpack
+                        const instances = JSON.parse(`<%=JSON.stringify(user.instances)%>`);
+                        let dialog = new SelectDialog('Choose instance', '', instances.map(instance => JSON.stringify(instance).replace(regexDoubleQuote, `'`)), (option) => JSON.parse(option.replace(regexQuote, doubleQuote).replace(regexEsQuote, doubleQuote)).name, (instances, option) => {
+                            instances = JSON.parse(instances.replace(regexQuote, doubleQuote).replace(regexEsQuote, doubleQuote)).instances;
+                            option = JSON.parse(option.replace(regexQuote, doubleQuote).replace(regexEsQuote, doubleQuote));
+                            let instance = instances.find(instance=> instance.name === option.name);
+                            let xhr = new XMLHttpRequest();
+                            xhr.withCredentials = true;
+                            xhr.open(`GET`, `/api/v1/database/mods/<%=mod.modid%>`, true);
+                            xhr.setRequestHeader(`Content-Type`, `application/json`);
+                            xhr.onreadystatechange = async (e) => {
+                                if (e.target.readyState === XMLHttpRequest.DONE) {
+                                    if (e.target.status !== 200) return;
+                                    let mod = JSON.parse(e.target.response);
+                                    if(instance.mods.find(instanceMod => instanceMod.id === mod.modid)) return;
+
+                                    mod.versions.sort(function (a, b) {
+                                        return new Date(b.date) - new Date(a.date);
+                                    });
+                                    let modVersion = mod.versions.find((version) => version.gameversion === instance.gameversion).id;
+                                    let data = {};
+                                    data.$push = {};
+                                    data.$push[`instances.${instance.index}.mods`] = {
+                                        url: `/static/mods/<%=mod.modid%>/${modVersion}.js`,
+                                        id: '<%=mod.modid%>',
+                                        version: modVersion,
+                                        config: {},
+                                        settings: {},
+                                    };
+
+                                    let patch = new XMLHttpRequest();
+                                    patch.withCredentials = true;
+                                    patch.open(`PATCH`, `/api/v1/database/users`, true);
+                                    patch.setRequestHeader(`Content-Type`, `application/json`);
+                                    patch.onreadystatechange = async (e) => {
+                                        if (e.target.readyState === XMLHttpRequest.DONE) {
+                                            if (e.target.status !== 200) return;
+                                        }
+                                    };
+                                    patch.send(JSON.stringify(data));
+                                }
+                            };
+                            xhr.send(JSON.stringify({ modid:'<%=mod.modid%>' }));
+                        });
+                        dialog.show(this.parentElement);
+                        <%}%>
                         let xhr = new XMLHttpRequest();
                         xhr.withCredentials = true;
                         xhr.open(`PATCH`, `/api/v1/database/mods/<%=mod._id%>`, true);
                         xhr.setRequestHeader(`Content-Type`, `application/json`);
-                    xhr.send(JSON.stringify({$push:{downloads: new Date()}}));" class="copy link">Copy id</a>
+                    xhr.send(JSON.stringify({downloads: new Date()}));" class="copy link">
+                        <%=user && mod.modid?"Add to instance":"Copy id"%>
+                    </a>
                 </div>
             </div>
             <% } %>
     </div>
+    <!-- <div class="dialog">
+        <div class="dialog-background">
+            <div class="title">Choose instance</div>
+            <div class="description">Choose an instance to add the ... mod to</div>
+            <div class="options">
+                <div value="test" class="option">Test</div>
+                <div value="test1" class="option">Test1</div>
+                <div value="test2" class="option">Test2</div>
+                <div value="test3" class="option">Test3</div>
+                <div value="test" class="option">Test</div>
+                <div value="test1" class="option">Test1</div>
+                <div value="test2" class="option">Test2</div>
+                <div value="test3" class="option">Test3</div>
+                <div value="test" class="option">Test</div>
+                <div value="test1" class="option">Test1</div>
+                <div value="test2" class="option">Test2</div>
+                <div value="test3" class="option">Test3</div>
+                <div value="test" class="option">Test</div>
+                <div value="test1" class="option">Test1</div>
+                <div value="test2" class="option">Test2</div>
+                <div value="test3" class="option">Test3</div>
+            </div>
+            <div class="buttons">
+                <a class="cancel">Cancel</a>
+                <a class="ok">Ok</a>
+            </div>
+        </div>
+    </div> -->
+    <script src="/static/js/dialog.js"></script>
     <script src="/static/js/copy.js"></script>
     <script src="/static/js/search.js"></script>
 </div>
