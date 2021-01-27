@@ -801,6 +801,10 @@ nav .search-bar .categories img {
     color: white;
 }
 
+.mods .mod .description img {
+    width: 100%;
+}
+
 .mods .mod .description a {
     color: var(--blue);
 }
@@ -932,6 +936,10 @@ nav .search-bar .categories img {
 
 .modpacks .modpack .description {
     color: white;
+}
+
+.modpacks .modpack .description img {
+    width: 100%;
 }
 
 .modpacks .modpack .description a {
