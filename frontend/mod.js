@@ -18,7 +18,7 @@ let getMod = (req, res) => {
                 });
             });
         let users = await getUsers();
-        mod.page = format.format(mod.page);
+        mod.page = format.format(mod.page, mod.photos);
         mod.authors = mod.collaborators.slice();
         mod.authors = mod.authors.map((id) => {
             if (users) {

@@ -19,10 +19,10 @@
                         </div>
                         <div class="authors">
                             <%=language.mods.mobBy%>
-                                <% for(let j=0; j < mod.authors.length; j++){ %>
-                                    <% let author = mod.authors[j]; %>
+                                <% for(let j=0; j < modpack.authors.length; j++){ %>
+                                    <% let author = modpack.authors[j]; %>
                                         <div onclick="window.location.href = `/user/<%= author.id %>`" class="author">
-                                            <% let str = author.username + (mod.authors.length-2 ===j ? " & ": mod.authors.length-1 === j ? "":", "); %>
+                                            <% let str = author.username + (modpack.authors.length-2 ===j ? " & ": modpack.authors.length-1 === j ? "":", "); %>
                                                 <%str.trim();%>
                                                     <%= str %>
                                         </div>
@@ -30,30 +30,71 @@
                         </div>
                         <div class="get">
                             <a onclick="
-                            let xhr = new XMLHttpRequest();
-                            xhr.withCredentials = true;
-                            xhr.open(`PATCH`, `/api/v1/database/modpacks/<%=modpack._id%>`, true);
-                            xhr.setRequestHeader(`Content-Type`, `application/json`);
-                            xhr.send(JSON.stringify({downloads: new Date()}));
-                            " download="<%=modpack.name%>-<%=modpack.currentVersion%>.js" href="/static/modpacks/<%= modpack.modpackid%>/<%=modpack.currentVersion%>.js" class="download link">Download</a
-						>
-						<a
-							onclick="copyTextToClipboard('<%= modpack.modpackid%>'); this.classList.add('active'); setTimeout(()=>{this.classList.remove('active');}, 500)
-                                let xhr = new XMLHttpRequest();
-                                xhr.withCredentials = true;
-                                xhr.open(`PATCH`, `/api/v1/database/modpacks/<%=modpack._id%>`, true);
-                                xhr.setRequestHeader(`Content-Type`, `application/json`);
-                            xhr.send(JSON.stringify({downloads: new Date()}));"
-							class="copy link"
-							>Copy id</a
-						>
-					</div>
-					<script src="/static/js/copy.js"></script>
-				</div>
-			</div>
+                                  let xhr = new XMLHttpRequest();
+                                     xhr.withCredentials = true;
+                                     xhr.open(`PATCH`, `/api/v1/database/modpacks/<%=modpack._id%>`, true);
+                                        xhr.setRequestHeader(`Content-Type`, `application/json`);
+                                        xhr.send(JSON.stringify({downloads: new Date()}));
+                                           " download="<%=modpack.name%>-<%=modpack.currentVersion%>.js" href="/static/modpacks/<%= modpack.modpackid%>/<%=modpack.currentVersion%>.js" class="download link">
+                                <%=language.mods.download%>
+                            </a>
+                            <a onclick="copyTextToClipboard('<%= modpack.modpackid%>'); this.classList.add('active'); setTimeout(()=>{this.classList.remove('active');}, 500)
+                                               <% if(user && modpack.modpackid){%>
+                                               const instances = JSON.parse(`<%=JSON.stringify(user.instances)%>`);
+                                                      let dialog = new InputDialog('<%=language.mods.isntanceName%>', '', '<%=language.mods.ok%>', '<%=language.mods.cancel%>', (input)=>{},(input)=>{
+                                                       if(!input.value || input.value.length < 5 || input.value.length > 255) {
+                                                        if (!input.nextElementSibling.classList.contains('input-error')) showFromStringAfter(input, `<div class=input-error><%=language.mods.instanceNameError%></div>`);
+                                                        return true;
+                                                       }
+                            
+                                                          let xhr = new XMLHttpRequest();
+                                                       xhr.withCredentials = true;
+                                                    xhr.open(`GET`, `/api/v1/database/users/<%=user.discordId%>`, true);
+                                                 xhr.setRequestHeader(`Content-Type`, `application/json`);
+                                              xhr.onreadystatechange = async(e) => {
+                                                  if (e.target.readyState === XMLHttpRequest.DONE) {
+                                                         if (JSON.parse(e.target.response).instances && JSON.parse(e.target.response).instances.find((instance) => instance.name === name.value)) {
+                                                             if (!input.nextElementSibling.classList.contains('input-error')) showFromStringAfter(input, `<div class=input-error><%=language.mods.instanceExistError%></div>`)
+                                                                else input.nextElementSibling.innerText = '<%=language.mods.instanceExistError%>';
+                                                                   return;
+                                                               }
+                                                               let data = {};
+                                                                  data.name = input.value;
+                                                                  data.modpackid = '<%=modpack.modpackid%>';
+                                                                  let xhr = new XMLHttpRequest();
+                                                                  xhr.withCredentials = true;
+                                                               xhr.open(`POST`, `/api/v1/database/modpacks/instance`, true);
+                                                            xhr.setRequestHeader(`Content-Type`, `application/json`);
+                                                            xhr.onreadystatechange = async(e) => {
+                                                                   if (e.target.readyState === XMLHttpRequest.DONE) {
+                                                                    if (e.target.status === 200) window.location.reload();
+                                                                }
+                                                               };
+                                                            xhr.send(JSON.stringify(data));
+                                                        }
+                                                       };
+                                                       xhr.send();
+                                                          return false;
+                                                   });
+                                                dialog.show(this.parentElement);
+                                                <%}%>
+                                               let xhr = new XMLHttpRequest();
+                                               xhr.withCredentials = true;
+                                               xhr.open(`PATCH`, `/api/v1/database/modpacks/<%= modpack.modpackid%>`, true);
+                                                  xhr.setRequestHeader(`Content-Type`, `application/json`);
+                                              xhr.send(JSON.stringify({downloads: new Date()}));" class="copy link">
+                                <%=user && modpack.modpackid ? `${language.mods.createInstance}` : `${language.mods.copyId}` %>
+                            </a>
+                        </div>
+                        <script src="/static/js/dialog.js"></script>
+                        <script src="/static/js/copy.js"></script>
+                    </div>
+                </div>
 
-			<div class="description"><%- modpack.page %></div>
-		</div>
-	</div>
-</div>
-<%- include('../partials/footer.ejs') %>
+                <div class="description">
+                    <%- modpack.page %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../partials/footer.ejs') %>

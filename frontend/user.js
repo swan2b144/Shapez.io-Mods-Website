@@ -12,10 +12,10 @@ let getUser = (req, res) => {
             res.render("pages/notfound", { user: req.user, language: req.language, title: "Shapez.io - Not found" });
             return;
         }
-        modsDB.findMultipleMods({ owner: user.discordId }, (err, mods) => {
+        modsDB.findMultipleMods({ $or: [{ owner: user.discordId }, { collaborators: user.discordId }] }, (err, mods) => {
             let combined = [];
             if (mods) combined = combined.concat(mods);
-            modpacksDB.findMultipleModpacks({ owner: user.discordId }, async(err, modpacks) => {
+            modpacksDB.findMultipleModpacks({ $or: [{ owner: user.discordId }, { collaborators: user.discordId }] }, async(err, modpacks) => {
                 if (modpacks) combined = combined.concat(modpacks);
 
                 let getUsers = () =>

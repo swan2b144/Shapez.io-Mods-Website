@@ -213,12 +213,36 @@ video {
 }
 
 .dialog .title {
-    font-size: var(--font-large);
-    color: white;
+    font-size: var(--font-large) !important;
+    color: white !important;
+    font-weight: unset !important;
+    text-decoration: unset !important;
+    text-align: unset !important;
+    margin: unset !important;
 }
 
 .dialog .description {
     font-size: var(--font-middle);
+    color: white;
+}
+
+.dialog input[type="text"] {
+    display: block;
+    padding: 10px;
+    background-color: #4f5461;
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    outline: none;
+    width: calc(100% - 20px);
+    font-size: var(--font-middle);
+    box-sizing: content-box;
+}
+
+.dialog .input-error {
+    background-color: var(--red);
+    padding: 5px 10px;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
     color: white;
 }
 
@@ -1521,9 +1545,11 @@ nav .search-bar .categories img {
     object-fit: cover;
 }
 
-.browse .get .link {
+.get .link {
     margin-top: 10px;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: 10px;
     width: 150px;
     color: white;
@@ -1535,26 +1561,26 @@ nav .search-bar .categories img {
     cursor: pointer;
 }
 
-.browse .get {
+.get {
     display: flex;
     justify-content: center;
 }
 
-.browse .get .link:not(:first-child) {
+.get .link:not(:first-child) {
     margin-left: 10px;
 }
 
-.browse .get .link:hover {
+.get .link:hover {
     background-color: #5faef3;
 }
 
-.browse .get .link.active,
-.browse .get .link-green {
+.get .link.active,
+.get .link-green {
     background-color: #66bb6a;
 }
 
-.browse .get .link-green:hover,
-.browse .get .link.active:hover {
+.get .link-green:hover,
+.get .link.active:hover {
     background-color: #7eca82;
 }
 
@@ -1704,6 +1730,7 @@ nav .search-bar .categories img {
 .browse .content .card .image {
     width: 100%;
     margin-top: 5px;
+    display: flex;
 }
 
 .browse .content .card .image img {

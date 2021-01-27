@@ -32,6 +32,17 @@ let en = {
         description: "You can not access the page you where looking for",
     },
     mods: {
+        download: "Download",
+        copyId: "Copy id",
+        ok: "Ok",
+        cancel: "Cancel",
+        chooseInstance: "Choose instance",
+        chooseOneInstance: "Choose one instance",
+        addToInstance: "Add to instance",
+        createInstance: "Create instance",
+        isntanceName: "Name",
+        instanceExistError: "Instance already exists",
+        instanceNameError: "Instance name must be between 5 and 255 characters",
         modOTW: "Mod of the week",
         mobBy: "By",
         search: "Search",
@@ -128,6 +139,16 @@ let en = {
         modpacks: {
             title: "Modpacks",
             content: {
+                versions: {
+                    title: "Versions",
+                    post: "Update version",
+                    fields: {
+                        version: "Version",
+                        delete: "Delete version",
+                        name: "Name",
+                        bundle: "Bundle",
+                    },
+                },
                 addVersion: {
                     post: "Add version",
                 },
@@ -150,7 +171,7 @@ let en = {
                         preview: "Preview",
                         modpackId: "Modpack id",
                         collaborators: "collaborators",
-                        mods: "mods",
+                        mods: "Mods",
                         version: "Version",
                         gameVersion: "Game version",
                         photos: "Photos",
@@ -237,6 +258,17 @@ let nl = {
         description: "U heeft geen toegang tot deze pagina",
     },
     mods: {
+        download: "Download",
+        copyId: "Kopieer id",
+        ok: "Oke",
+        cancel: "Annuleer",
+        chooseInstance: "Kies een instantie",
+        chooseOneInstance: "Kies een instantie",
+        addToInstance: "Toevoegen aan instantie",
+        createInstance: "Maak een instantie",
+        isntanceName: "Naam",
+        instanceExistError: "Instantie bestaat al",
+        instanceNameError: "De instantienaam moet tussen de 5 en 255 tekens lang zijn",
         modOTW: "Mod van de week",
         mobBy: "Door",
         search: "Zoeken",
@@ -361,9 +393,10 @@ let nl = {
                     fields: {
                         name: "Naam",
                         description: "Beschrijving",
-                        modPage: "Mod pagina",
+                        modpackPage: "Modpack pagina",
                         preview: "Voorbeeld",
-                        modId: "Modpack id",
+                        modpackId: "Modpack id",
+                        mods: "Mods",
                         collaborators: "Medewerkers",
                         version: "Versie",
                         gameVersion: "Spel versie",
@@ -434,8 +467,10 @@ function matchDataRecursive(dest, src) {
                 // console.log("match string", key);
                 dest[key] = src[key];
             } else {
-                logger.log("Unknown type:", typeof data, "in key", key);
+                console.log("Unknown type:", typeof data, "in key", key);
             }
+        } else {
+            console.log("Src is missing: " + key);
         }
     }
 }

@@ -58,6 +58,11 @@ module.exports = (req, res, mod) => {
                         let xhr = new XMLHttpRequest();
                         xhr.withCredentials = true;
                         xhr.open(`PATCH`, `/api/v1/database/mods/${_id}`, true);
+                        xhr.onreadystatechange = async(e) => {
+                            if (e.target.readyState === XMLHttpRequest.DONE) {
+                                if (e.target.status === 200) window.location.reload();
+                            }
+                        };
                         xhr.setRequestHeader(`Content-Type`, `application/json`);
                         xhr.send(JSON.stringify(data));
                     },

@@ -1,4 +1,5 @@
 const db = require("./db");
+const userDB = require("./users");
 const fs = require("fs");
 const path = require("path");
 const mongo = require("mongodb");
@@ -97,6 +98,53 @@ router.get("/uuid", (req, res) => {
             let exists = modpacks.some((mod) => mod.modpackid === req.body.modpackid);
             if (exists) res.sendStatus(406);
             else res.sendStatus(200);
+        } else {
+            res.sendStatus(500);
+        }
+    });
+});
+
+router.post("/instance", (req, res) => {
+    if (!req.user) {
+        res.sendStatus(401);
+        return;
+    }
+    if (!req.body || !req.body.name || !req.body.modpackid || req.body.name.length < 5 || req.body.name.length > 255) {
+        res.sendStatus(400);
+        return;
+    }
+
+    findModpack({ modpackid: req.body.modpackid }, (err, modpack) => {
+        if (modpack && !err) {
+            let dir = path.join(__dirname, "..", "..", "..", "public", "modpacks", `${modpack.modpackid}`);
+            let versionFile = path.join(dir, `${modpack.currentVersion}.js`);
+            const modpackFile = require(versionFile);
+            if (!modpackFile || !modpackFile.mods) {
+                return req.sendStatus(404);
+            }
+
+            userDB.editUser(
+                req.user._id, {
+                    $push: {
+                        instances: {
+                            name: req.body.name,
+                            gameversion: modpack.currentGameversion,
+                            mods: modpackFile.mods,
+                        },
+                    },
+                },
+                (err, user) => {
+                    if (!err && user) {
+                        req.user = user;
+                        res.sendStatus(200);
+                        return;
+                    } else {
+                        res.sendStatus(500);
+                    }
+                }
+            );
+        } else if (!err) {
+            return req.sendStatus(404);
         } else {
             res.sendStatus(500);
         }

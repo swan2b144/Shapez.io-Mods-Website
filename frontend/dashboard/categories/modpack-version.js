@@ -23,7 +23,7 @@ module.exports = (req, res, modpack, version) => {
                     {
                         type: "select",
                         id: `modpack-${modpack.modpackid}-version-${version.id}-gameversion`,
-                        title: req.language.dashboard.modpacks.content.addMod.fields.gameVersion,
+                        title: req.language.dashboard.modpacks.content.addModpack.fields.gameVersion,
                         options: versions.gameVersions,
                         value: version.gameversion,
                         classes: [],

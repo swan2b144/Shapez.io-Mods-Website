@@ -34,9 +34,11 @@ function makeid(length) {
 }
 
 class Dialog {
-    constructor(title, description, canCancel = false, trackClicksOk = [], trackClicksCancel = []) {
+    constructor(title, description, ok, cancel, canCancel = false, trackClicksOk = [], trackClicksCancel = []) {
         this.title = title;
         this.description = description;
+        this.ok = ok;
+        this.cancel = cancel;
         this.canCancel = canCancel;
         this.id = `dialog-${makeid(10)}`;
         this.trackClicksOk = trackClicksOk;
@@ -54,8 +56,8 @@ class Dialog {
             <div class="description">${this.description}</div>
             ${this.getInnerHTML()}
             <div class="buttons">
-                ${this.canCancel ? `<a onclick="${this.getCancelTrackClicks()} document.getElementById('${this.id}').remove()" class="cancel">Cancel</a>` : ""}
-                <a onclick="${this.getOkTrackClicks()} document.getElementById('${this.id}').remove();" class="ok">Ok</a>
+                ${this.canCancel ? `<a onclick="${this.getCancelTrackClicks()} document.getElementById('${this.id}').remove()" class="cancel">${this.cancel}</a>` : ""}
+                <a onclick="${this.getOkTrackClicks()} document.getElementById('${this.id}').remove();" class="ok">${this.ok}</a>
             </div>
         </div>
     </div>`;
@@ -74,18 +76,19 @@ class Dialog {
 	}
 }
 
-let checkSelect = (self, options, onChange) => {
+let checkSelect = (self, options, chooseOne, onChange) => {
 	if (!self.parentElement.parentElement.getElementsByClassName("active")[0]) {
-		if (!self.parentElement.parentElement.getElementsByClassName("options")[0].nextElementSibling.classList.contains("options-error")) showFromStringAfter(self.parentElement.parentElement.getElementsByClassName("options")[0], "<div class=options-error>Choose one instance</div>");
-		return;
+		if (!self.parentElement.parentElement.getElementsByClassName("options")[0].nextElementSibling.classList.contains("options-error")) showFromStringAfter(self.parentElement.parentElement.getElementsByClassName("options")[0], `<div class=options-error>${chooseOne}</div>`);
+		return true;
 	}
 	let value = self.parentElement.parentElement.getElementsByClassName("active")[0].getAttribute("value");
 	onChange(`{${esQuote}instances${esQuote}:[${options}]}`, value);
+	return false;
 };
 
 class SelectDialog extends Dialog {
-	constructor(title, description, options, getText, change = () => {}, canCancel = true) {
-		super(title, description, canCancel, [`if(checkSelect(this, \`${options.join(",")}\`, ${change})) return;`]);
+	constructor(title, description, ok, cancel, chooseOne, options, getText, change = () => {}, canCancel = true) {
+		super(title, description, ok, cancel, canCancel, [`if(checkSelect(this, \`${options.join(",")}\`, '${chooseOne}', ${change})) return;`]);
 		this.options = options;
 		this.getText = getText;
 	}
@@ -95,5 +98,17 @@ class SelectDialog extends Dialog {
         ${this.options.map((option) => `<div onclick="[...this.parentElement.getElementsByClassName('active')].forEach(element => element.classList.remove('active')); this.classList.add('active')" value="${option}" class="option">${this.getText(option)}</div>`).join("")}
     </div>
     `;
+	}
+}
+
+class InputDialog extends Dialog {
+	constructor(title, description, ok, cancel, change = () => {}, done = () => {}, value = "", canCancel = true) {
+		super(title, description, ok, cancel, canCancel, [`let done = ${done}; if(done(this.parentElement.parentElement.getElementsByTagName('input')[0])) return;`]);
+		this.value = value;
+		this.change = change;
+	}
+
+	getInnerHTML() {
+		return `<input type='text' value='${this.value}' oninput='let change = ${this.change}; if(change(this)) return;'>`;
 	}
 }

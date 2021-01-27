@@ -95,7 +95,9 @@ module.exports = (req, res, mods) => {
                                 xhr.open(`POST`, `/api/v1/database/mods`, true);
                                 xhr.setRequestHeader(`Content-Type`, `application/json`);
                                 xhr.onreadystatechange = async(e) => {
-                                    if (e.target.status === 406) modid.classList.add("incorrect");
+                                    if (e.target.status === 406) return modid.classList.add("incorrect");
+                                    if (e.target.status !== 200) return;
+                                    window.location.reload();
                                 };
                                 xhr.send(JSON.stringify(data));
                             }

@@ -2,7 +2,7 @@ const usersDB = require("./api/v1/database/users");
 const modpacksDB = require("./api/v1/database/modpacks");
 const format = require("./public/js/format");
 let getModpack = (req, res) => {
-    modpacksDB.findMod({ modpackid: req.params.id }, async(err, modpack) => {
+    modpacksDB.findModpack({ modpackid: req.params.id }, async(err, modpack) => {
         if (err) {
             res.render("pages/notfound", { user: req.user, language: req.language, title: "Shapez.io - Not found" });
             return;
@@ -18,8 +18,8 @@ let getModpack = (req, res) => {
                 });
             });
         let users = await getUsers();
-        modpack.page = format.format(modpack.page);
-        mod.authors = mod.collaborators.slice();
+        modpack.page = format.format(modpack.page, modpack.photos);
+        modpack.authors = modpack.collaborators.slice();
         modpack.authors = modpack.authors.map((id) => {
             if (users) {
                 for (let i = 0; i < users.length; i++) {
@@ -42,7 +42,7 @@ let getModpack = (req, res) => {
                 username: owner.username,
             });
         }
-        modpacksDB.editMod(
+        modpacksDB.editModpack(
             modpack._id, {
                 $push: {
                     seen: new Date(),

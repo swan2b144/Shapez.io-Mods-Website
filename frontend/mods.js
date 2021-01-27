@@ -26,7 +26,7 @@ let getMods = (req, res) => {
                     });
                 });
             let users = await getUsers();
-            combined = combined.map((best) => best.mod);
+            combined = combined.map((best) => (best.mod ? best.mod : best.modpack));
             for (let i = 0; i < combined.length; i++) {
                 const mod = combined[i];
                 mod.authors = mod.collaborators.slice();

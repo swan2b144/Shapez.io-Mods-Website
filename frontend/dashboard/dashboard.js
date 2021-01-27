@@ -62,7 +62,7 @@ let getModpacks = (req, res, discordId) => {
             let versionsCategories = [];
             for (let i = 0; i < modpacks.length; i++) {
                 const modpack = modpacks[i];
-                mod.versionButtons = [];
+                modpack.versionButtons = [];
                 for (let x = 0; x < modpack.versions.length; x++) {
                     let version = modpack.versions[x];
                     version.index = x;
