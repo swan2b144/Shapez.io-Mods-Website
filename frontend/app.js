@@ -56,6 +56,7 @@ app.listen(process.env.PORT, function() {
 
 app.use("/static", express.static(__dirname + "/public"));
 app.use("/v", express.static(__dirname + "/play/v"));
+app.use("/documentation", express.static(__dirname + "/docs"));
 //Update user and language
 app.use(async(req, res, next) => {
     if (!req.language) req.language = languages.languages[languages.baseLanguage];
