@@ -1,5 +1,7 @@
 require("dotenv").config();
 require("./api/v1/auth/discord");
+var cors = require("cors");
+var corsOptions = { origin: "*" };
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
@@ -54,7 +56,7 @@ app.listen(process.env.PORT, function() {
     console.log(`Node server running @ ${process.env.HOST}${process.env.ENABLE_PORT === "true" ? ":" + process.env.PORT : ""}`);
 });
 
-app.use("/static", express.static(__dirname + "/public"));
+app.use("/static", cors(corsOptions), express.static(__dirname + "/public"));
 app.use("/v", express.static(__dirname + "/play/v"));
 app.use("/documentation", express.static(__dirname + "/docs"));
 //Update user and language
