@@ -2,7 +2,7 @@ const version = require("../../api/v1/version");
 module.exports = (req, res, modpacks) => {
     return {
         id: "modpacks",
-        icon: "/static/images/icon.svg",
+        icon: "/static/images/icon.png",
         invert: false,
         title: req.language.dashboard.modpacks.title,
         visible: true,
