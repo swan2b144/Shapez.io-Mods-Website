@@ -22,13 +22,13 @@ passport.use(
             users.findUser({ discordId: profile.id }, (err, user) => {
                 if (err) done(err, null);
                 else if (user) {
-                    if (!user.verified && profile.guilds.findIndex((guild) => guild.id === apiVariables.discordServerId) >= 0)
-                        users.editUser(
-                            user._id, {
-                                verified: true,
-                            },
-                            done
-                        );
+                    let update = {};
+                    if (user.avatar !== profile.avatar) update.avatar = profile.avatar;
+                    if (user.tag !== profile.discriminator) update.tag = profile.discriminator;
+                    if (user.username !== profile.username) update.username = profile.username;
+                    if (user.email !== profile.email) update.email = profile.email;
+                    if (!user.verified && profile.guilds.findIndex((guild) => guild.id === apiVariables.discordServerId) >= 0) update.verified = true;
+                    if (Object.keys(update.avatar).length > 0) users.editUser(user._id, update, done);
                     else done(null, user);
                 } else {
                     users.addUser({
