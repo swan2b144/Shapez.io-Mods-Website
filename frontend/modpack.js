@@ -1,6 +1,6 @@
 const usersDB = require("./api/v1/database/users");
 const modpacksDB = require("./api/v1/database/modpacks");
-const format = require("./public/js/format");
+const format = require("./static/js/format");
 let getModpack = (req, res) => {
     modpacksDB.findModpack({ modpackid: req.params.id }, async(err, modpack) => {
         if (err) {

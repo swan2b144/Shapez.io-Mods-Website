@@ -1,6 +1,6 @@
 const usersDB = require("./api/v1/database/users");
 const modsDB = require("./api/v1/database/mods");
-const format = require("./public/js/format");
+const format = require("./static/js/format");
 let getMod = (req, res) => {
     modsDB.findMod({ modid: req.params.id }, async(err, mod) => {
         if (err) {

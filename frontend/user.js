@@ -1,7 +1,7 @@
 const usersDB = require("./api/v1/database/users");
 const modsDB = require("./api/v1/database/mods");
 const modpacksDB = require("./api/v1/database/modpacks");
-const format = require("./public/js/format");
+const format = require("./static/js/format");
 let getUser = (req, res) => {
     usersDB.findUser({ discordId: req.params.id }, (err, user) => {
         if (err) {
