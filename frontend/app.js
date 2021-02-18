@@ -56,7 +56,8 @@ app.listen(process.env.PORT, function() {
     console.log(`Node server running @ ${process.env.HOST}${process.env.ENABLE_PORT === "true" ? ":" + process.env.PORT : ""}`);
 });
 
-app.use("/static", cors(corsOptions), express.static(__dirname + "/public"));
+app.use("/", cors(corsOptions), express.static(__dirname + "/public"));
+app.use("/static", cors(corsOptions), express.static(__dirname + "/static"));
 app.use("/v", express.static(__dirname + "/play/v"));
 app.use("/documentation", express.static(__dirname + "/docs"));
 //Update user and language
