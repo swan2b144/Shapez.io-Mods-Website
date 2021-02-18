@@ -16,10 +16,10 @@
                 </a>
                 <div class="authors">
                     <%=language.mods.mobBy%>
-                        <% for(let i=0; i < modOTW.authors.length; i++){ %>
-                            <% let author = modOTW.authors[i] %>
-                                <a href="/user/<%= author.id %>" class="author">
-                                    <% let str = author.username + (modOTW.authors.length-2 === i ? " & ": modOTW.authors.length-1 === i ? "":", "); %>
+                        <% for(let j=0; j < modOTW.authors.length; j++){ %>
+                            <% let author = modOTW.authors[j]; %>
+                                <a onclick="window.location.href = `/user/<%= author.id %>`" class="author">
+                                    <% let str = author.username + (modOTW.authors.length-2 ===j ? " & ": modOTW.authors.length-1 === j ? "":", "); %>
                                         <%str.trim();%>
                                             <%= str %>
                                 </a>

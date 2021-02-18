@@ -62,7 +62,7 @@ let getMods = (req, res) => {
                         if (user.discordId === currentModOTW.owner) owner = user;
                     }
                 }
-                let authors = currentModOTW.collaborators.map(async(id) => {
+                let authors = currentModOTW.collaborators.map((id) => {
                     if (users) {
                         for (let i = 0; i < users.length; i++) {
                             const user = users[i];
