@@ -148,7 +148,7 @@ router.delete("/:id", (req, res) => {
             if (err) return res.sendStatus(500);
 
             if (!mod) return res.sendStatus(500);
-            let dir = path.join(__dirname, "..", "..", "..", "public", "mods", `${mod.modid}`);
+            let dir = path.join(__dirname, "..", "..", "..", "static", "mods", `${mod.modid}`);
             rimraf(dir, (err) => {
                 if (err) return res.sendStatus(500);
                 res.sendStatus(200);
@@ -229,7 +229,7 @@ router.post("/", (req, res) => {
                     if (err) {
                         return res.sendStatus(500);
                     }
-                    let dir = path.join(__dirname, "..", "..", "..", "public", "mods", `${modid}`);
+                    let dir = path.join(__dirname, "..", "..", "..", "static", "mods", `${modid}`);
                     if (!fs.existsSync(dir)) {
                         fs.mkdirSync(dir);
                     }
@@ -346,7 +346,7 @@ router.patch("/:id", (req, res) => {
                 return res.sendStatus(500);
             }
             if (version) {
-                let dir = path.join(__dirname, "..", "..", "..", "public", "mods", `${version.modid}`);
+                let dir = path.join(__dirname, "..", "..", "..", "static", "mods", `${version.modid}`);
                 let versionFile = path.join(dir, `${version.id}.js`);
                 if (version.bundle) {
                     if (!fs.existsSync(dir)) {

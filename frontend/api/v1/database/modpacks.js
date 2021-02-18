@@ -116,7 +116,7 @@ router.post("/instance", (req, res) => {
 
     findModpack({ modpackid: req.body.modpackid }, (err, modpack) => {
         if (modpack && !err) {
-            let dir = path.join(__dirname, "..", "..", "..", "public", "modpacks", `${modpack.modpackid}`);
+            let dir = path.join(__dirname, "..", "..", "..", "static", "modpacks", `${modpack.modpackid}`);
             let versionFile = path.join(dir, `${modpack.currentVersion}.js`);
             const modpackFile = require(versionFile);
             if (!modpackFile || !modpackFile.mods) {
@@ -197,7 +197,7 @@ router.delete("/:id", (req, res) => {
                 return res.sendStatus(500);
             }
             if (!modpack) return res.sendStatus(500);
-            let dir = path.join(__dirname, "..", "..", "..", "public", "modpacks", `${modpack.modpackid}`);
+            let dir = path.join(__dirname, "..", "..", "..", "static", "modpacks", `${modpack.modpackid}`);
             rimraf(dir, (err) => {
                 if (err) return res.sendStatus(500);
                 res.sendStatus(200);
@@ -278,7 +278,7 @@ router.post("/", (req, res) => {
                     if (err) {
                         return res.sendStatus(500);
                     }
-                    let dir = path.join(__dirname, "..", "..", "..", "public", "modpacks", `${modpackid}`);
+                    let dir = path.join(__dirname, "..", "..", "..", "static", "modpacks", `${modpackid}`);
                     if (!fs.existsSync(dir)) {
                         fs.mkdirSync(dir);
                     }
@@ -395,7 +395,7 @@ router.patch("/:id", (req, res) => {
                 return res.sendStatus(500);
             }
             if (version) {
-                let dir = path.join(__dirname, "..", "..", "..", "public", "modpacks", `${version.modpackid}`);
+                let dir = path.join(__dirname, "..", "..", "..", "static", "modpacks", `${version.modpackid}`);
                 let versionFile = path.join(dir, `${version.id}.js`);
                 if (version.bundle) {
                     if (!fs.existsSync(dir)) {
