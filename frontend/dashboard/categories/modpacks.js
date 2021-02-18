@@ -29,7 +29,7 @@ module.exports = (req, res, modpacks) => {
 
                         let incorrect = false;
 
-                        if (name.value.length < 5 || name.value.length > 255) {
+                        if (name.value.length < 5 || name.value.length > 255 || name.value.contains("-")) {
                             name.classList.add("incorrect");
                             incorrect = true;
                         }
