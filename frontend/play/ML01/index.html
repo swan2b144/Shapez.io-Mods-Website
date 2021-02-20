@@ -27,7 +27,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <link rel="canonical" href="https://shapez.io">
     <link rel="preconnect" href="https://api-staging.shapez.io" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" media="none" onload="this.media=&#34;all&#34;" href="/v/7a1f1d2/main.css" integrity="sha256-Rh/ZlRysGsshyE+echpWyDUZu0WsaCQziUgGmkkPbsA=">
+    <link rel="stylesheet" type="text/css" media="none" onload="this.media=&#34;all&#34;" href="/v/89cba27/main.css" integrity="sha256-Rh/ZlRysGsshyE+echpWyDUZu0WsaCQziUgGmkkPbsA=">
     <script src="https://www.googletagmanager.com/gtag/js?id=UA-165342524-1" async></script>
     <script>
         function gtag() {
@@ -38,14 +38,14 @@
         })
     </script>
     <script src="https://www.googleoptimize.com/optimize.js?id=OPT-M5NHCV7" async></script>
-    <link rel="preload" href="/v/7a1f1d2/res/fonts/GameFont.woff2" crossorigin="anonymous" as="font">
+    <link rel="preload" href="/v/89cba27/res/fonts/GameFont.woff2" crossorigin="anonymous" as="font">
     <style type="text/css">
         @font-face {
             font-family: GameFont;
             font-style: normal;
             font-weight: 400;
             font-display: swap;
-            src: url(/v/7a1f1d2/res/fonts/GameFont.woff2) format('woff2')
+            src: url(/v/89cba27/res/fonts/GameFont.woff2) format('woff2')
         }
 
         #ll_fp {
@@ -90,10 +90,10 @@
         }
     </style>
     <script type="text/javascript">
-        var bundleSrc = "/v/7a1f1d2/bundle.js",
-            bundleSrcTranspiled = "/v/7a1f1d2/bundle-transpiled.js",
-            bundleIntegrity = "sha256-iKB7mo0UrAEmDGV2ZZQGZSiW7EbPJIBRQmxBTRhhCKc=",
-            bundleIntegrityTranspiled = "sha256-uCCihqtxa57eCXoRnqDi50tkuTS35HLgh3Jm5fJTNio=";
+        var bundleSrc = "/v/89cba27/bundle.js",
+            bundleSrcTranspiled = "/v/89cba27/bundle-transpiled.js",
+            bundleIntegrity = "sha256-6TIuU7c+mLk5RKBT2JwwehZ1dHy3Q+xmCHKwBxwrnRw=",
+            bundleIntegrityTranspiled = "sha256-lSUw2F5jXs0JpLSkPPbSQtQ/aC0T7Fic8Dym3w29wiQ=";
         ! function() {
             var e = null,
                 n = !1;
@@ -104,10 +104,10 @@
                 d.style.position = "fixed", d.style.top = "0", d.style.right = "0", d.style.bottom = "0", d.style.left = "0", d.style.zIndex = "29999", d.style.backgroundColor = "#222429", d.style.display = "flex", d.style.justifyContent = "center", d.style.alignItems = "center";
                 var l = document.createElement("div");
                 l.style.color = "#fff", l.style.fontFamily = "GameFont, sans-serif", l.style.fontSize = "15px", l.style.padding = "30px", l.style.textAlign = "center", d.appendChild(l);
-                var i = document.createElement("h3");
-                i.style.color = "#ef5072", i.innerText = "Error", i.style.marginBottom = "40px", i.style.fontSize = "45px", l.appendChild(i);
-                var a = document.createElement("p");
-                if (a.style.color = "#eee", a.innerText = o || e && e.message || e || "Unknown Error", l.appendChild(a), n) {
+                var a = document.createElement("h3");
+                a.style.color = "#ef5072", a.innerText = "Error", a.style.marginBottom = "40px", a.style.fontSize = "45px", l.appendChild(a);
+                var i = document.createElement("p");
+                if (i.style.color = "#eee", i.innerText = o || e && e.message || e || "Unknown Error", l.appendChild(i), n) {
                     var s = document.createElement("p");
                     s.style.color = "#777", s.innerText = s + ":" + t + ":" + r, l.appendChild(s)
                 }
@@ -133,12 +133,12 @@
             window.addEventListener("error", t), window.addEventListener("unhandledrejection", t), window.coreThreadLoadedCb = function() {
                 console.log("👀 Core responded at", Math.floor(performance.now()), "ms"), clearTimeout(e), n = !(e = null)
             };
-            var i = r(bundleSrc, bundleIntegrity);
-            i.addEventListener("error", function(e) {
+            var a = r(bundleSrc, bundleIntegrity);
+            a.addEventListener("error", function(e) {
                 console.warn("👀 ES6 Script not supported, loading transpiled code."), console.warn("👀 Error was:", e);
                 var n = r(bundleSrcTranspiled, bundleIntegrityTranspiled);
                 n.addEventListener("error", o), n.addEventListener("load", l), document.head.appendChild(n)
-            }), i.addEventListener("load", l), document.head.appendChild(i)
+            }), a.addEventListener("load", l), document.head.appendChild(a)
         }()
     </script>
 </head>
