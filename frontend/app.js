@@ -25,7 +25,7 @@ var app = express();
 app.set("view engine", "ejs");
 app.use(
     express.json({
-        limit: "1mb",
+        limit: "20mb",
     })
 ); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
