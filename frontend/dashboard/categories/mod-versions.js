@@ -24,7 +24,7 @@ module.exports = (req, res, mod) => {
 
                         let incorrect = false;
 
-                        if (version.value.length < 5 || version.value.length > 255) {
+                        if (version.value.length < 5 || version.value.length > 255 || /[<>:"\/\\\|?*\x00-\x1F]/g.test(version.value) || /^(CON|PRN|AUX|NUL|COM1|COM2|COM3|COM4|COM5|COM6|COM7|COM8|COM9|LPT1|LPT2|LPT3|LPT4|LPT5|LPT6|LPT7|LPT8|LPT9)(\..+)?$/.test(version.value)) {
                             version.classList.add("incorrect");
                             incorrect = true;
                         }

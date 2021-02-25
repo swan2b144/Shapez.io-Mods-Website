@@ -283,7 +283,7 @@ router.patch("/:id", (req, res) => {
 
         let version = req.body.version;
         if (typeof version !== "undefined") {
-            if (typeof version.id === "undefined" || typeof version.modid === "undefined") return res.sendStatus(400);
+            if (typeof version.id === "undefined" || typeof version.modid === "undefined" || /[<>:"\/\\\|?*\x00-\x1F]/g.test(version.id) || /^(CON|PRN|AUX|NUL|COM1|COM2|COM3|COM4|COM5|COM6|COM7|COM8|COM9|LPT1|LPT2|LPT3|LPT4|LPT5|LPT6|LPT7|LPT8|LPT9)(\..+)?$/.test(version.id)) return res.sendStatus(400);
 
             if (mod.versions.find((v) => v.id === version.id)) {
                 if (version.delete) {
