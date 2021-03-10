@@ -1,43 +1,40 @@
 <%- include('../partials/header.ejs') %>
-    <div class="wrapper mods">
-        <!-- <div class="logo">
-            <img src="/static/images/logo.svg" />
+<div class="wrapper mods">
+  <!-- <div class="logo">
+            <img src="/static/images/logo.png" />
             <label class="label">Mods</label>
         </div> -->
-        <div class="header-title">
-            <%=language.mods.modOTW%>
-        </div>
-        <%if(modOTW){%>
-            <div class="card mod-of-the-week">
-                <a href="/<%= modOTW.type %>/<%= modOTW.id %>" class="title">
-                    <%= modOTW.name%>
-                        <%if(modOTW.verified){%><span class="verified"></span>
-                            <%}%>
-                </a>
-                <div class="authors">
-                    <%=language.mods.mobBy%>
-                        <% for(let j=0; j < modOTW.authors.length; j++){ %>
-                            <% let author = modOTW.authors[j]; %>
-                                <a onclick="window.location.href = `/user/<%= author.id %>`" class="author">
-                                    <% let str = author.username + (modOTW.authors.length-2 ===j ? " & ": modOTW.authors.length-1 === j ? "":", "); %>
-                                        <%str.trim();%>
-                                            <%= str %>
-                                </a>
-                                <% } %>
-                </div>
-                <a href="/<%= modOTW.type %>/<%= modOTW.id %>" class="subtitle">
-                    <%= modOTW.description%>
-                </a>
-                <a href="/<%= modOTW.type %>/<%= modOTW.id %>" class="images">
-                    <% for(let i=0; i < modOTW.images.length; i++){ %>
-                        <% let image = modOTW.images[i] %>
-                            <div class="image">
-                                <img src="<%= image %>" />
-                            </div>
-                            <% } %>
-                </a>
-            </div>
-            <% } %>
-                <%- include('../partials/browse.ejs') %>
+  <div class="header-title"><%=language.mods.modOTW%></div>
+  <%if(modOTW){%>
+  <div class="card mod-of-the-week">
+    <a href="/<%= modOTW.type %>/<%= modOTW.id %>" class="title">
+      <%= modOTW.name%> <%if(modOTW.verified){%><span class="verified"></span>
+      <%}%>
+    </a>
+    <div class="authors">
+      <%=language.mods.mobBy%> <% for(let j=0; j < modOTW.authors.length; j++){
+      %> <% let author = modOTW.authors[j]; %>
+      <a
+        onclick="window.location.href = `/user/<%= author.id %>`"
+        class="author"
+      >
+        <% let str = author.username + (modOTW.authors.length-2 ===j ? " & ":
+        modOTW.authors.length-1 === j ? "":", "); %> <%str.trim();%> <%= str %>
+      </a>
+      <% } %>
     </div>
-    <%- include('../partials/footer.ejs') %>
+    <a href="/<%= modOTW.type %>/<%= modOTW.id %>" class="subtitle">
+      <%= modOTW.description%>
+    </a>
+    <a href="/<%= modOTW.type %>/<%= modOTW.id %>" class="images">
+      <% for(let i=0; i < modOTW.images.length; i++){ %> <% let image =
+      modOTW.images[i] %>
+      <div class="image">
+        <img src="<%= image %>" />
+      </div>
+      <% } %>
+    </a>
+  </div>
+  <% } %> <%- include('../partials/browse.ejs') %>
+</div>
+<%- include('../partials/footer.ejs') %>

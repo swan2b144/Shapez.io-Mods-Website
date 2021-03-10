@@ -1,30 +1,35 @@
 {
-    "name": "modloader_web",
-    "version": "1.0.0",
-    "description": "",
-    "main": "app.js",
-    "scripts": {
-        "start": "nodemon app --ignore public/"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/swan2b144/modloader-website"
-    },
-    "author": "Shadow",
-    "license": "MIT",
-    "dependencies": {
-        "cors": "^2.8.5",
-        "device": "^0.3.12",
-        "dotenv": "^8.2.0",
-        "ejs": "^3.1.5",
-        "express": "^4.17.1",
-        "express-session": "^1.17.1",
-        "highlight.js": "^10.5.0",
-        "mongodb": "^3.6.3",
-        "passport": "^0.4.1",
-        "passport-discord": "^0.1.4",
-        "request": "^2.88.2",
-        "rimraf": "^3.0.2",
-        "xmlhttprequest": "^1.8.0"
-    }
+  "name": "modloader_web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app --ignore public/",
+    "prettier": "prettier prettier --write **/*.* "
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/swan2b144/modloader-website"
+  },
+  "author": "Shadow",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "device": "^0.3.12",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "highlight.js": "^10.5.0",
+    "mongodb": "^3.6.3",
+    "passport": "^0.4.1",
+    "passport-discord": "^0.1.4",
+    "passport-steam": "^1.0.15",
+    "request": "^2.88.2",
+    "rimraf": "^3.0.2",
+    "xmlhttprequest": "^1.8.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.2.1"
+  }
 }
