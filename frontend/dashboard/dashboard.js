@@ -185,7 +185,7 @@ let getDashbaord = async (req, res) => {
         );
         if (
             data.data.response.games.filter(
-                (x) => x.appid === apiVariables.appId
+                (x) => x.appid === apiVariables.steamAppId
             ).length > 0
         )
             play = true;
