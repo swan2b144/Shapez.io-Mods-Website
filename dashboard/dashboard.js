@@ -138,25 +138,28 @@ let getInstances = (req, res, user, play) => {
             let instance = user.instances[i];
             instance.modButtons = [];
             instance.index = i;
-            for (let j = 0; j < instance.mods.length; j++) {
-                let modInstance = instance.mods[j];
-                let mod = await getMod(modInstance.id);
-                modInstance.index = j;
-                instance.modButtons.push({
-                    contentType: "button",
-                    title: mod.name,
-                    desc: mod.description,
-                    category: `instance-${instance.name}-mod-${mod.modid}-${instance.index}-${modInstance.index}`,
-                });
-                modCategories.push(
-                    require("./categories/instance-mod")(
-                        req,
-                        res,
-                        instance,
-                        modInstance,
-                        mod
-                    )
-                );
+
+            if (instance.mods) {
+                for (let j = 0; j < instance.mods.length; j++) {
+                    let modInstance = instance.mods[j];
+                    let mod = await getMod(modInstance.id);
+                    modInstance.index = j;
+                    instance.modButtons.push({
+                        contentType: "button",
+                        title: mod.name,
+                        desc: mod.description,
+                        category: `instance-${instance.name}-mod-${mod.modid}-${instance.index}-${modInstance.index}`,
+                    });
+                    modCategories.push(
+                        require("./categories/instance-mod")(
+                            req,
+                            res,
+                            instance,
+                            modInstance,
+                            mod
+                        )
+                    );
+                }
             }
             buttons.push({
                 contentType: "button",
