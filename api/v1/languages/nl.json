@@ -1,226 +1,226 @@
 {
-	"name": "Nederlands",
-	"navbar": {
-		"mods": "Mods",
-		"search": {
-			"search": "Zoeken",
-			"allCategories": "Alle categorieën"
-		},
-		"about": "Over",
-		"contact": "Contact",
-		"documentation": "Documentatie",
-		"signin": "Aanmelden",
-		"user": {
-			"profile": "Profiel",
-			"settings": "Instellingen",
-			"logout": "Afmelden"
-		}
-	},
-	"footer": {
-		"joinOurDiscord": "Join onze discord",
-		"help": "Wij helpen u indien nodig!",
-		"helpCategories": "Info, efficiënte ontwerpen, compacte fabrieken",
-		"moddingServer": "Modding server"
-	},
-	"notfound": {
-		"title": "Pagina niet gevonden",
-		"description": "De pagina die u zocht, bestaat niet"
-	},
-	"forbidden": {
-		"title": "Verboden pagina",
-		"description": "U heeft geen toegang tot deze pagina"
-	},
-	"mods": {
-		"download": "Download",
-		"copyId": "Kopieer id",
-		"ok": "Oke",
-		"cancel": "Annuleer",
-		"chooseInstance": "Kies een instantie",
-		"chooseOneInstance": "Kies een instantie",
-		"addToInstance": "Toevoegen aan instantie",
-		"createInstance": "Maak een instantie",
-		"isntanceName": "Naam",
-		"instanceExistError": "Instantie bestaat al",
-		"instanceNameError": "De instantienaam moet tussen de 5 en 255 tekens lang zijn",
-		"modOTW": "Mod van de week",
-		"mobBy": "Door",
-		"search": "Zoeken",
-		"searchOptions": {
-			"verified": { "title": "Geverifieerd" },
-			"type": {
-				"title": "Type",
-				"mod": "Mod",
-				"modpack": "Modpack"
-			},
-			"categories": {
-				"title": "Categorieën",
+  "name": "Nederlands",
+  "navbar": {
+    "mods": "Mods",
+    "search": {
+      "search": "Zoeken",
+      "allCategories": "Alle categorieën"
+    },
+    "about": "Over",
+    "contact": "Contact",
+    "documentation": "Documentatie",
+    "signin": "Aanmelden",
+    "user": {
+      "profile": "Profiel",
+      "settings": "Instellingen",
+      "logout": "Afmelden"
+    }
+  },
+  "footer": {
+    "joinOurDiscord": "Join onze discord",
+    "help": "Wij helpen u indien nodig!",
+    "helpCategories": "Info, efficiënte ontwerpen, compacte fabrieken",
+    "moddingServer": "Modding server"
+  },
+  "notfound": {
+    "title": "Pagina niet gevonden",
+    "description": "De pagina die u zocht, bestaat niet"
+  },
+  "forbidden": {
+    "title": "Verboden pagina",
+    "description": "U heeft geen toegang tot deze pagina"
+  },
+  "mods": {
+    "download": "Download",
+    "copyId": "Kopieer id",
+    "ok": "Oke",
+    "cancel": "Annuleer",
+    "chooseInstance": "Kies een instantie",
+    "chooseOneInstance": "Kies een instantie",
+    "addToInstance": "Toevoegen aan instantie",
+    "createInstance": "Maak een instantie",
+    "isntanceName": "Naam",
+    "instanceExistError": "Instantie bestaat al",
+    "instanceNameError": "De instantienaam moet tussen de 5 en 255 tekens lang zijn",
+    "modOTW": "Mod van de week",
+    "mobBy": "Door",
+    "search": "Zoeken",
+    "searchOptions": {
+      "verified": { "title": "Geverifieerd" },
+      "type": {
+        "title": "Type",
+        "mod": "Mod",
+        "modpack": "Modpack"
+      },
+      "categories": {
+        "title": "Categorieën",
 
-				"categorie1": "Categorie1",
-				"categorie2": "Categorie2",
-				"categorie3": "Categorie3",
-				"categorie4": "Categorie4",
-				"categorie5": "Categorie5",
-				"categorie6": "Categorie6"
-			}
-		}
-	},
-	"dashboard": {
-		"title": "Dashboard",
-		"upload": "Uploaden",
-		"uploaded": "Geüpload",
-		"instances": {
-			"title": "Instanties",
-			"content": {
-				"play": "Spelen",
-				"updateInstance": {
-					"post": "Instantie bijwerken",
-					"fields": {
-						"name": "Naam",
-						"config": "Configuratie",
-						"settings": "Instellingen",
-						"version": "Versie"
-					}
-				},
-				"addInstance": {
-					"post": "Instantie toevoegen",
-					"fields": {
-						"name": "Naam",
-						"gameVersion": "Game versie"
-					}
-				},
-				"deleteInstance": {
-					"post": "Instantie verwijderen",
-					"fields": {
-						"name": "Naam"
-					}
-				},
-				"addMod": {
-					"post": "Voeg mod toe",
-					"fields": {
-						"id": "Mod id"
-					}
-				}
-			}
-		},
-		"settings": {
-			"title": "Instellingen",
-			"content": {
-				"language": {
-					"title": "Taal",
-					"description": "Verander de taal. Alle vertalingen zijn gebruikersbijdragen en zijn mogelijk niet volledig!"
-				},
-				"publicTag": {
-					"title": "Openbare tag",
-					"description": "Verander de zichtbaarheid van je discord tag"
-				},
-				"profile": {
-					"title": "Profiel"
-				}
-			}
-		},
-		"verify": {
-			"title": "Verifiëren",
-			"content": {
-				"mod": {
-					"post": "Verifieer mod or verificatie ongedaan maken",
-					"fields": {
-						"id": "Mod id"
-					}
-				},
-				"modpack": {
-					"post": "Verifieer modpack or verificatie ongedaan maken",
-					"fields": {
-						"id": "Modpack id"
-					}
-				}
-			}
-		},
-		"modpacks": {
-			"title": "Modpacks",
-			"content": {
-				"versions": {
-					"title": "Versies",
-					"post": "Update versie",
-					"fields": {
-						"version": "Versie",
-						"delete": "Verwijder versie",
-						"name": "Naam",
-						"bundle": "Bundle"
-					}
-				},
-				"addVersion": {
-					"post": "Voeg versie toe"
-				},
-				"updateModpack": {
-					"post": "Update modpack"
-				},
-				"deleteModpack": {
-					"post": "Verwijder modpack",
-					"fields": {
-						"delete": "Naam"
-					}
-				},
-				"addModpack": {
-					"title": "Voeg nieuwe modpack toe",
-					"post": "Voeg modack toe",
-					"fields": {
-						"name": "Naam",
-						"description": "Beschrijving",
-						"modpackPage": "Modpack pagina",
-						"preview": "Voorbeeld",
-						"modpackId": "Modpack id",
-						"mods": "Mods",
-						"collaborators": "Medewerkers",
-						"version": "Versie",
-						"gameVersion": "Spel versie",
-						"photos": "Fotos",
-						"bundle": "Bundle"
-					}
-				}
-			}
-		},
-		"mods": {
-			"title": "Mods",
-			"content": {
-				"versions": {
-					"title": "Versies",
-					"post": "Update versie",
-					"fields": {
-						"version": "Versie",
-						"delete": "Verwijder versie",
-						"name": "Naam",
-						"bundle": "Bundle"
-					}
-				},
-				"addVersion": {
-					"post": "Voeg versie toe"
-				},
-				"updateMod": {
-					"post": "Update mod"
-				},
-				"deleteMod": {
-					"post": "Verwijder mod",
-					"fields": {
-						"delete": "Naam"
-					}
-				},
-				"addMod": {
-					"title": "Voeg nieuwe mod toe",
-					"post": "Voeg mod toe",
-					"fields": {
-						"name": "Naam",
-						"description": "Beschrijving",
-						"modPage": "Mod pagina",
-						"preview": "Voorbeeld",
-						"modId": "Mod id",
-						"collaborators": "Medewerkers",
-						"version": "Versie",
-						"gameVersion": "Spel versie",
-						"photos": "Fotos",
-						"bundle": "Bundle"
-					}
-				}
-			}
-		}
-	}
+        "categorie1": "Categorie1",
+        "categorie2": "Categorie2",
+        "categorie3": "Categorie3",
+        "categorie4": "Categorie4",
+        "categorie5": "Categorie5",
+        "categorie6": "Categorie6"
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "upload": "Uploaden",
+    "uploaded": "Geüpload",
+    "instances": {
+      "title": "Instanties",
+      "content": {
+        "play": "Spelen",
+        "updateInstance": {
+          "post": "Instantie bijwerken",
+          "fields": {
+            "name": "Naam",
+            "config": "Configuratie",
+            "settings": "Instellingen",
+            "version": "Versie"
+          }
+        },
+        "addInstance": {
+          "post": "Instantie toevoegen",
+          "fields": {
+            "name": "Naam",
+            "gameVersion": "Game versie"
+          }
+        },
+        "deleteInstance": {
+          "post": "Instantie verwijderen",
+          "fields": {
+            "name": "Naam"
+          }
+        },
+        "addMod": {
+          "post": "Voeg mod toe",
+          "fields": {
+            "id": "Mod id"
+          }
+        }
+      }
+    },
+    "settings": {
+      "title": "Instellingen",
+      "content": {
+        "language": {
+          "title": "Taal",
+          "description": "Verander de taal. Alle vertalingen zijn gebruikersbijdragen en zijn mogelijk niet volledig!"
+        },
+        "publicTag": {
+          "title": "Openbare tag",
+          "description": "Verander de zichtbaarheid van je discord tag"
+        },
+        "profile": {
+          "title": "Profiel"
+        }
+      }
+    },
+    "verify": {
+      "title": "Verifiëren",
+      "content": {
+        "mod": {
+          "post": "Verifieer mod or verificatie ongedaan maken",
+          "fields": {
+            "id": "Mod id"
+          }
+        },
+        "modpack": {
+          "post": "Verifieer modpack or verificatie ongedaan maken",
+          "fields": {
+            "id": "Modpack id"
+          }
+        }
+      }
+    },
+    "modpacks": {
+      "title": "Modpacks",
+      "content": {
+        "versions": {
+          "title": "Versies",
+          "post": "Update versie",
+          "fields": {
+            "version": "Versie",
+            "delete": "Verwijder versie",
+            "name": "Naam",
+            "bundle": "Bundle"
+          }
+        },
+        "addVersion": {
+          "post": "Voeg versie toe"
+        },
+        "updateModpack": {
+          "post": "Update modpack"
+        },
+        "deleteModpack": {
+          "post": "Verwijder modpack",
+          "fields": {
+            "delete": "Naam"
+          }
+        },
+        "addModpack": {
+          "title": "Voeg nieuwe modpack toe",
+          "post": "Voeg modack toe",
+          "fields": {
+            "name": "Naam",
+            "description": "Beschrijving",
+            "modpackPage": "Modpack pagina",
+            "preview": "Voorbeeld",
+            "modpackId": "Modpack id",
+            "mods": "Mods",
+            "collaborators": "Medewerkers",
+            "version": "Versie",
+            "gameVersion": "Spel versie",
+            "photos": "Fotos",
+            "bundle": "Bundle"
+          }
+        }
+      }
+    },
+    "mods": {
+      "title": "Mods",
+      "content": {
+        "versions": {
+          "title": "Versies",
+          "post": "Update versie",
+          "fields": {
+            "version": "Versie",
+            "delete": "Verwijder versie",
+            "name": "Naam",
+            "bundle": "Bundle"
+          }
+        },
+        "addVersion": {
+          "post": "Voeg versie toe"
+        },
+        "updateMod": {
+          "post": "Update mod"
+        },
+        "deleteMod": {
+          "post": "Verwijder mod",
+          "fields": {
+            "delete": "Naam"
+          }
+        },
+        "addMod": {
+          "title": "Voeg nieuwe mod toe",
+          "post": "Voeg mod toe",
+          "fields": {
+            "name": "Naam",
+            "description": "Beschrijving",
+            "modPage": "Mod pagina",
+            "preview": "Voorbeeld",
+            "modId": "Mod id",
+            "collaborators": "Medewerkers",
+            "version": "Versie",
+            "gameVersion": "Spel versie",
+            "photos": "Fotos",
+            "bundle": "Bundle"
+          }
+        }
+      }
+    }
+  }
 }

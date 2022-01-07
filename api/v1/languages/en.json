@@ -1,226 +1,226 @@
 {
-	"name": "English",
-	"navbar": {
-		"mods": "Mods",
-		"search": {
-			"search": "Search",
-			"allCategories": "All categories"
-		},
-		"about": "About",
-		"contact": "Contact",
-		"documentation": "Documentation",
-		"signin": "Sign in",
-		"user": {
-			"profile": "Profile",
-			"settings": "Settings",
-			"logout": "Logout"
-		}
-	},
-	"footer": {
-		"joinOurDiscord": "Join our discord",
-		"help": "We'll help you if needed!",
-		"helpCategories": "Info, Efficient designs, compact factories",
-		"moddingServer": "Modding server"
-	},
-	"notfound": {
-		"title": "Page not found",
-		"description": "The page you were looking for doesn't exist"
-	},
-	"forbidden": {
-		"title": "Forbidden page",
-		"description": "You can not access the page you where looking for"
-	},
-	"mods": {
-		"download": "Download",
-		"copyId": "Copy id",
-		"ok": "Ok",
-		"cancel": "Cancel",
-		"chooseInstance": "Choose instance",
-		"chooseOneInstance": "Choose one instance",
-		"addToInstance": "Add to instance",
-		"createInstance": "Create instance",
-		"isntanceName": "Name",
-		"instanceExistError": "Instance already exists",
-		"instanceNameError": "Instance name must be between 5 and 255 characters",
-		"modOTW": "Mod of the week",
-		"mobBy": "By",
-		"search": "Search",
-		"searchOptions": {
-			"verified": { "title": "Verified" },
-			"type": {
-				"title": "Type",
-				"mod": "Mod",
-				"modpack": "Modpack"
-			},
-			"categories": {
-				"title": "Categories",
+  "name": "English",
+  "navbar": {
+    "mods": "Mods",
+    "search": {
+      "search": "Search",
+      "allCategories": "All categories"
+    },
+    "about": "About",
+    "contact": "Contact",
+    "documentation": "Documentation",
+    "signin": "Sign in",
+    "user": {
+      "profile": "Profile",
+      "settings": "Settings",
+      "logout": "Logout"
+    }
+  },
+  "footer": {
+    "joinOurDiscord": "Join our discord",
+    "help": "We'll help you if needed!",
+    "helpCategories": "Info, Efficient designs, compact factories",
+    "moddingServer": "Modding server"
+  },
+  "notfound": {
+    "title": "Page not found",
+    "description": "The page you were looking for doesn't exist"
+  },
+  "forbidden": {
+    "title": "Forbidden page",
+    "description": "You can not access the page you where looking for"
+  },
+  "mods": {
+    "download": "Download",
+    "copyId": "Copy id",
+    "ok": "Ok",
+    "cancel": "Cancel",
+    "chooseInstance": "Choose instance",
+    "chooseOneInstance": "Choose one instance",
+    "addToInstance": "Add to instance",
+    "createInstance": "Create instance",
+    "isntanceName": "Name",
+    "instanceExistError": "Instance already exists",
+    "instanceNameError": "Instance name must be between 5 and 255 characters",
+    "modOTW": "Mod of the week",
+    "mobBy": "By",
+    "search": "Search",
+    "searchOptions": {
+      "verified": { "title": "Verified" },
+      "type": {
+        "title": "Type",
+        "mod": "Mod",
+        "modpack": "Modpack"
+      },
+      "categories": {
+        "title": "Categories",
 
-				"categorie1": "Categorie1",
-				"categorie2": "Categorie2",
-				"categorie3": "Categorie3",
-				"categorie4": "Categorie4",
-				"categorie5": "Categorie5",
-				"categorie6": "Categorie6"
-			}
-		}
-	},
-	"dashboard": {
-		"title": "Dashboard",
-		"upload": "Upload",
-		"uploaded": "Uploaded",
-		"instances": {
-			"title": "Instances",
-			"content": {
-				"play": "Play",
-				"updateInstance": {
-					"post": "Update instance",
-					"fields": {
-						"name": "Name",
-						"config": "Config",
-						"settings": "Settings",
-						"version": "Version"
-					}
-				},
-				"addInstance": {
-					"post": "Add instance",
-					"fields": {
-						"name": "Name",
-						"gameVersion": "Game version"
-					}
-				},
-				"deleteInstance": {
-					"post": "Delete instance",
-					"fields": {
-						"name": "Name"
-					}
-				},
-				"addMod": {
-					"post": "Add mod",
-					"fields": {
-						"id": "Mod id"
-					}
-				}
-			}
-		},
-		"settings": {
-			"title": "Settings",
-			"content": {
-				"language": {
-					"title": "Language",
-					"description": "Change the language. All translations are user contributions and may not be complete!"
-				},
-				"publicTag": {
-					"title": "Public tag",
-					"description": "Change the visibility of your discord tag"
-				},
-				"profile": {
-					"title": "Profile"
-				}
-			}
-		},
-		"verify": {
-			"title": "Verify",
-			"content": {
-				"mod": {
-					"post": "(Un)verify mod",
-					"fields": {
-						"id": "Mod id"
-					}
-				},
-				"modpack": {
-					"post": "(Un)verify modpack",
-					"fields": {
-						"id": "Modpack id"
-					}
-				}
-			}
-		},
-		"modpacks": {
-			"title": "Modpacks",
-			"content": {
-				"versions": {
-					"title": "Versions",
-					"post": "Update version",
-					"fields": {
-						"version": "Version",
-						"delete": "Delete version",
-						"name": "Name",
-						"bundle": "Bundle"
-					}
-				},
-				"addVersion": {
-					"post": "Add version"
-				},
-				"updateModpack": {
-					"post": "Update modpack"
-				},
-				"deleteModpack": {
-					"post": "Delete modpack",
-					"fields": {
-						"delete": "Name"
-					}
-				},
-				"addModpack": {
-					"title": "Add new modpack",
-					"post": "Add modpack",
-					"fields": {
-						"name": "Name",
-						"description": "Description",
-						"modpackPage": "Modpack page",
-						"preview": "Preview",
-						"modpackId": "Modpack id",
-						"collaborators": "collaborators",
-						"mods": "Mods",
-						"version": "Version",
-						"gameVersion": "Game version",
-						"photos": "Photos",
-						"bundle": "Bundle"
-					}
-				}
-			}
-		},
-		"mods": {
-			"title": "Mods",
-			"content": {
-				"versions": {
-					"title": "Versions",
-					"post": "Update version",
-					"fields": {
-						"version": "Version",
-						"delete": "Delete version",
-						"name": "Name",
-						"bundle": "Bundle"
-					}
-				},
-				"addVersion": {
-					"post": "Add version"
-				},
-				"updateMod": {
-					"post": "Update mod"
-				},
-				"deleteMod": {
-					"post": "Delete mod",
-					"fields": {
-						"delete": "Name"
-					}
-				},
-				"addMod": {
-					"title": "Add new mod",
-					"post": "Add mod",
-					"fields": {
-						"name": "Name",
-						"description": "Description",
-						"modPage": "Mod page",
-						"preview": "Preview",
-						"modId": "Mod id",
-						"collaborators": "collaborators",
-						"version": "Version",
-						"gameVersion": "Game version",
-						"photos": "Photos",
-						"bundle": "Bundle"
-					}
-				}
-			}
-		}
-	}
+        "categorie1": "Categorie1",
+        "categorie2": "Categorie2",
+        "categorie3": "Categorie3",
+        "categorie4": "Categorie4",
+        "categorie5": "Categorie5",
+        "categorie6": "Categorie6"
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "upload": "Upload",
+    "uploaded": "Uploaded",
+    "instances": {
+      "title": "Instances",
+      "content": {
+        "play": "Play",
+        "updateInstance": {
+          "post": "Update instance",
+          "fields": {
+            "name": "Name",
+            "config": "Config",
+            "settings": "Settings",
+            "version": "Version"
+          }
+        },
+        "addInstance": {
+          "post": "Add instance",
+          "fields": {
+            "name": "Name",
+            "gameVersion": "Game version"
+          }
+        },
+        "deleteInstance": {
+          "post": "Delete instance",
+          "fields": {
+            "name": "Name"
+          }
+        },
+        "addMod": {
+          "post": "Add mod",
+          "fields": {
+            "id": "Mod id"
+          }
+        }
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "content": {
+        "language": {
+          "title": "Language",
+          "description": "Change the language. All translations are user contributions and may not be complete!"
+        },
+        "publicTag": {
+          "title": "Public tag",
+          "description": "Change the visibility of your discord tag"
+        },
+        "profile": {
+          "title": "Profile"
+        }
+      }
+    },
+    "verify": {
+      "title": "Verify",
+      "content": {
+        "mod": {
+          "post": "(Un)verify mod",
+          "fields": {
+            "id": "Mod id"
+          }
+        },
+        "modpack": {
+          "post": "(Un)verify modpack",
+          "fields": {
+            "id": "Modpack id"
+          }
+        }
+      }
+    },
+    "modpacks": {
+      "title": "Modpacks",
+      "content": {
+        "versions": {
+          "title": "Versions",
+          "post": "Update version",
+          "fields": {
+            "version": "Version",
+            "delete": "Delete version",
+            "name": "Name",
+            "bundle": "Bundle"
+          }
+        },
+        "addVersion": {
+          "post": "Add version"
+        },
+        "updateModpack": {
+          "post": "Update modpack"
+        },
+        "deleteModpack": {
+          "post": "Delete modpack",
+          "fields": {
+            "delete": "Name"
+          }
+        },
+        "addModpack": {
+          "title": "Add new modpack",
+          "post": "Add modpack",
+          "fields": {
+            "name": "Name",
+            "description": "Description",
+            "modpackPage": "Modpack page",
+            "preview": "Preview",
+            "modpackId": "Modpack id",
+            "collaborators": "collaborators",
+            "mods": "Mods",
+            "version": "Version",
+            "gameVersion": "Game version",
+            "photos": "Photos",
+            "bundle": "Bundle"
+          }
+        }
+      }
+    },
+    "mods": {
+      "title": "Mods",
+      "content": {
+        "versions": {
+          "title": "Versions",
+          "post": "Update version",
+          "fields": {
+            "version": "Version",
+            "delete": "Delete version",
+            "name": "Name",
+            "bundle": "Bundle"
+          }
+        },
+        "addVersion": {
+          "post": "Add version"
+        },
+        "updateMod": {
+          "post": "Update mod"
+        },
+        "deleteMod": {
+          "post": "Delete mod",
+          "fields": {
+            "delete": "Name"
+          }
+        },
+        "addMod": {
+          "title": "Add new mod",
+          "post": "Add mod",
+          "fields": {
+            "name": "Name",
+            "description": "Description",
+            "modPage": "Mod page",
+            "preview": "Preview",
+            "modId": "Mod id",
+            "collaborators": "collaborators",
+            "version": "Version",
+            "gameVersion": "Game version",
+            "photos": "Photos",
+            "bundle": "Bundle"
+          }
+        }
+      }
+    }
+  }
 }
