@@ -114,7 +114,7 @@ app.get("/mods", function (req, res) {
 });
 
 app.get("/about", function (req, res) {
-  res.render("pages/about", {
+  res.render("pages/notfound", {
     user: req.user,
     language: req.language,
     title: "Shapez.io - About",
