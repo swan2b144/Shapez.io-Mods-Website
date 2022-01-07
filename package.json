@@ -14,7 +14,6 @@
   "author": "Shadow",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.21.1",
     "cors": "^2.8.5",
     "device": "^0.3.12",
     "dotenv": "^8.2.0",
@@ -25,13 +24,11 @@
     "mongodb": "^3.6.3",
     "passport": "^0.4.1",
     "passport-discord": "^0.1.4",
-    "passport-steam": "^1.0.15",
     "request": "^2.88.2",
-    "request-promise": "^4.2.6",
     "rimraf": "^3.0.2",
     "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
-    "prettier": "^2.2.1"
+    "prettier": "^2.5.1"
   }
 }

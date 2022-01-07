@@ -89,16 +89,6 @@ module.exports = (req, res) => {
           },
         ],
       },
-      {
-        contentType: "button",
-        title:
-          req.language.dashboard.settings.content.steam +
-          (req.user.settings.steam ? ": " + req.user.settings.steam : ""),
-        desc: "",
-        href: `${process.env.HOST}${
-          process.env.ENABLE_PORT === "true" ? ":" + process.env.PORT : ""
-        }/api/v1/auth/login-steam`,
-      },
     ],
   };
 };

@@ -14,8 +14,8 @@ passport.deserializeUser((discordId, done) => {
 passport.use(
   new DiscordStrategy(
     {
-      clientID: apiVariables.discordClientID,
-      clientSecret: apiVariables.discordSecret,
+      clientID: apiVariables.clientID,
+      clientSecret: apiVariables.secret,
       callbackURL: `${process.env.HOST}${
         process.env.ENABLE_PORT === "true" ? ":" + process.env.PORT : ""
       }/api/v1/auth/discord/redirect`,

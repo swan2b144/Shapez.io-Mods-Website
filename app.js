@@ -1,6 +1,5 @@
 require("dotenv").config();
 require("./api/v1/auth/discord");
-require("./api/v1/auth/steam");
 var cors = require("cors");
 var corsOptions = { origin: "*" };
 const express = require("express");
@@ -12,7 +11,6 @@ const mods = require("./mods");
 const user = require("./user");
 const mod = require("./mod");
 const modpack = require("./modpack");
-const apiVariables = require("./api/v1/api_variables");
 const { findUser } = require("./api/v1/database/users");
 let findUserPromise = (data) =>
   new Promise((resolve, reject) =>
@@ -64,14 +62,15 @@ app.listen(process.env.PORT, function () {
 
 app.use("/", cors(corsOptions), express.static(__dirname + "/public"));
 app.use("/static", cors(corsOptions), express.static(__dirname + "/static"));
-
+app.use("/v", express.static(__dirname + "/play/v"));
 app.use("/documentation", express.static(__dirname + "/docs"));
 //Update user and language
 app.use(async (req, res, next) => {
-  if (!req.language)
-    req.language = JSON.parse(JSON.stringify(languages.baseLanguage));
+  if (!req.language) req.language = languages.languages[languages.baseLanguage];
   if (req.user) {
-    const baseLanguage = JSON.parse(JSON.stringify(languages.baseLanguage));
+    let baseLanguage = JSON.parse(
+      JSON.stringify(languages.languages[languages.baseLanguage])
+    );
     let user = await findUserPromise({ discordId: req.user.discordId });
     if (user) req.user = user;
     languages.matchDataRecursive(
@@ -93,13 +92,10 @@ app.use(async (req, res, next) => {
 
 //Put /build/index.html in /play
 //Put other files in /play/v/<commit hash>/
-if (apiVariables.steamAPI) {
-  app.use("/v", express.static(__dirname + "/play/v"));
-  app.get("/play/:gameversion", function (req, res) {
-    if (!req.user) return res.redirect("/api/v1/auth/login");
-    res.sendFile(__dirname + "/play/" + req.params.gameversion + "/index.html");
-  });
-}
+app.get("/play/:gameversion", function (req, res) {
+  if (!req.user) return res.redirect("/api/v1/auth/login");
+  res.sendFile(__dirname + "/play/" + req.params.gameversion + "/index.html");
+});
 
 app.get("/", function (req, res) {
   res.render("pages/index", {

@@ -1,3 +1,4 @@
+let baseLanguage = "en";
 let en = {
   name: "English",
   navbar: {
@@ -7,7 +8,6 @@ let en = {
       allCategories: "All categories",
     },
     about: "About",
-    shapez: "Shapez.io",
     contact: "Contact",
     documentation: "Documentation",
     signin: "Sign in",
@@ -106,7 +106,6 @@ let en = {
     settings: {
       title: "Settings",
       content: {
-        steam: "Steam",
         language: {
           title: "Language",
           description:
@@ -231,7 +230,6 @@ let nl = {
   name: "Nederlands",
   navbar: {
     mods: "Mods",
-    shapez: "Shapez.io",
     search: {
       search: "Zoeken",
       allCategories: "Alle categorieën",
@@ -336,7 +334,6 @@ let nl = {
     settings: {
       title: "Instellingen",
       content: {
-        steam: "Steam",
         language: {
           title: "Taal",
           description:
@@ -457,8 +454,6 @@ let nl = {
     },
   },
 };
-
-let baseLanguage = JSON.parse(JSON.stringify(en));
 
 function matchDataRecursive(dest, src) {
   if (typeof dest !== "object" || typeof src !== "object") {

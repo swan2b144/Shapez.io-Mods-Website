@@ -2,44 +2,45 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
 <script>
-    hljs.initHighlightingOnLoad();
+	hljs.initHighlightingOnLoad();
 </script>
 <%- include('../partials/header.ejs') %>
-    <div class="mods">
-        <div class="wrapper">
-            <div class="mod">
-                <div class="modname">
-                    <div class="avatar">
-                        <img src="<%=mod.photos[0]%>" />
-                        <div class="title">
-                            <%=mod.name %>
-                                <%if(mod.verified){%>
-                                    <span class="verified"></span>
-                                    <%}%>
-                        </div>
-                        <div class="authors">
-                            <%=language.mods.mobBy%>
-                                <% for(let j=0; j < mod.authors.length; j++){ %>
-                                    <% let author = mod.authors[j]; %>
-                                        <a onclick="window.location.href = `/user/<%= author.id %>`" class="author">
-                                            <% let str = author.username + (mod.authors.length-2 ===j ? " & ": mod.authors.length-1 === j ? "":", "); %>
-                                                <%str.trim();%>
-                                                    <%= str %>
-                                        </a>
-                                        <% } %>
-                        </div>
-                        <div class="get">
-                            <a onclick="
+<div class="mods">
+	<div class="wrapper">
+		<div class="mod">
+			<div class="modname">
+				<div class="avatar">
+					<img src="<%=mod.photos[0]%>" />
+					<div class="title">
+						<%=mod.name %> <%if(mod.verified){%>
+						<span class="verified"></span>
+						<%}%>
+					</div>
+					<div class="authors">
+						<%=language.mods.mobBy%> <% for(let j=0; j < mod.authors.length; j++){ %> <% let author = mod.authors[j]; %>
+						<a onclick="window.location.href = `/user/<%= author.id %>`" class="author">
+							<% let str = author.username + (mod.authors.length-2 ===j ? " & ": mod.authors.length-1 === j ? "":", "); %> <%str.trim();%> <%= str %>
+						</a>
+						<% } %>
+					</div>
+					<div class="get">
+						<a
+							onclick="
                                   let xhr = new XMLHttpRequest();
                                      xhr.withCredentials = true;
                                      xhr.open(`PATCH`, `/api/v1/database/mods/<%=mod._id%>`, true);
                                         xhr.setRequestHeader(`Content-Type`, `application/json`);
                                         xhr.send(JSON.stringify({downloads: new Date()}));
-                                           " download="<%=mod.name%>-<%=mod.currentVersion%>.js" href="/static/mods/<%= mod.modid%>/<%=mod.currentVersion%>.js" class="download link">
-                                <%=language.mods.download%>
-                            </a>
-                            <a onclick="copyTextToClipboard('<%= mod.modid%>'); this.classList.add('active'); setTimeout(()=>{this.classList.remove('active');}, 500)
-                                                  <%if(user && mod.modid){%>
+                                           "
+							download="<%=mod.name%>-<%=mod.currentVersion%>.js"
+							href="/static/mods/<%= mod.modid%>/<%=mod.currentVersion%>.js"
+							class="download link"
+						>
+							<%=language.mods.download%>
+						</a>
+						<a
+							onclick="copyTextToClipboard('<%= mod.modid%>'); this.classList.add('active'); setTimeout(()=>{this.classList.remove('active');}, 500)
+                                                  <% if(user && mod.modid){ %>
                                                   const instances = JSON.parse(`<%=JSON.stringify(user.instances)%>`);
                                                let dialog = new SelectDialog('<%=language.mods.chooseInstance%>', '', '<%=language.mods.ok%>', '<%=language.mods.cancel%>', '<%=language.mods.chooseOneInstance%>', instances.map(instance => JSON.stringify(instance).replace(regexDoubleQuote, `'`)), (option) => JSON.parse(option.replace(regexQuote, doubleQuote).replace(regexEsQuote, doubleQuote)).name, (instances, option) => {
                                                 instances = JSON.parse(instances.replace(regexQuote, doubleQuote).replace(regexEsQuote, doubleQuote)).instances;
@@ -89,19 +90,19 @@
                                                xhr.withCredentials = true;
                                                xhr.open(`PATCH`, `/api/v1/database/mods/<%= mod.modid%>`, true);
                                                   xhr.setRequestHeader(`Content-Type`, `application/json`);
-                                              xhr.send(JSON.stringify({downloads: new Date()}));" class="copy link">
-                                <%=user && mod.modid ? `${language.mods.addToInstance}` : `${language.mods.copyId}` %>
-                            </a>
-                        </div>
-                        <script src="/static/js/dialog.js"></script>
-                        <script src="/static/js/copy.js"></script>
-                    </div>
-                </div>
+                                              xhr.send(JSON.stringify({downloads: new Date()}));"
+							class="copy link"
+						>
+							<%=user && mod.modid ? `${language.mods.addToInstance}` : `${language.mods.copyId}` %>
+						</a>
+					</div>
+					<script src="/static/js/dialog.js"></script>
+					<script src="/static/js/copy.js"></script>
+				</div>
+			</div>
 
-                <div class="description">
-                    <%- mod.page %>
-                </div>
-            </div>
-        </div>
-    </div>
-    <%- include('../partials/footer.ejs') %>
+			<div class="description"><%- mod.page %></div>
+		</div>
+	</div>
+</div>
+<%- include('../partials/footer.ejs') %>

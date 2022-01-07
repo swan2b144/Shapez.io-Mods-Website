@@ -277,9 +277,8 @@
                   this.getHtmlElement().querySelector("input.rangeInput").value
               ) / 100
             );
-            this.getHtmlElement().querySelector(
-              "label"
-            ).innerText = t.toString();
+            this.getHtmlElement().querySelector("label").innerText =
+              t.toString();
           }
           setup() {
             this.getHtmlElement()

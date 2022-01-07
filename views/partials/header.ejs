@@ -45,12 +45,9 @@
             </div> -->
         </div>
         <div class="right">
-            <!-- <div class="links">
+            <div class="links">
                 <a href="/about" class="link">
                     <%=language.navbar.about%>
-                </a>-->
-                <a href="https://shapez.io/" class="link">
-                    <%=language.navbar.shapez%>
                 </a>
                 <a href="https://discord.gg/J5zJN99zqJ" target="_blank" class="link">
                     <%=language.navbar.contact%>
@@ -58,6 +55,7 @@
                 <a href="/documentation" class="link">
                     <%=language.navbar.documentation%>
                 </a>
+            </div>
             <% if(user) { %>
                 <div class="avatar">
                     <img src="https://cdn.discordapp.com/avatars/<%= user.discordId%>/<%= user.avatar%>" />
@@ -90,7 +88,6 @@
                         <%=language.navbar.signin%>
                     </a>
                     <% } %>
-            </div>
         </div>
     </nav>
     <video autoplay muted playsinline loop class="fullscreenBackgroundVideo loaded">

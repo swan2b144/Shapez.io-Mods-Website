@@ -48,12 +48,10 @@ module.exports = (req, res, instance, modInstance, mod) => {
               }
 
               let data = {};
-              data[
-                `instances.${instanceIndex}.mods.${modIndex}.config`
-              ] = configJson;
-              data[
-                `instances.${instanceIndex}.mods.${modIndex}.settings`
-              ] = settingsJson;
+              data[`instances.${instanceIndex}.mods.${modIndex}.config`] =
+                configJson;
+              data[`instances.${instanceIndex}.mods.${modIndex}.settings`] =
+                settingsJson;
               data[`instances.${instanceIndex}.mods.${modIndex}.version`] =
                 version.value;
               data[

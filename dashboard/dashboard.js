@@ -2,8 +2,6 @@ const modsDB = require("../api/v1/database/mods");
 const modpacksDB = require("../api/v1/database/modpacks");
 const userDB = require("../api/v1/database/users");
 const languages = require("../api/v1/languages");
-const apiVariables = require("../api/v1/api_variables");
-const axios = require("axios");
 
 let getMod = (id) => {
   return new Promise((resolve, reject) => {
@@ -102,7 +100,7 @@ let getModpacks = (req, res, discordId) => {
   });
 };
 
-let getInstances = (req, res, user, play) => {
+let getInstances = (req, res, user) => {
   return new Promise(async (resolve, reject) => {
     if (typeof user.instances === "undefined") {
       userDB.editUser(user._id, { instances: [] }, (err, user) => {
@@ -119,28 +117,25 @@ let getInstances = (req, res, user, play) => {
       let instance = user.instances[i];
       instance.modButtons = [];
       instance.index = i;
-
-      if (instance.mods) {
-        for (let j = 0; j < instance.mods.length; j++) {
-          let modInstance = instance.mods[j];
-          let mod = await getMod(modInstance.id);
-          modInstance.index = j;
-          instance.modButtons.push({
-            contentType: "button",
-            title: mod.name,
-            desc: mod.description,
-            category: `instance-${instance.name}-mod-${mod.modid}-${instance.index}-${modInstance.index}`,
-          });
-          modCategories.push(
-            require("./categories/instance-mod")(
-              req,
-              res,
-              instance,
-              modInstance,
-              mod
-            )
-          );
-        }
+      for (let j = 0; j < instance.mods.length; j++) {
+        let modInstance = instance.mods[j];
+        let mod = await getMod(modInstance.id);
+        modInstance.index = j;
+        instance.modButtons.push({
+          contentType: "button",
+          title: mod.name,
+          desc: mod.description,
+          category: `instance-${instance.name}-mod-${mod.modid}-${instance.index}-${modInstance.index}`,
+        });
+        modCategories.push(
+          require("./categories/instance-mod")(
+            req,
+            res,
+            instance,
+            modInstance,
+            mod
+          )
+        );
       }
       buttons.push({
         contentType: "button",
@@ -148,9 +143,7 @@ let getInstances = (req, res, user, play) => {
         desc: "",
         category: `instance-${instance.name}`,
       });
-      categories.push(
-        await require("./categories/instance")(req, res, instance, play)
-      );
+      categories.push(require("./categories/instance")(req, res, instance));
     }
     resolve({
       buttons: buttons,
@@ -161,27 +154,11 @@ let getInstances = (req, res, user, play) => {
 };
 
 let getDashbaord = async (req, res) => {
-  let play = false;
-
-  if (req.user.verified && req.user.settings.steam && apiVariables.steamAPI) {
-    const data = await axios.get(
-      `https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=${apiVariables.steamAPI}&steamid=${req.user.settings.steam}`
-    );
-    if (
-      data.data.response.games.filter(
-        (x) => x.appid === apiVariables.steamAppId
-      ).length > 0
-    )
-      play = true;
-  }
-
   let mods = await getMods(req, res, req.user.discordId);
   let modpacks = await getModpacks(req, res, req.user.discordId);
-  let instances = await getInstances(req, res, req.user, play);
+  let instances = await getInstances(req, res, req.user);
   let categories = [
-    ...(apiVariables.steamAPI
-      ? [require("./categories/instances")(req, res, instances)]
-      : []),
+    require("./categories/instances")(req, res, instances),
     require("./categories/mods")(req, res, mods),
     require("./categories/modpacks")(req, res, modpacks),
     require("./categories/settings")(req, res),

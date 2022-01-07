@@ -1,4 +1,49 @@
-module.exports = async (req, res, instance, play) => {
+const languages = require("../../api/v1/languages");
+module.exports = (req, res, instance) => {
+  let play = [];
+  if (req.user.verified)
+    play.push({
+      contentType: "button",
+      title: req.language.dashboard.instances.content.play,
+      desc: "",
+      play: () => {
+        let instanceName = document
+          .getElementsByClassName("category active")[0]
+          .id.split("-")[1];
+        localStorage.setItem(
+          "instance",
+          document
+            .getElementById(`instance-var-${instanceName}`)
+            .getAttribute(`value`)
+        );
+
+        let xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+        xhr.open(
+          `GET`,
+          `/api/v1/database/users/${document
+            .getElementById(`instance-var-${instanceName}-userId`)
+            .getAttribute(`value`)}`,
+          true
+        );
+        xhr.setRequestHeader(`Content-Type`, `application/json`);
+        xhr.onreadystatechange = async (e) => {
+          if (e.target.readyState === XMLHttpRequest.DONE) {
+            if (e.target.status !== 200) return;
+            if (!JSON.parse(e.target.response)) return;
+            localStorage.setItem("user", e.target.response);
+            window.location.href = `/play/${
+              JSON.parse(
+                document
+                  .getElementById(`instance-var-${instanceName}`)
+                  .getAttribute(`value`)
+              ).gameversion
+            }/?fullVersion=1`;
+          }
+        };
+        xhr.send();
+      },
+    });
   return {
     back: `instances`,
     id: `instance-${instance.name}`,
@@ -7,52 +52,7 @@ module.exports = async (req, res, instance, play) => {
     title: instance.name,
     visible: false,
     content: [
-      ...(play
-        ? [
-            {
-              contentType: "button",
-              title: req.language.dashboard.instances.content.play,
-              desc: "",
-              play: () => {
-                let instanceName = document
-                  .getElementsByClassName("category active")[0]
-                  .id.split("-")[1];
-                localStorage.setItem(
-                  "instance",
-                  document
-                    .getElementById(`instance-var-${instanceName}`)
-                    .getAttribute(`value`)
-                );
-
-                let xhr = new XMLHttpRequest();
-                xhr.withCredentials = true;
-                xhr.open(
-                  `GET`,
-                  `/api/v1/database/users/${document
-                    .getElementById(`instance-var-${instanceName}-userId`)
-                    .getAttribute(`value`)}`,
-                  true
-                );
-                xhr.setRequestHeader(`Content-Type`, `application/json`);
-                xhr.onreadystatechange = async (e) => {
-                  if (e.target.readyState === XMLHttpRequest.DONE) {
-                    if (e.target.status !== 200) return;
-                    if (!JSON.parse(e.target.response)) return;
-                    localStorage.setItem("user", e.target.response);
-                    window.location.href = `/play/${
-                      JSON.parse(
-                        document
-                          .getElementById(`instance-var-${instanceName}`)
-                          .getAttribute(`value`)
-                      ).gameversion
-                    }/?fullVersion=1`;
-                  }
-                };
-                xhr.send();
-              },
-            },
-          ]
-        : []),
+      ...play,
       {
         contentType: "var",
         id: `instance-var-${instance.name}`,
